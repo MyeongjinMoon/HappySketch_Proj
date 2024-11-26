@@ -18,6 +18,7 @@ namespace JongJin
 		[Header("Object")]
 		[SerializeField] private GameObject[] players;
 		[SerializeField] private GameObject dinosaur;
+		[SerializeField] private GameObject[] crown;
 
 		[Header("Time")]
 		[SerializeField] private float roundTimeLimit;
@@ -41,6 +42,7 @@ namespace JongJin
 		[HideInInspector] public bool isMissionSuccess = false;
 
 		private int life = 3;
+		private float crownTimer = 0.0f;
 
 		private bool isRunning = true;
         private bool isPossibleTailMission = false;
@@ -48,6 +50,7 @@ namespace JongJin
 		private bool isSecondMissionCompleted = false;
 		private bool isThirdMissionCompleted = false;
 
+		private int firstRankerId = 0;
 		private float[] playerDistance = { 0.0f, 0.0f, 0.0f, 0.0f };
 		private float dinosaurDistance = 0.0f;
 		private Vector3[] prevPlayerPosition = new Vector3[4];
@@ -85,12 +88,15 @@ namespace JongJin
 
 			SetInfo();
 			isRunning = true;
+
+			crownTimer = 0.0f;
         }
 		public void UpdateState()
 		{
 			roundTimeLimit -= Time.deltaTime;
 
 			UpdateUI();
+			UpdateCrown();
 
             if (!isPossibleTailMission && ProgressRate > tailMissionStartRate)
 				isPossibleTailMission = true;
@@ -149,11 +155,13 @@ namespace JongJin
 		{
 			firstRankerDistance = playerDistance[0];
 			lastRankerDistance = playerDistance[0];
+			firstRankerId = 0;
 
-			for (int playerNum = 1; playerNum < players.Length; playerNum++)
+
+            for (int playerNum = 1; playerNum < players.Length; playerNum++)
 			{
-				if (playerDistance[playerNum] > firstRankerDistance) firstRankerDistance = playerDistance[playerNum];
-				if (playerDistance[playerNum] < lastRankerDistance) lastRankerDistance = playerDistance[playerNum];
+				if (playerDistance[playerNum] > firstRankerDistance) {firstRankerDistance = playerDistance[playerNum]; firstRankerId = playerNum; }
+                if (playerDistance[playerNum] < lastRankerDistance) lastRankerDistance = playerDistance[playerNum];
 			}
 		}
 		#endregion
@@ -220,8 +228,24 @@ namespace JongJin
 
         #endregion
 
+        #region Crown 관련 함수
+        private void UpdateCrown()
+		{
+			if (crown[firstRankerId].gameObject.activeSelf)
+				return;
+
+			crownTimer += Time.deltaTime;
+			if (crownTimer < 1.0f)
+				return;
+			crownTimer = 0.0f;
+
+            crown[1 - firstRankerId].gameObject.SetActive(false);
+			crown[firstRankerId].gameObject.SetActive(true);
+		}
+        #endregion
+
         #region UI 관련 함수
-		private void UpdateUI()
+        private void UpdateUI()
 		{
 			SetProgressBar();
 			SetTimer();
