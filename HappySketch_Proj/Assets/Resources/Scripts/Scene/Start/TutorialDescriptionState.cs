@@ -17,15 +17,28 @@ namespace JongJin
 
         private const int STARTTIME = 10;
         private const int ENDTIME = 0;
-        
-        private int tutorialStateIndex = 0;
+
+        private CUITutorialPopup.TutorialState tutorialState = CUITutorialPopup.TutorialState.STORY;
         private bool isPopupTime;
         private bool isFinished;
         
         public void EnterState()
         {
             StartCoroutine(TutorialStart());
-            tutorialStateIndex = (int)CUITutorialPopup.TutorialState.RUNNING;
+            tutorialState = CUITutorialPopup.TutorialState.STORY;
+            switch(tutorialState)
+            {
+                case CUITutorialPopup.TutorialState.STORY:
+                    tutorialState = CUITutorialPopup.TutorialState.RUNNING;
+                    break;
+                case CUITutorialPopup.TutorialState.RUNNING:
+                    tutorialState = CUITutorialPopup.TutorialState.JUMP;
+                    break;
+                case CUITutorialPopup.TutorialState.JUMP:
+                    tutorialState = CUITutorialPopup.TutorialState.HEART;
+                    break;
+            }
+
             isPopupTime = false;
             isFinished = false;
         }
@@ -33,7 +46,7 @@ namespace JongJin
         {
             if (isPopupTime != true)
             {
-                ShowTutorialPopup(tutorialStateIndex);
+                ShowTutorialPopup(tutorialState);
                 StartCoroutine(PopupTimer(STARTTIME));
             }
         }
@@ -76,21 +89,21 @@ namespace JongJin
             isFinished = true;
         }
 
-        private void ShowTutorialPopup(int popupIndex)
+        private void ShowTutorialPopup(CUITutorialPopup.TutorialState tutorialPopupState)
         {
             isPopupTime = true;
-            switch (popupIndex)
+            switch (tutorialPopupState)
             {
-                case (int)CUITutorialPopup.TutorialState.RUNNING:
+                case CUITutorialPopup.TutorialState.RUNNING:
                     UIManager.Instance.ShowPopupUI(EPopupUIType.TutorialPopupPanel.ToString());
                     ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUITutorialPopup.TutorialState.RUNNING);
                     break;
-                case (int)CUITutorialPopup.TutorialState.JUMP:
+                case CUITutorialPopup.TutorialState.JUMP:
                     UIManager.Instance.ShowPopupUI(EPopupUIType.TutorialPopupPanel.ToString());
                     ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUITutorialPopup.TutorialState.JUMP);
 
                     break;
-                case (int)CUITutorialPopup.TutorialState.HEART:
+                case CUITutorialPopup.TutorialState.HEART:
                     UIManager.Instance.ShowPopupUI(EPopupUIType.TutorialPopupPanel.ToString());
                     ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUITutorialPopup.TutorialState.HEART);
 

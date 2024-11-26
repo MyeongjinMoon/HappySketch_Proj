@@ -49,10 +49,8 @@ namespace JongJin
                         UpdateState(EStartGameState.TUTORIALACTION);
                     break;
                 case EStartGameState.TUTORIALACTION:
-                    //if(Á¶°Ç)
-                    //  UpdateState(EStartGameState.TUTORIALDESCRIPTION);
-                    //else
-                    //  
+                    if (tutorialActionState.IsFinishedAction())
+                        UpdateState(EStartGameState.TUTORIALDESCRIPTION);
                     break;
             }
             startStateContext.CurrentState.UpdateState();
