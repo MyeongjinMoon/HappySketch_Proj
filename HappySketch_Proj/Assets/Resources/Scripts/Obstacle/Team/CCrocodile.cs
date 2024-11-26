@@ -26,7 +26,9 @@ namespace MyeongJin
 		private void Update()
 		{
 			SwimAndAttack();
-		}
+            if (IsStateChanged())
+                ReturnToPool();
+        }
 		private void OnEnable()
 		{
 			targetNum = UnityEngine.Random.Range(0, 2);

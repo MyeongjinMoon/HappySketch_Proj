@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,10 +37,14 @@ namespace JongJin
         private EGameState curState;
         public EGameState CurState { get { return curState; } }
 
+        public AudioClip missionroomBackgroundnMusic;             // 미션룸 배경 오디오 클립(삭제 예정)
+        public AudioClip runningStateBackgroundMusic;             // 달리는 상태 오디오 클립(삭제 예정)
+
         private void Awake()
         {
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
 
             cutSceneState = GetComponent<CutSceneState>();
             runningState = GetComponent<RunningState>();
@@ -48,10 +53,10 @@ namespace JongJin
             secondMissionState = GetComponent<SecondMissionState>();
             thirdMissionState = GetComponent<ThirdMissionState>();
 
-            missionGround.SetActive(false);           // missionGround�� �ʱ⿡�� ���� ����
-            startForestGround.SetActive(true);          // startForestGround�� �ʱ⿡ �ѵ� ����
+            missionGround.SetActive(false);           
+            startForestGround.SetActive(true);          
 
-            RenderSettings.skybox = skyboxNormal;       // �ʱ� skybox�� skyboxNormal
+            RenderSettings.skybox = skyboxNormal;      
 
             missionRoomVolcano.SetActive(false);
             
@@ -83,16 +88,18 @@ namespace JongJin
                     if (runningState.IsFirstMissionTriggered())
                     {
                         UpdateState(EGameState.FIRSTMISSION);
-                        missionGround.SetActive(true);                // FirstMission�� �����ϸ� missionGround�� ����
-                        startForestGround.SetActive(false);             // FirstMission�� �����ϸ� startForestGround�� ����
+                        missionGround.SetActive(true);               
+                        startForestGround.SetActive(false);           
                         missionRoomVolcano.SetActive(true);
+
+                        SoundManager.instance.BackgroundSoundPlay(missionroomBackgroundnMusic);            // 미션룸 배경음악 출력(삭제 예정)
                     }
                     else if (runningState.IsSecondMissionTriggered())
                     {
                         UpdateState(EGameState.SECONDMISSION);
                         missionGround.SetActive(true);
                         missionRoomVolcano.SetActive(true);
-                        RenderSettings.skybox = skyboxVolcano;          // SecondMission ���� �� skybox�� �Ӱ� ����
+                        RenderSettings.skybox = skyboxVolcano;         
                     }
                     else if (runningState.IsThirdMissionTriggered())
                     {
@@ -111,27 +118,28 @@ namespace JongJin
                     if(tailMissionState.IsFinishMission(out runningState.isMissionSuccess))
                         UpdateState(EGameState.RUNNING);
                     break;
-                case EGameState.FIRSTMISSION:           // ù ��° ���� �̼� ���¿���
-                    if (firstMissionState.IsFinishMission(out runningState.isMissionSuccess))         // ù ��° ���� �̼� ������
+                case EGameState.FIRSTMISSION:        
+                    if (firstMissionState.IsFinishMission(out runningState.isMissionSuccess))        
                     { 
-                        UpdateState(EGameState.RUNNING);            // ���� �������� �ٽ� �޸�
-                        missionGround.SetActive(false);             // missinoGround �ٽ� ����
+                        UpdateState(EGameState.RUNNING);           
+                        missionGround.SetActive(false);           
+                        missionRoomVolcano.SetActive(false);
+                        SoundManager.instance.BackgroundSoundPlay(runningStateBackgroundMusic);         // 달리는 상태 배경음악 출력(삭제 예정)
+                    }
+                    break;
+                case EGameState.SECONDMISSION:        
+                    if (secondMissionState.IsFinishMission(out runningState.isMissionSuccess))         
+                    {
+                        UpdateState(EGameState.RUNNING);            
+                        missionGround.SetActive(false);             
                         missionRoomVolcano.SetActive(false);
                     }
                     break;
-                case EGameState.SECONDMISSION:          // missionGround.SetActive(false) �־����
-                    if (secondMissionState.IsFinishMission(out runningState.isMissionSuccess))         // ù ��° ���� �̼� ������
+                case EGameState.THIRDMISSION:         
+                    if (thirdMissionState.IsFinishMission(out runningState.isMissionSuccess))       
                     {
-                        UpdateState(EGameState.RUNNING);            // ���� �������� �ٽ� �޸�
-                        missionGround.SetActive(false);             // missinoGround �ٽ� ����
-                        missionRoomVolcano.SetActive(false);
-                    }
-                    break;
-                case EGameState.THIRDMISSION:           // missionGround.SetActive(false) �־����
-                    if (thirdMissionState.IsFinishMission(out runningState.isMissionSuccess))         // ù ��° ���� �̼� ������
-                    {
-                        UpdateState(EGameState.RUNNING);            // ���� �������� �ٽ� �޸�
-                        missionGround.SetActive(false);             // missinoGround �ٽ� ����
+                        UpdateState(EGameState.RUNNING);            
+                        missionGround.SetActive(false);           
                         missionRoomVolcano.SetActive(false);
                     }
                     break;

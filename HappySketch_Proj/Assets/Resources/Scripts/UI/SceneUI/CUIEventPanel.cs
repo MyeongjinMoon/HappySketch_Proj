@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HakSeung
 {
@@ -11,6 +12,7 @@ namespace HakSeung
         [SerializeField] public CUIProgressBar progressBar;
         public CUINote[] playerNotes = new CUINote[TOTALPLAYERS];
         [SerializeField] private TextMeshProUGUI timerText;
+
         public GameObject timer;
 
         protected override void InitUI()

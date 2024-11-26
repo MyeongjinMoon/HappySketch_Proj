@@ -23,7 +23,9 @@ namespace MyeongJin
 		private void Update()
 		{
 			StoopAndClimb();
-		}
+            if (IsStateChanged())
+                ReturnToPool();
+        }
 		private void OnEnable()
 		{
 			this.transform.Rotate(45, 0, 0);

@@ -12,6 +12,7 @@ namespace MyeongJin
 	public class CSpawnController : MonoBehaviour
 	{
 		public Vector3 MissionGroundPos { get; private set; }
+		public bool canSpawn = true;
 
 		[SerializeField] private GameObject missionGround;
 
@@ -72,43 +73,43 @@ namespace MyeongJin
 		{
 			UpdateCurState();
 
-			switch (curState)
+			if (canSpawn)
 			{
-				case EGameState.RUNNING:
-                    TimerIncrease();
-                    if (IsSpawnTime(6f))
-					{
-						CheckCanSpawnObstacle();
-						obstacleTimer = 0;
-                    }
-					break;
-				case EGameState.TAILMISSION:
+				switch (curState)
+				{
+					case EGameState.RUNNING:
+                        RunningTimerIncrease();
+						if (IsSpawnTime(6f))
+						{
+							CheckCanSpawnObstacle();
+							obstacleTimer = 0;
+						}
+						break;
+					case EGameState.FIRSTMISSION:
+                        FirstMissionTimerIncrease();
 
-					break;
-				case EGameState.FIRSTMISSION:
-					TimerIncrease();
+						if (IsBackgroundSpawnTime(1.5f))
+							SpawnCreatureHerdBackground();
 
-					if (IsBackgroundSpawnTime(1.5f))
-						SpawnCreatureHerdBackground();
+						if (IsCreatureSpawnTime(5.5f))
+							CheckCanSpawnCreatureHerd();
+						break;
+					case EGameState.SECONDMISSION:
+						SecondMissionTimerIncrease();
 
-					if (IsCreatureSpawnTime(5.5f))
-						CheckCanSpawnCreatureHerd();
-					break;
-				case EGameState.SECONDMISSION:
-					TimerIncrease();
+						if (IsFlySpawnTime(3))
+							GenerateFly();
+						break;
+					case EGameState.THIRDMISSION:
+						if (!isThirdMissionGenerate)
+						{
+							rayBox = GameObject.Find("Main Camera").transform;
+							isThirdMissionGenerate = true;
 
-					if (IsFlySpawnTime(3))
-						GenerateFly();
-					break;
-				case EGameState.THIRDMISSION:
-					if (!isThirdMissionGenerate)
-					{
-						rayBox = GameObject.Find("Main Camera").transform;
-						isThirdMissionGenerate = true;
-
-						GenerateVolcanicAsh();
-					}
-					break;
+							GenerateVolcanicAsh();
+						}
+						break;
+				}
 			}
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
@@ -151,15 +152,20 @@ namespace MyeongJin
 				hit.transform.GetComponent<CVolcanicAsh>().FadeAway();
 			}
 		}
-		private void TimerIncrease()
+		private void RunningTimerIncrease()
 		{
-			creatureTimer += Time.deltaTime;
-			flyTimer += Time.deltaTime;
-			backgroundTimer += Time.deltaTime;
 			obstacleTimer += Time.deltaTime;
-
         }
-		private void SpawnCreatureHerdBackground()
+        private void FirstMissionTimerIncrease()
+        {
+            creatureTimer += Time.deltaTime;
+            backgroundTimer += Time.deltaTime;
+        }
+        private void SecondMissionTimerIncrease()
+        {
+            flyTimer += Time.deltaTime;
+        }
+        private void SpawnCreatureHerdBackground()
 		{
 			creatureBackgroundPool.SpawnCreatureHerd(MissionGroundPos);
 			backgroundTimer = 0;
@@ -167,9 +173,28 @@ namespace MyeongJin
 
 		private void UpdateCurState()
 		{
+			if (gamecSceneController.CurState != curState)
+			{
+				ChangedState(gamecSceneController.CurState);
+
+                obstacleTimer = 0;
+            }
 			curState = gamecSceneController.CurState;
-		}
-		private void CheckCanSpawnObstacle()
+        }
+		private void ChangedState(EGameState curState)
+		{
+			if (curState == EGameState.RUNNING)
+				for (int i = 0; i < playerCount; i++)
+				{
+					((CUIRunningCanvas)UIManager.Instance.CurSceneUI).playerNotes[i].gameObject.SetActive(false);
+				}
+			else
+                for (int i = 0; i < playerCount; i++)
+                {
+                    ((CUIEventPanel)UIManager.Instance.CurSceneUI).playerNotes[i].gameObject.SetActive(false);
+                }
+        }
+        private void CheckCanSpawnObstacle()
 		{
 			// TODO < πÆ∏Ì¡¯ > - "10"¿ª RubberBand Size∑Œ πŸ≤„¡‡æﬂ «‘. - 2024.11.11 18:55
 			int playerindex = UnityEngine.Random.Range(0, playerCount);

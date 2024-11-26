@@ -2,6 +2,7 @@ using HakSeung;
 using JongJin;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,31 +11,31 @@ using UnityEngine.UI;
 
 namespace HakSeung
 {
-    public class CUITutorialPopup : CUIPopup
-    {
-        public enum TutorialState
-        {
-            STORY,
-            RUNNING,
-            JUMP,
-            HEART,
+	public class CUITutorialPopup : CUIPopup
+	{
+		public enum TutorialState
+		{
+			STORY,
+			RUNNING,
+			JUMP,
+			HEART,
 
-            END
-        }
+			END
+		}
 
-        public enum EventState
-        {
-            TAIL,
-            PTEROSAUR,
-            INSECT,
-            VOLCANICASH,
-            END
-        }
+		public enum EventState
+		{
+			TAIL,
+			PTEROSAUR,
+			INSECT,
+			VOLCANICASH,
+			END
+		}
 
-        public enum EventResult
-        {
-            SUCCESS,
-            FAILED,
+		public enum EventResult
+		{
+			SUCCESS,
+			FAILED,
 
             END
         }
@@ -44,7 +45,7 @@ namespace HakSeung
         [SerializeField] private Image guideImage;
         [SerializeField] private Image timerFillImage;
         [SerializeField] private TextMeshProUGUI timerCountText;
-        //TODO <ÇÐ½Â> - »ó¼ö 7 ³Ö¾î³õÀº °Í ³ªÁß¿¡ state¿¡ ¸Â°Ô Ã³¸®ÇØ ³ö¾ßµÊ
+        //TODO <ï¿½Ð½ï¿½> - ï¿½ï¿½ï¿½ 7 ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ stateï¿½ï¿½ ï¿½Â°ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ßµï¿½
         [SerializeField] private Sprite[] guideSprites = new Sprite[10];
         [SerializeField] private float effectDuration;
         [SerializeField] private GameObject timerImage;
@@ -67,108 +68,112 @@ namespace HakSeung
 
         public override void Show()
         {
-            base.Show();
-            StartCoroutine(PlayPopupEffect());
+			base.Show();
+			StartCoroutine(PlayPopupEffect());
+			if (panelImage.color.a != 0.392f)
+				panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0.392f);
             timerImage.SetActive(true);
-        }
+		}
 
-        public void TimerHide()
-        {
-            timerImage.SetActive(false);
-        }
+		public void TimerHide()
+		{
+			timerImage.SetActive(false);
+		}
 
 
-        protected override IEnumerator PlayPopupEffect()
-        {
-            if (isPlayingEffect)
-                yield break;
-            else
-                isPlayingEffect = true;
+		protected override IEnumerator PlayPopupEffect()
+		{
+			if (isPlayingEffect)
+				yield break;
+			else
+				isPlayingEffect = true;
 
-            float elapsedTime = 0f;
-            Vector3 startScale = Vector3.zero;
-            Vector3 endScale = Vector3.one;
+			float elapsedTime = 0f;
+			Vector3 startScale = Vector3.zero;
+			Vector3 endScale = Vector3.one;
 
-            if (baseRectTransform == null)
-            {
-                Debug.LogError("baseRectTransformÀÌ Á¸ÀçÇÏÁö ¾ÊÀ½");
-                yield break;
-            }
+			if (baseRectTransform == null)
+			{
+				Debug.LogError("baseRectTransformï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+				yield break;
+			}
 
-            while (effectDuration > elapsedTime)
-            {
-                float timeProgress = elapsedTime / effectDuration;
-                baseRectTransform.localScale = Vector3.Lerp(startScale, endScale, timeProgress);
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
+			while (effectDuration > elapsedTime)
+			{
+				float timeProgress = elapsedTime / effectDuration;
+				baseRectTransform.localScale = Vector3.Lerp(startScale, endScale, timeProgress);
+				elapsedTime += Time.deltaTime;
+				yield return null;
+			}
 
-            baseRectTransform.localScale = endScale;
+			baseRectTransform.localScale = endScale;
 
-            isPlayingEffect = false;
+			isPlayingEffect = false;
 
-        }
+		}
 
-        public void ImageSwap(TutorialState tutorialAction)
-        {
-            switch (tutorialAction)
-            {
-                case TutorialState.STORY:
-                    guideImage.sprite = guideSprites[(int)TutorialState.STORY];
+		public void ImageSwap(TutorialState tutorialAction)
+		{
+			switch (tutorialAction)
+			{
+				case TutorialState.STORY:
+					guideImage.sprite = guideSprites[(int)TutorialState.STORY];
+					break;
+				case TutorialState.RUNNING:
+					guideImage.sprite = guideSprites[(int)TutorialState.RUNNING];
+					break;
+				case TutorialState.JUMP:
+					guideImage.sprite = guideSprites[(int)TutorialState.JUMP];
+					break;
+				case TutorialState.HEART:
+					guideImage.sprite = guideSprites[(int)TutorialState.HEART];
+					break;
+				default:
+					guideImage.sprite = guideSprites[(int)TutorialState.RUNNING];
+					break;
+			}
+
+		}
+		public void ImageSwap(EGameState gameSceneState)
+		{
+			switch (gameSceneState)
+			{
+				case EGameState.TAILMISSION: //ï¿½ï¿½ï¿½ï¿½
+					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.TAIL];
+					break;
+				case EGameState.FIRSTMISSION: // ï¿½Í·ï¿½
+					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.PTEROSAUR];
+					break;
+				case EGameState.SECONDMISSION: // ï¿½Ä¸ï¿½ï¿½ï¿½
+					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.INSECT];
+					break;
+				case EGameState.THIRDMISSION: // È­ï¿½ï¿½ï¿½ï¿½
+					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.VOLCANICASH];
+					break;
+				default:
+					break;
+			}
+		}
+
+		public void ImageSwap(EventResult gameSceneState)
+		{
+			switch (gameSceneState)
+			{
+				case EventResult.SUCCESS: 
+					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.SUCCESS];
+                    panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
                     break;
-                case TutorialState.RUNNING:
-                    guideImage.sprite = guideSprites[(int)TutorialState.RUNNING];
+				case EventResult.FAILED: // ï¿½Í·ï¿½
+					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.FAILED];
+                    panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
                     break;
-                case TutorialState.JUMP:
-                    guideImage.sprite = guideSprites[(int)TutorialState.JUMP];
-                    break;
-                case TutorialState.HEART:
-                    guideImage.sprite = guideSprites[(int)TutorialState.HEART];
-                    break;
-                default:
-                    guideImage.sprite = guideSprites[(int)TutorialState.RUNNING];
-                    break;
-            }
-
-        }
-        public void ImageSwap(EGameState gameSceneState)
-        {
-            switch (gameSceneState)
-            {
-                case EGameState.TAILMISSION: //²¿¸®
-                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.TAIL];
-                    break;
-                case EGameState.FIRSTMISSION: // ÀÍ·æ
-                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.PTEROSAUR];
-                    break;
-                case EGameState.SECONDMISSION: // ÆÄ¸®¶§
-                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.INSECT];
-                    break;
-                case EGameState.THIRDMISSION: // È­»êÀç
-                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.VOLCANICASH];
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void ImageSwap(EventResult gameSceneState)
-        {
-            switch (gameSceneState)
-            {
-                case EventResult.SUCCESS: 
-                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END  +  (int)EventResult.SUCCESS];
-                    break;
-                case EventResult.FAILED: // ÀÍ·æ
-                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END +  (int)EventResult.FAILED];
-                    break;
-            
-                default:
-                    break;
-            }
-        }
+			
+				default:
+					break;
+			}
+		}
 
 
 
-    }
+	}
 }
