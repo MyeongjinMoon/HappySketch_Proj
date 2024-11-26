@@ -58,9 +58,11 @@ namespace HakSeung
         {
             if (curTime < 0)
                 curTime = 0;
-
+            
+            //timerFillImage.fillAmount = Mathf.Clamp(Mathf.CeilToInt(curTime) * 0.1f, 0f, 1f);
             timerFillImage.fillAmount = Mathf.Clamp(curTime * 0.1f, 0f, 1f);
-            timerCountText.text = curTime.ToString();
+            timerCountText.text = (Mathf.CeilToInt(curTime)).ToString();
+
         }
 
         public override void Show()

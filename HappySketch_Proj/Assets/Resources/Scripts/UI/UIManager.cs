@@ -277,6 +277,12 @@ namespace HakSeung
         }
 
 
+        public void ClearAllUI()
+        {
+            ClearUIObj();
+            ClearSceneUI();
+        }
+
 
     }
 }
