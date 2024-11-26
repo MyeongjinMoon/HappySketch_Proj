@@ -37,37 +37,37 @@ namespace HakSeung
 			SUCCESS,
 			FAILED,
 
-			END
-		}
-
-		private bool isPlayingEffect = false;
-
-		[SerializeField] private Image guideImage;
-		[SerializeField] private Image timerFillImage;
-		[SerializeField] private TextMeshProUGUI timerCountText;
-		//TODO <ÇÐ½Â> - »ó¼ö 7 ³Ö¾î³õÀº °Í ³ªÁß¿¡ state¿¡ ¸Â°Ô Ã³¸®ÇØ ³ö¾ßµÊ
-		[SerializeField] private Sprite[] guideSprites = new Sprite[10];
-		[SerializeField] private float effectDuration;
-		[SerializeField] private GameObject timerImage;
-		private Image panelImage;
-		
-		protected override void InitUI()
-		{
-			effectDuration = 0.5f;
-            panelImage = GetComponent<Image>();
+            END
         }
 
-		public void TimerUpdate(float curTime)
-		{
-			if (curTime < 0)
-				curTime = 0;
+        private bool isPlayingEffect = false;
 
-			timerFillImage.fillAmount = Mathf.Clamp(curTime * 0.1f, 0f, 1f);
-			timerCountText.text = curTime.ToString();
-		}
+        [SerializeField] private Image guideImage;
+        [SerializeField] private Image timerFillImage;
+        [SerializeField] private TextMeshProUGUI timerCountText;
+        //TODO <ï¿½Ð½ï¿½> - ï¿½ï¿½ï¿½ 7 ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ stateï¿½ï¿½ ï¿½Â°ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ßµï¿½
+        [SerializeField] private Sprite[] guideSprites = new Sprite[10];
+        [SerializeField] private float effectDuration;
+        [SerializeField] private GameObject timerImage;
+		[SerializeField] private Image panelImage;
+        protected override void InitUI()
+        {
+            effectDuration = 0.5f;
+        }
 
-		public override void Show()
-		{
+        public void TimerUpdate(float curTime)
+        {
+            if (curTime < 0)
+                curTime = 0;
+            
+            //timerFillImage.fillAmount = Mathf.Clamp(Mathf.CeilToInt(curTime) * 0.1f, 0f, 1f);
+            timerFillImage.fillAmount = Mathf.Clamp(curTime * 0.1f, 0f, 1f);
+            timerCountText.text = (Mathf.CeilToInt(curTime)).ToString();
+
+        }
+
+        public override void Show()
+        {
 			base.Show();
 			StartCoroutine(PlayPopupEffect());
 			if (panelImage.color.a != 0.392f)
@@ -94,7 +94,7 @@ namespace HakSeung
 
 			if (baseRectTransform == null)
 			{
-				Debug.LogError("baseRectTransformÀÌ Á¸ÀçÇÏÁö ¾ÊÀ½");
+				Debug.LogError("baseRectTransformï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 				yield break;
 			}
 
@@ -138,16 +138,16 @@ namespace HakSeung
 		{
 			switch (gameSceneState)
 			{
-				case EGameState.TAILMISSION: //²¿¸®
+				case EGameState.TAILMISSION: //ï¿½ï¿½ï¿½ï¿½
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.TAIL];
 					break;
-				case EGameState.FIRSTMISSION: // ÀÍ·æ
+				case EGameState.FIRSTMISSION: // ï¿½Í·ï¿½
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.PTEROSAUR];
 					break;
-				case EGameState.SECONDMISSION: // ÆÄ¸®¶§
+				case EGameState.SECONDMISSION: // ï¿½Ä¸ï¿½ï¿½ï¿½
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.INSECT];
 					break;
-				case EGameState.THIRDMISSION: // È­»êÀç
+				case EGameState.THIRDMISSION: // È­ï¿½ï¿½ï¿½ï¿½
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.VOLCANICASH];
 					break;
 				default:
@@ -163,7 +163,7 @@ namespace HakSeung
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.SUCCESS];
                     panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
                     break;
-				case EventResult.FAILED: // ÀÍ·æ
+				case EventResult.FAILED: // ï¿½Í·ï¿½
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.FAILED];
                     panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
                     break;
