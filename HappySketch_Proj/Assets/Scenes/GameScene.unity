@@ -3753,11 +3753,6 @@ MonoBehaviour:
   firstMissionState: {fileID: 0}
   secondMissionState: {fileID: 0}
   thirdMissionState: {fileID: 0}
-  missionGround: {fileID: 1026292992}
-  startForestGround: {fileID: 1862422316}
-  skyboxNormal: {fileID: 2100000, guid: e042e3a075d43734cb2151822f3efb89, type: 2}
-  skyboxVolcano: {fileID: 2100000, guid: cba8250b9d9377f4ca5ccc7bda47897e, type: 2}
-  missionRoomVolcano: {fileID: 1216439436}
   curLookAt: {fileID: 455210295}
   curFollow: {fileID: 341169857}
   lookAt:
@@ -3774,6 +3769,13 @@ MonoBehaviour:
   - {fileID: 548276039}
   - {fileID: 1512101601}
   - {fileID: 646663802}
+  missionGround: {fileID: 1026292992}
+  startForestGround: {fileID: 1862422316}
+  skyboxNormal: {fileID: 2100000, guid: e042e3a075d43734cb2151822f3efb89, type: 2}
+  skyboxVolcano: {fileID: 2100000, guid: cba8250b9d9377f4ca5ccc7bda47897e, type: 2}
+  missionRoomVolcano: {fileID: 1216439436}
+  missionroomBackgroundnMusic: {fileID: 0}
+  runningStateBackgroundMusic: {fileID: 0}
 --- !u!114 &807674219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3810,7 +3812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76e490371ccabe488e1dbee6a965096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
 --- !u!114 &807674222
 MonoBehaviour:
   m_ObjectHideFlags: 0
