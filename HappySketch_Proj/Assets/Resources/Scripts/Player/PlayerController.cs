@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,6 +56,8 @@ namespace JongJin
         private Rigidbody rigid;
         private Animator animator;
 
+        public AudioClip jumpSound;             // Player 점프 오디오 클립(삭제 예정)
+
         private void Awake()
         {
             rigid = GetComponent<Rigidbody>();
@@ -110,6 +113,7 @@ namespace JongJin
                 || (playerId == EPlayer.PLAYER2 &&  Input.GetKeyDown(KeyCode.UpArrow)))
             {
                 Jump();
+                SoundManager.instance.SFXPlay("Jump", jumpSound);               // Player 점프할 때 소리나게(삭제 예정)
             }
 
             if (curState == EPlayerState.RUNNING && gameSceneController != null)
