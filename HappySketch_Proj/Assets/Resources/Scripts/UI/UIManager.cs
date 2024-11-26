@@ -23,6 +23,7 @@ namespace HakSeung
         {
             TutorialPopupPanel,
             FadePopupCanvas,
+
             END
         }
 

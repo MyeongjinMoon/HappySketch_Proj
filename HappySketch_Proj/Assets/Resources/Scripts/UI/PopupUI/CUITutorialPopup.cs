@@ -18,6 +18,7 @@ namespace HakSeung
             RUNNING,
             JUMP,
             HEART,
+
             END
         }
 
@@ -27,6 +28,15 @@ namespace HakSeung
             PTEROSAUR,
             INSECT,
             VOLCANICASH,
+
+            END
+        }
+
+        public enum EventResult
+        {
+            SUCCESS,
+            FAILED,
+
             END
         }
 
@@ -36,7 +46,7 @@ namespace HakSeung
         [SerializeField] private Image timerFillImage;
         [SerializeField] private TextMeshProUGUI timerCountText;
         //TODO <학승> - 상수 7 넣어놓은 것 나중에 state에 맞게 처리해 놔야됨
-        [SerializeField] private Sprite[] guideSprites = new Sprite[7];
+        [SerializeField] private Sprite[] guideSprites = new Sprite[10];
         [SerializeField] private float effectDuration;
         [SerializeField] private GameObject timerImage;
 
@@ -136,6 +146,22 @@ namespace HakSeung
                 case EGameState.THIRDMISSION: // 화산재
                     guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.VOLCANICASH];
                     break;
+                default:
+                    break;
+            }
+        }
+
+        public void ImageSwap(EventResult gameSceneState)
+        {
+            switch (gameSceneState)
+            {
+                case EventResult.SUCCESS: 
+                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EGameState.END - 1 +  (int)EventResult.SUCCESS];
+                    break;
+                case EventResult.FAILED: // 익룡
+                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EGameState.END - 1 +  (int)EventResult.FAILED];
+                    break;
+            
                 default:
                     break;
             }
