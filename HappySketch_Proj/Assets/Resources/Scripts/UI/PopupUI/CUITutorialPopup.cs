@@ -49,7 +49,7 @@ namespace HakSeung
         [SerializeField] private Sprite[] guideSprites = new Sprite[10];
         [SerializeField] private float effectDuration;
         [SerializeField] private GameObject timerImage;
-
+		[SerializeField] private Image panelImage;
         protected override void InitUI()
         {
             effectDuration = 0.5f;
