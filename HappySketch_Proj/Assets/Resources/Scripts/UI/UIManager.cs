@@ -15,27 +15,29 @@ namespace HakSeung
         {
             RunningCanvas,
             EventScenePanel,
-            
+
             END
         }
 
         public enum EPopupUIType
         {
             TutorialPopupPanel,
+            FadePopupCanvas,
 
             END
         }
-        
+
         public enum ETestType
         {
             RunningCanvas,
             EventScenePanel,
             TutorialPopupPanel,
-
+            FadePopupCanvas,
+            END
         }
 
         private static UIManager s_Instance;
-        
+
         private Dictionary<string, UnityEngine.Object> uiPrefabs = new Dictionary<string, UnityEngine.Object>();
         private Dictionary<string, CUIBase> uiObjs;
 
@@ -51,17 +53,17 @@ namespace HakSeung
         private Stack<CUIPopup> popupUIStack;
         public CUIPopup CurrentPopupUI { get { return popupUIStack.Peek(); } }
         public CUIScene CurSceneUI { get; private set; } = null;
-        
+
         //TODO <이학승> RunningCanvas 이용을 위해 Get을 private 에서 해제 추후 Running Canvas 수정 필요
-        public GameObject MainCanvas{ get; set; }
+        public GameObject MainCanvas { get; set; }
         //public GameObject MainCanvas{ private get; set; }
-        
+
 
         public static UIManager Instance
         {
             get
             {
-                if(s_Instance == null)
+                if (s_Instance == null)
                 {
                     GameObject newUIManagerObject = new GameObject(UIMANGEROBJECTNAME);
                     s_Instance = newUIManagerObject.AddComponent<UIManager>();
@@ -99,19 +101,19 @@ namespace HakSeung
         }
 
         public UnityEngine.Object UICashing<T>(System.Type type, int enumIndex) where T : UnityEngine.Object
-        { 
+        {
             if (!type.IsEnum)
                 return null;
 
-            string uiName = type.GetEnumName(enumIndex) ;
+            string uiName = type.GetEnumName(enumIndex);
 
             if (uiPrefabs.ContainsKey(uiName))
                 return uiPrefabs[uiName];
 
             T uiObj = Resources.Load<T>(PREFABSPATH + $"{uiName}");
-             
-            if(uiObj == null)
-                 Debug.LogError("로드 실패: " + PREFABSPATH + $"에 {uiName}는 존재하지 않습니다.");
+
+            if (uiObj == null)
+                Debug.LogError("로드 실패: " + PREFABSPATH + $"에 {uiName}는 존재하지 않습니다.");
 
             uiPrefabs.Add(uiName, uiObj);
 
@@ -133,7 +135,7 @@ namespace HakSeung
                 SceneUIList[sceneUIIndex].Hide();
                 Destroy(SceneUIList[sceneUIIndex].gameObject);
             }
-            
+
             if (sceneUI = uiPrefabs[key].GetComponent<CUIScene>())
             {
                 if (SceneUIList[sceneUIIndex] = Instantiate(sceneUI))
@@ -172,7 +174,7 @@ namespace HakSeung
             if (SceneUIList.Count == 0)
                 return;
 
-            for(int i = 0; i < SceneUIList.Count; i++)
+            for (int i = 0; i < SceneUIList.Count; i++)
             {
                 SceneUIList[i].Hide();
                 Destroy(SceneUIList[i].gameObject);
@@ -254,7 +256,7 @@ namespace HakSeung
 
         public void CloseAllPopupUI()
         {
-            while(popupUIStack.Count > 0)
+            while (popupUIStack.Count > 0)
                 ClosePopupUI();
         }
 
@@ -273,7 +275,7 @@ namespace HakSeung
             uiObjs.Clear();
             popupUIStack.Clear();
         }
-        
+
 
 
     }
