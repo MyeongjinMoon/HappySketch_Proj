@@ -79,12 +79,12 @@ namespace JongJin
 		private IEnumerator Stay(bool isSuccess)
 		{
 			isWait = true;
-			if (isSuccess)
-				((CUIEventPanel)UIManager.Instance.CurSceneUI);
-			//¼º°ø UI¶ç¿ì±â
-			else
-                ((CUIEventPanel)UIManager.Instance.CurSceneUI);
-            //½ÇÆÐ UI¶ç¿ì±â
+			//if (isSuccess)
+			//	((CUIEventPanel)UIManager.Instance.CurSceneUI);
+			////¼º°ø UI¶ç¿ì±â
+			//else
+   //             ((CUIEventPanel)UIManager.Instance.CurSceneUI);
+   //         //½ÇÆÐ UI¶ç¿ì±â
             yield return new WaitForSeconds(3.0f);
 			isMissionFinished = true;
 		}
