@@ -20,7 +20,7 @@ namespace MyeongJin
 
         private GameObject gameSceneController;
         private GameSceneController gamecSceneController;
-        private EGameState curState = EGameState.SECONDMISSION;
+        private EGameState curState = EGameState.THIRDMISSION;
 
         private void Awake()
 		{

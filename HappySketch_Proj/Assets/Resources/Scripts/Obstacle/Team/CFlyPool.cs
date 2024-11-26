@@ -100,7 +100,7 @@ namespace MyeongJin
 
 			for (int i = 0; i < maxPoolSize; i++)
 			{
-				if(obstacle.transform.position == missionGroundPosition + flyArr[i])
+				if(obstacle.transform.position == (missionGroundPosition + flyArr[i]))
 				{
 					isFlyExist[i] = false;
                 }
@@ -117,6 +117,7 @@ namespace MyeongJin
 		public void SpawnFly(Vector3 groundPosition)
 		{
             missionGroundPosition = groundPosition;
+			missionGroundPosition.y = 2;
 
             for (int i = 0; i < maxPoolSize; i++)
 			{
@@ -126,7 +127,7 @@ namespace MyeongJin
 				CFly obstacle = Pool.Get();
                 isFlyExist[i] = true;
 
-                obstacle.transform.position = groundPosition + flyArr[i];
+                obstacle.transform.position = missionGroundPosition + flyArr[i];
 			}
 		}
 	}

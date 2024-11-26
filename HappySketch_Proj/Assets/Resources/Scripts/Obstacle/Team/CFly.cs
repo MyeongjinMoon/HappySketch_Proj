@@ -86,7 +86,7 @@ namespace MyeongJin
 		{
 			yield return new WaitForSeconds(1.0f);
 
-            ReturnToPool(5);
+            ReturnToPool(20);
 		}
 	}
 }

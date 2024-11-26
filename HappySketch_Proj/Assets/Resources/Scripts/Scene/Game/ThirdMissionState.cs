@@ -63,6 +63,8 @@ namespace JongJin
         private void DecreaseTime()
         {
             timer -= Time.deltaTime;
+            if (timer <= 0)
+                timer = 0;
         }
         private void CheckProgressBar()
         {

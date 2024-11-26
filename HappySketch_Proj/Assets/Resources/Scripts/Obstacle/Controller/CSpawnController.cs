@@ -111,27 +111,6 @@ namespace MyeongJin
 						break;
 				}
 			}
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				if (curState == EGameState.THIRDMISSION)
-				{
-					GenerateRay();
-				}
-			}
-			if (Input.GetKeyDown(KeyCode.LeftArrow))
-			{
-				if (curState == EGameState.SECONDMISSION)
-				{
-					GenerateSwatter(1, 0);
-				}
-			}
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                if (curState == EGameState.SECONDMISSION)
-                {
-                    GenerateSwatter(1, 1);
-                }
-            }
         }
 		/// <summary>
 		/// Player(종진)가 해당 함수를 호출해주고 playerIndex, vertical(좌,우)를 인수로 담아 호출해주면 굿

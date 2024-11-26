@@ -29,7 +29,7 @@ namespace MyeongJin
 
 			for (int i = 0; i < maxPoolSize; i++)
 			{
-				volcanicAshOffset[i] = new Vector3(Random.Range(-1, 2), 2.5f, i * 0.5f - 5);
+				volcanicAshOffset[i] = new Vector3(Random.Range(-1, 2), 2.4f, i * 0.5f - 5);
             }
 
 			for (int i = 0; i < maxPoolSize; i++)
@@ -95,12 +95,13 @@ namespace MyeongJin
 		public void SpawnVolcanicAshes(Vector3 groundPosition)
 		{
 			missionGroundPosition = groundPosition;
+			missionGroundPosition.y = 0;
 
-			for (int i = 0; i < maxPoolSize; i++)
+            for (int i = 0; i < maxPoolSize; i++)
 			{
 				CVolcanicAsh obstacle = Pool.Get();
 
-				obstacle.transform.position = groundPosition + volcanicAshOffset[i];
+				obstacle.transform.position = missionGroundPosition + volcanicAshOffset[i];
 			}
 		}
 	}
