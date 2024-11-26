@@ -14,6 +14,8 @@ namespace HakSeung
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.RunningCanvas);
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.EventScenePanel);
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.TutorialPopupPanel);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.FadePopupCanvas);
+
 
         }
 
@@ -32,8 +34,14 @@ namespace HakSeung
             if (Input.GetKeyDown(KeyCode.P))
             {
                 UIManager.Instance.ShowPopupUI(UIManager.ETestType.TutorialPopupPanel.ToString());
-                ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.TutorialState.STORY);
-                ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
+                /*((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.TutorialState.STORY);
+                ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide()*/
+                ;
+            }
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                UIManager.Instance.ShowPopupUI(UIManager.ETestType.FadePopupCanvas.ToString());
             }
 
             //ÆË¾÷ UI ´Ý±â

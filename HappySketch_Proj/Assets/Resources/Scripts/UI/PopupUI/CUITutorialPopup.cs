@@ -49,7 +49,7 @@ namespace HakSeung
         {
             if (curTime < 0)
                 curTime = 0;
-            
+
             timerFillImage.fillAmount = Mathf.Clamp(curTime * 0.1f, 0f, 1f);
             timerCountText.text = curTime.ToString();
         }
@@ -86,7 +86,7 @@ namespace HakSeung
 
             while (effectDuration > elapsedTime)
             {
-                float timeProgress = elapsedTime / effectDuration ;
+                float timeProgress = elapsedTime / effectDuration;
                 baseRectTransform.localScale = Vector3.Lerp(startScale, endScale, timeProgress);
                 elapsedTime += Time.deltaTime;
                 yield return null;
@@ -98,9 +98,9 @@ namespace HakSeung
 
         }
 
-        public void ImageSwap(TutorialState tutorialAction )
+        public void ImageSwap(TutorialState tutorialAction)
         {
-            switch(tutorialAction)
+            switch (tutorialAction)
             {
                 case TutorialState.STORY:
                     guideImage.sprite = guideSprites[(int)TutorialState.STORY];
@@ -122,10 +122,10 @@ namespace HakSeung
         }
         public void ImageSwap(EGameState gameSceneState)
         {
-            switch(gameSceneState)
+            switch (gameSceneState)
             {
                 case EGameState.TAILMISSION: //≤ø∏Æ
-                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.TAIL ];
+                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.TAIL];
                     break;
                 case EGameState.FIRSTMISSION: // ¿Õ∑Ê
                     guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.PTEROSAUR];
