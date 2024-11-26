@@ -28,7 +28,6 @@ namespace HakSeung
             PTEROSAUR,
             INSECT,
             VOLCANICASH,
-
             END
         }
 
@@ -156,10 +155,10 @@ namespace HakSeung
             switch (gameSceneState)
             {
                 case EventResult.SUCCESS: 
-                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EGameState.END - 1 +  (int)EventResult.SUCCESS];
+                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END  +  (int)EventResult.SUCCESS];
                     break;
                 case EventResult.FAILED: // ¿Õ∑Ê
-                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EGameState.END - 1 +  (int)EventResult.FAILED];
+                    guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END +  (int)EventResult.FAILED];
                     break;
             
                 default:

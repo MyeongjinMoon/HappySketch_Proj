@@ -1,4 +1,5 @@
 using HakSeung;
+using JongJin;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace HakSeung
             if (Input.GetKeyDown(KeyCode.P))
             {
                 UIManager.Instance.ShowPopupUI(UIManager.ETestType.TutorialPopupPanel.ToString());
-                ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.SUCCESS);
+                ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.FAILED);
                 ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
                 
             }
