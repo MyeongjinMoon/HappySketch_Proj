@@ -10,6 +10,8 @@ namespace Jaehoon
         public AudioSource backgroundSound;
         public AudioClip[] backgroundlist;
         public static SoundManager instance;
+
+        private AudioClip currentBackgroundClip;        // 현재 재생 중인 배경음악
         private void Awake()
         {
             if (instance == null)
@@ -44,10 +46,15 @@ namespace Jaehoon
 
         public void BackgroundSoundPlay(AudioClip clip)
         {
+            if (currentBackgroundClip == clip)
+                return;
+
             backgroundSound.clip = clip;
             backgroundSound.loop = true;
             backgroundSound.volume = 0.1f;
             backgroundSound.Play();
+
+            currentBackgroundClip = clip;       // 현재 배경음악 업데이트
         }
     }
 }

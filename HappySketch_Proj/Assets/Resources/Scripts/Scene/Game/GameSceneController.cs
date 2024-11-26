@@ -90,7 +90,8 @@ namespace JongJin
                         missionGround.SetActive(true);               
                         startForestGround.SetActive(false);           
                         missionRoomVolcano.SetActive(true);
-                        SoundManager.instance.SFXPlay("11_Congo_Loop A_Pinegroove", missionroomBackgroundnMusic);               // 미션룸 배경음악 출력(삭제 예정)
+
+                        SoundManager.instance.BackgroundSoundPlay(missionroomBackgroundnMusic);            // 미션룸 배경음악 출력(삭제 예정)
                     }
                     else if (runningState.IsSecondMissionTriggered())
                     {
@@ -122,7 +123,7 @@ namespace JongJin
                         UpdateState(EGameState.RUNNING);           
                         missionGround.SetActive(false);           
                         missionRoomVolcano.SetActive(false);
-                        SoundManager.instance.SFXPlay("13_Heart Of Africa_Loop A_Pinegroove", runningStateBackgroundMusic);         // 달리는 상태 배경음악 출력(삭제 예정)
+                        SoundManager.instance.BackgroundSoundPlay(runningStateBackgroundMusic);         // 달리는 상태 배경음악 출력(삭제 예정)
                     }
                     break;
                 case EGameState.SECONDMISSION:        
