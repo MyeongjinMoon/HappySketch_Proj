@@ -17,8 +17,7 @@ namespace MyeongJin
 
 		private GameObject gameSceneController;
 		private GameSceneController gamecSceneController;
-		private EGameState curState;
-		private EGameState oldState;
+		private EGameState curState = EGameState.FIRSTMISSION;
 
 		private Vector3 startPosition;
 		// <<
@@ -27,21 +26,10 @@ namespace MyeongJin
 		{
 			gameSceneController = GameObject.Find("GameSceneController");
 			gamecSceneController = gameSceneController.GetComponent<GameSceneController>();
-        }
-		private void StateCheck()
-		{
-			curState = gamecSceneController.CurState;
 		}
-        private bool IsStateChanged()
+		protected bool IsStateChanged()
 		{
-			bool isChanged = false;
-
-			if (oldState != curState)
-				isChanged = true;
-
-			oldState = curState;
-
-			return isChanged;
+			return curState != gamecSceneController.CurState;
 		}
 		private void OnDisable()
 		{
@@ -51,15 +39,15 @@ namespace MyeongJin
 		{
 			Pool.Release(this);
 		}
-        public void ReturnToPool(int fillValue)
-        {
-            CUIEventPanel eventPanel = UIManager.Instance.CurSceneUI as CUIEventPanel;
+		public void ReturnToPool(int fillValue)
+		{
+			CUIEventPanel eventPanel = UIManager.Instance.CurSceneUI as CUIEventPanel;
 
-            Pool.Release(this);
-            if (eventPanel != null)
+			Pool.Release(this);
+			if (eventPanel != null)
 				((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.FillProgressBar(fillValue);
-        }
-        public void ResetObstacle()
+		}
+		public void ResetObstacle()
 		{
 
 		}
