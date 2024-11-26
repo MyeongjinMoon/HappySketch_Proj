@@ -1,0 +1,38 @@
+diff a/Dinosaur_IslandEscape/Assets/Resources/Scripts/UI/UIManager.cs b/Dinosaur_IslandEscape/Assets/Resources/Scripts/UI/UIManager.cs	(rejected hunks)
+@@ -2,15 +3,35 @@
++using JongJin;
+ using System.Collections;
+ using System.Collections.Generic;
+ using UnityEngine;
++using static UnityEditor.Rendering.InspectorCurveEditor;
+ 
+ namespace HakSeung
+ {
++  /*  enum SceneType
++    {
++        START,
++        RUNNING,
++        ENDING,
++        
++        END
++    }*/
+     public class UIManager : MonoBehaviour
+     {
++        //TODO<�н�> SceneType�� ���� ĵ���� �����Ű�� �ڵ尡 �ʿ��� 24/11/11
++        //TODO<�н�> EGameState�� End �߰� ��û �ؾߵ� 24/11/12
++        [SerializeField] private Canvas[] sceneCanvas = new Canvas[(int)JongJin.EGameState.THIRDMISSION + 1]; 
+         private const string uiManagerObjectName = "_UIManager";
+         private static UIManager s_Instance;
++
++        private GameSceneController gameSceneController;
++        private Canvas curCanvas;
++
+         //���� ���� �´� �˾����� �޾ƿ;ߵ�
+-        Stack<CUIPopup> popupStack = new Stack<CUIPopup>();
++        private Stack<CUIPopup> popupStack = new Stack<CUIPopup>();
++
++
++        //Canvas[] canvas = new Canvas[];
+         public static UIManager Instance
+         {
+             get
