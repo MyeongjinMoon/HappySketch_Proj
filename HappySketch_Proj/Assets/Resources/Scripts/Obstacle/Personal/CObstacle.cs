@@ -14,8 +14,7 @@ namespace MyeongJin
 
 		private GameObject gameSceneController;
 		private GameSceneController gamecSceneController;
-		private EGameState curState;
-		private EGameState oldState;
+		private EGameState curState = EGameState.RUNNING;
 
 		private float timeToCheckPosition = 0.1f;
 		private int maxRotateValue = 1;
@@ -45,14 +44,14 @@ namespace MyeongJin
 		{
 			StartCoroutine(CheckPosition());
 		}
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.tag == "Player1" || other.tag == "Player2")
-            {
-                this.GetComponent<BoxCollider>().enabled = false;
-            }
-        }
-        IEnumerator CheckPosition()
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.tag == "Player1" || other.tag == "Player2")
+			{
+				this.GetComponent<BoxCollider>().enabled = false;
+			}
+		}
+		IEnumerator CheckPosition()
 		{
 			yield return new WaitForSeconds(timeToCheckPosition);
 
@@ -68,23 +67,16 @@ namespace MyeongJin
 
 			StartCoroutine(CheckPosition());
 
-			if (this.transform.position.z < destructPosition)
+			if (IsStateChanged())
+			{
 				ReturnToPool();
-		}
-		private void StateCheck()
-		{
-			curState = gamecSceneController.CurState;
+			}
+			else if (this.transform.position.z < destructPosition)
+				ReturnToPool();
 		}
 		private bool IsStateChanged()
 		{
-			bool isChanged = false;
-
-			if (oldState != curState)
-				isChanged = true;
-
-			oldState = curState;
-
-			return isChanged;
+			return curState != gamecSceneController.CurState;
 		}
 		private void OnDisable()
 		{
@@ -97,9 +89,9 @@ namespace MyeongJin
 		}
 		private void ResetObstacle()
 		{
-            //TODO < 문명진 > - 돌의 삭제 위치를 공룡 위치로 초기화 해줘야함. - 2024.11.07 4:20
-            this.GetComponent<BoxCollider>().enabled = true;
-        }
+			//TODO < 문명진 > - 돌의 삭제 위치를 공룡 위치로 초기화 해줘야함. - 2024.11.07 4:20
+			this.GetComponent<BoxCollider>().enabled = true;
+		}
 		private void RotateObstacle()
 		{
 			this.transform.Rotate(-curRotateSpeed, 0, 0);

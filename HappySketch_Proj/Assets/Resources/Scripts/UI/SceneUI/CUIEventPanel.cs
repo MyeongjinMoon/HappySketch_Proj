@@ -12,7 +12,7 @@ namespace HakSeung
         [SerializeField] public CUIProgressBar progressBar;
         public CUINote[] playerNotes = new CUINote[TOTALPLAYERS];
         [SerializeField] private TextMeshProUGUI timerText;
-        [SerializeField] private Image image;
+
         public GameObject timer;
 
         protected override void InitUI()

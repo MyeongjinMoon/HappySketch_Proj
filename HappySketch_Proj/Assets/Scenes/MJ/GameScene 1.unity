@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df667e4d798b414e8fd094121a5fe0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSpawn: 1
   missionGround: {fileID: 579223393}
 --- !u!4 &18085891
 Transform:
@@ -3866,7 +3867,7 @@ MonoBehaviour:
   maxDistance: 25
   playerSpacing: 3
   tailMissionStartRate: 15
-  firstMissionRate: 0
+  firstMissionRate: 10
   secondMissionRate: 55
   thirdMissionRate: 80
   runningViewCam: {fileID: 1532651065}
@@ -4190,6 +4191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675a6e3b0632b5a4a80a6757f628098b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiName: 
   panel: {fileID: 249244421}
 --- !u!114 &901500937
 MonoBehaviour:
@@ -11393,6 +11395,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499447138465596079, guid: aece2a4199086d54d931943aab787648,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6840479673895892257, guid: aece2a4199086d54d931943aab787648,
         type: 3}

@@ -78,7 +78,7 @@ namespace MyeongJin
 		{
 			CObstacle obstacle;
 
-			switch (UnityEngine.Random.Range(0,2))
+			switch (UnityEngine.Random.Range(0,3))
 			{
 				case 0:
 					var go = Instantiate(log);

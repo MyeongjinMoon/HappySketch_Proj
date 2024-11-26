@@ -25,7 +25,9 @@ namespace MyeongJin
 		private void Update()
 		{
 			StoopAndClimb();
-		}
+			if (IsStateChanged())
+				ReturnToPool();
+        }
 		private void OnEnable()
 		{
 			this.transform.Rotate(-45, 0, 0);
@@ -99,7 +101,7 @@ namespace MyeongJin
 
                     // TODO <문명진> : hitCount만큼 프로그래스바 늘리기
 
-                    ReturnToPool(hitCount * 10);
+                    ReturnToPool(hitCount * 50);
 				}
 			}
 		}

@@ -1,4 +1,5 @@
 using HakSeung;
+using MyeongJin;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace JongJin
 
 		private GameObject player1;
 		private GameObject player2;
+		private CSpawnController spawnController;
 		private Vector3 player1Scale;
 		private Vector3 player2Scale;
 
@@ -22,7 +24,8 @@ namespace JongJin
 		{
 			player1 = GameObject.FindWithTag("Player1");
 			player2 = GameObject.FindWithTag("Player2");
-			player1Scale = player1.transform.localScale;
+			spawnController = GameObject.Find("SpawnController").GetComponent<CSpawnController>();
+            player1Scale = player1.transform.localScale;
 			player2Scale = player2.transform.localScale;
 		}
 		public void EnterState()
@@ -46,6 +49,9 @@ namespace JongJin
 			UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
 			player1.transform.localScale = player1Scale;
 			player2.transform.localScale = player2Scale;
+            spawnController.canSpawn = true;
+
+            UIManager.Instance.ClosePopupUI();
 		}
 		public bool IsFinishMission(out bool success)
 		{
@@ -78,14 +84,23 @@ namespace JongJin
 		}
 		private IEnumerator Stay(bool isSuccess)
 		{
-			isWait = true;
-			//if (isSuccess)
-			//	((CUIEventPanel)UIManager.Instance.CurSceneUI);
-			////¼º°ø UI¶ç¿ì±â
-			//else
-   //             ((CUIEventPanel)UIManager.Instance.CurSceneUI);
-   //         //½ÇÆÐ UI¶ç¿ì±â
-            yield return new WaitForSeconds(3.0f);
+			spawnController.canSpawn = false;
+            isWait = true;
+
+			if (isSuccess)
+			{
+				UIManager.Instance.ShowPopupUI(UIManager.ETestType.TutorialPopupPanel.ToString());
+				((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.SUCCESS);
+				((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
+			}
+			else
+			{
+				UIManager.Instance.ShowPopupUI(UIManager.ETestType.TutorialPopupPanel.ToString());
+				((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.FAILED);
+				((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
+			}
+			//½ÇÆÐ UI¶ç¿ì±â
+			yield return new WaitForSeconds(3.0f);
 			isMissionFinished = true;
 		}
 		private void SetTimer()

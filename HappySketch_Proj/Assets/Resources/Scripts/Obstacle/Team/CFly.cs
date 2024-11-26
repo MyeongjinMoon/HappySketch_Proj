@@ -1,4 +1,5 @@
 using HakSeung;
+using JongJin;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -18,12 +19,24 @@ namespace MyeongJin
 		private ParticleSystem lightBugParticleSystem;
         private GameObject blood;
 
+        private GameObject gameSceneController;
+        private GameSceneController gamecSceneController;
+        private EGameState curState = EGameState.SECONDMISSION;
+
         private void Awake()
 		{
             flyParticleSystem = this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
             lightBugParticleSystem = this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
 			blood = this.transform.GetChild(2).gameObject;
-		}
+
+            gameSceneController = GameObject.Find("GameSceneController");
+            gamecSceneController = gameSceneController.GetComponent<GameSceneController>();
+        }
+        private void Update()
+        {
+            if (IsStateChanged())
+                ReturnToPool();
+        }
         private void OnDisable()
 		{
 			ResetObstacle();
@@ -49,7 +62,11 @@ namespace MyeongJin
             var mainModule2 = lightBugParticleSystem.main;
             mainModule2.gravityModifier = 0f;
         }
-		private void OnTriggerEnter(Collider other)
+        protected bool IsStateChanged()
+        {
+            return curState != gamecSceneController.CurState;
+        }
+        private void OnTriggerEnter(Collider other)
 		{
 			this.GetComponent<BoxCollider>().enabled = false;
 

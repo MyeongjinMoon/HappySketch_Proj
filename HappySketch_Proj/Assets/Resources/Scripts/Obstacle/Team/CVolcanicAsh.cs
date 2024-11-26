@@ -1,4 +1,5 @@
 using HakSeung;
+using JongJin;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -17,11 +18,23 @@ namespace MyeongJin
 		private SpriteRenderer sprite;
 		private Vector3 startPosition;
 
-		private void Awake()
+        private GameObject gameSceneController;
+        private GameSceneController gamecSceneController;
+        private EGameState curState = EGameState.SECONDMISSION;
+
+        private void Awake()
 		{
 			sprite = GetComponent<SpriteRenderer>();
-		}
-		private void OnEnable()
+
+            gameSceneController = GameObject.Find("GameSceneController");
+            gamecSceneController = gameSceneController.GetComponent<GameSceneController>();
+        }
+        private void Update()
+        {
+            if (IsStateChanged())
+                ReturnToPool();
+        }
+        private void OnEnable()
 		{
 			StartCoroutine("CastAshes");
 		}
@@ -63,8 +76,12 @@ namespace MyeongJin
         public void ResetObstacle()
 		{
 			this.GetComponent<BoxCollider>().enabled = true;
-		}
-		public void FadeAway()
+        }
+        protected bool IsStateChanged()
+        {
+            return curState != gamecSceneController.CurState;
+        }
+        public void FadeAway()
 		{
             var color = sprite.color;
 
@@ -79,19 +96,5 @@ namespace MyeongJin
                 ReturnToPool(10);
             }
         }
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    this.GetComponent<BoxCollider>().enabled = false;
-
-        //    Debug.Log("Clear Fog");
-
-        //    StartCoroutine("Clear");
-        //}
-        //private IEnumerator Clear()
-        //{
-        //    yield return new WaitForSeconds(1.0f);
-
-        //    ReturnToPool();
-        //}
     }
 }
