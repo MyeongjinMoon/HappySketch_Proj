@@ -68,6 +68,8 @@ namespace JongJin
                 yield return null;
             }
             panel.gameObject.SetActive(false);
+
+            UIManager.Instance.ClosePopupUI(this);
             yield return null;
         }
 
