@@ -1,4 +1,5 @@
 using HakSeung;
+using MyeongJin;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace JongJin
         enum EPlayerState { CUTSCENE, RUNNING, MISSION }
 
         // TODO<이종진> - 테스트용 작성 수정필요 - 20241110
+        [SerializeField] private CSpawnController cSpawnController;
         [SerializeField] private GameSceneController gameSceneController;
 
         [SerializeField] private BoxCollider upCollider;
@@ -66,7 +68,7 @@ namespace JongJin
             InputManager.Instance.KeyAction -= OnKeyBoard;
             InputManager.Instance.KeyAction += OnKeyBoard;
 
-            for(int playerNum = 0; playerNum < playerTag.Length; playerNum++)
+            for (int playerNum = 0; playerNum < playerTag.Length; playerNum++)
             {
                 if (this.tag != playerTag[playerNum]) continue;
                 playerId = (EPlayer)playerNum;
@@ -107,7 +109,7 @@ namespace JongJin
                 IncreaseSpeed();
             }
             if ((playerId == EPlayer.PLAYER1 && Input.GetKeyDown(KeyCode.W))
-                || (playerId == EPlayer.PLAYER2 &&  Input.GetKeyDown(KeyCode.UpArrow)))
+                || (playerId == EPlayer.PLAYER2 && Input.GetKeyDown(KeyCode.UpArrow)))
             {
                 Jump();
             }
@@ -177,7 +179,7 @@ namespace JongJin
             // TODO<이종진> - 상태 전환시 임시 플레이어 위치 수정 필요 - 20241112
             transform.position = new Vector3(148f + (int)playerId * 4f, 2.0f, 0.0f);
         }
-        
+
         private void Move()
         {
             if (gameSceneController == null)
@@ -217,15 +219,29 @@ namespace JongJin
         private void LeftTouch()
         {
             StartCoroutine(LeftTouchActive());
+
+            if (cSpawnController == null) return;
+
+            if (gameSceneController.CurState == EGameState.SECONDMISSION)
+                cSpawnController.GenerateSwatter((int)playerId, 0);
+            else if (gameSceneController.CurState == EGameState.THIRDMISSION)
+                cSpawnController.GenerateRay();
         }
         private void RightTouch()
         {
             StartCoroutine(RightTouchActive());
+
+            if (cSpawnController == null) return;
+
+            if (gameSceneController.CurState == EGameState.SECONDMISSION)
+                cSpawnController.GenerateSwatter((int)playerId, 1);
+            else if (gameSceneController.CurState == EGameState.THIRDMISSION)
+                cSpawnController.GenerateRay();
         }
         private void IncreaseSpeed()
         {
-            if(gameSceneController == null) 
-                return; 
+            if (gameSceneController == null)
+                return;
 
             if (speed > maxSpeed)
                 return;

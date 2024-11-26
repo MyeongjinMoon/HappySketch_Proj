@@ -1,3 +1,4 @@
+using HakSeung;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,14 @@ namespace JongJin
 {
     public class StoryDescriptionState : MonoBehaviour, IGameState
     {
-        private bool isFinish = false;
+        [SerializeField] private Fade fade;
         public void EnterState()
         {
-            isFinish = false;
+            UIManager.Instance.ShowPopupUI(UIManager.ETestType.TutorialPopupPanel.ToString());
+            ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.TutorialState.STORY);
+            ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
+
             StartCoroutine(ProgressDescription());
-            
         }
         public void UpdateState()
         {
@@ -23,12 +26,13 @@ namespace JongJin
         }
         IEnumerator ProgressDescription()
         {
-            yield return new WaitForSeconds(10.0f);
-            isFinish = true;
+            yield return new WaitForSeconds(7.0f);
+            UIManager.Instance.ClosePopupUI();
+            fade.FadeInOut();
         }
         public bool IsStroyDescriptionFinish()
         {
-            return isFinish;
+            return fade.IsFinished;
         }
     }
 }

@@ -19,6 +19,8 @@ namespace JongJin
 
         private void Awake()
         {
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
+
             storyDescriptionState = GetComponent<StoryDescriptionState>();
             storyCutSceneState = GetComponent<StoryCutSceneState>();
             tutorialDescriptionState = GetComponent<TutorialDescriptionState>();
@@ -33,7 +35,7 @@ namespace JongJin
             switch (curState)
             {
                 case EStartGameState.STORYDESCRIPTION:
-                    if(storyDescriptionState.IsStroyDescriptionFinish())
+                    if (storyDescriptionState.IsStroyDescriptionFinish())
                         UpdateState(EStartGameState.STORYCUTSCENE);
                     break;
                 case EStartGameState.STORYCUTSCENE:
@@ -42,7 +44,7 @@ namespace JongJin
                     break;
                 case EStartGameState.TUTORIALDESCRIPTION:
                     break;
-                case EStartGameState.TUTORIALACTION: 
+                case EStartGameState.TUTORIALACTION:
                     break;
             }
             startStateContext.CurrentState.UpdateState();
