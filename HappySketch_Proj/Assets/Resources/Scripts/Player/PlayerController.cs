@@ -1,5 +1,6 @@
 using HakSeung;
 using MyeongJin;
+using Jaehoon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace JongJin
         enum EPlayer { PLAYER1, PLAYER2, PLAYER3, PLAYER4 }
         enum EPlayerState { CUTSCENE, RUNNING, MISSION }
 
-        // TODO<ÀÌÁ¾Áø> - Å×½ºÆ®¿ë ÀÛ¼º ¼öÁ¤ÇÊ¿ä - 20241110
+        // TODO<ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½> - ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ - 20241110
         [SerializeField] private CSpawnController cSpawnController;
         [SerializeField] private GameSceneController gameSceneController;
 
@@ -176,7 +177,7 @@ namespace JongJin
         {
             curState = EPlayerState.MISSION;
             animator.SetBool(paramMission, true);
-            // TODO<ÀÌÁ¾Áø> - »óÅÂ ÀüÈ¯½Ã ÀÓ½Ã ÇÃ·¹ÀÌ¾î À§Ä¡ ¼öÁ¤ ÇÊ¿ä - 20241112
+            // TODO<ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½> - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ - 20241112
             transform.position = new Vector3(148f + (int)playerId * 4f, 2.0f, 0.0f);
         }
 
