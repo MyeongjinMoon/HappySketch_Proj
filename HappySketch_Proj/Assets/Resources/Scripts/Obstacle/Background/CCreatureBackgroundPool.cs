@@ -14,8 +14,6 @@ namespace MyeongJin
 
         private Vector3 missionGroundPos;
 
-        private int creatureNum = 0;
-
 		private string backgroundPteranodonName = "Prefabs/Obstacle/Team/Background/BackgroundPteranodon";      // 프리팹이 존재하는 폴더 위치
 		private GameObject backgroundPteranodon;
 
