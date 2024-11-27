@@ -24,8 +24,11 @@ namespace JongJin
         
         public void EnterState()
         {
+            if (tutorialState == CUITutorialPopup.TutorialState.HEART)
+                return;
+
             StartCoroutine(TutorialStart());
-            tutorialState = CUITutorialPopup.TutorialState.STORY;
+            
             switch(tutorialState)
             {
                 case CUITutorialPopup.TutorialState.STORY:
@@ -54,6 +57,7 @@ namespace JongJin
         public void ExitState()
         {
             isPopupTime = false;
+
             UIManager.Instance.CloseAllPopupUI();
         }
 
@@ -101,13 +105,16 @@ namespace JongJin
                 case CUITutorialPopup.TutorialState.JUMP:
                     UIManager.Instance.ShowPopupUI(EPopupUIType.TutorialPopupPanel.ToString());
                     ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUITutorialPopup.TutorialState.JUMP);
-
                     break;
                 case CUITutorialPopup.TutorialState.HEART:
                     UIManager.Instance.ShowPopupUI(EPopupUIType.TutorialPopupPanel.ToString());
                     ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUITutorialPopup.TutorialState.HEART);
 
                     break;
+                default:
+
+                    break;
+
             }
         }
 
