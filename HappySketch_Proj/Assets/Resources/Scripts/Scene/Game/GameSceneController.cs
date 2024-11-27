@@ -37,7 +37,7 @@ namespace JongJin
 		private EGameState curState;
 		public EGameState CurState { get { return curState; } }
 
-		public AudioClip missionroomBackgroundnMusic;             // 미션룸 배경 오디오 클립(삭제 예정)
+		public AudioClip missionroomBackgroundMusic;             // 미션룸 배경 오디오 클립(삭제 예정)
 		public AudioClip runningStateBackgroundMusic;             // 달리는 상태 오디오 클립(삭제 예정)
 
 		private void Awake()
@@ -71,6 +71,8 @@ namespace JongJin
 		{
 			UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.RunningCanvas.ToString(), (int)UIManager.ESceneUIType.RunningCanvas);
 			UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.EventScenePanel.ToString(), (int)UIManager.ESceneUIType.EventScenePanel);
+
+            SoundManager.instance.BackgroundMusicPlay(runningStateBackgroundMusic);
         }
 
 		private void Update()
@@ -80,13 +82,14 @@ namespace JongJin
                 case EGameState.CUTSCENE:
 					if (cutSceneState.IsFinishedCutScene())
 						UpdateState(EGameState.RUNNING);
-					break;
+						//SoundManager.instance.BackgroundMusicPlay(runningStateBackgroundMusic);         // 달리는 상태 배경음악 출력(삭제 예정)
+                    break;
 				case EGameState.RUNNING:
 					if (runningState.IsFirstMissionTriggered())
 					{
 						UpdateState(EGameState.FIRSTMISSION);
-						//SoundManager.instance.BackgroundSoundPlay(missionroomBackgroundnMusic);            // 미션룸 배경음악 출력(삭제 예정)
-					}
+                        //SoundManager.instance.BackgroundMusicPlay(missionroomBackgroundnMusic);            // 미션룸 배경음악 출력(삭제 예정)
+                    }
 					else if (runningState.IsSecondMissionTriggered())
 					{
 						UpdateState(EGameState.SECONDMISSION);    
@@ -108,7 +111,7 @@ namespace JongJin
 					if (firstMissionState.IsFinishMission(out runningState.isMissionSuccess))
 					{
 						UpdateState(EGameState.RUNNING);
-						//SoundManager.instance.BackgroundSoundPlay(runningStateBackgroundMusic);         // 달리는 상태 배경음악 출력(삭제 예정)
+						//SoundManager.instance.BackgroundMusicPlay(runningStateBackgroundMusic);         // 달리는 상태 배경음악 출력(삭제 예정)
 					}
 					break;
 				case EGameState.SECONDMISSION:
@@ -135,12 +138,13 @@ namespace JongJin
 
 			UpdateCamera(curState);
 			UpdateMap(curState);
+			UpdateBackgroundMusic(curState);
 
             switch (curState)
 			{
 				case EGameState.RUNNING:
 					gameStateContext.Transition(runningState);
-					break;
+                    break;
 				case EGameState.TAILMISSION:
 					gameStateContext.Transition(tailMissionState);
 					break;
@@ -173,13 +177,14 @@ namespace JongJin
 				case EGameState.RUNNING:
                     missionGround.SetActive(false);
                     missionRoomVolcano.SetActive(false);
+                   
                     break;
 				case EGameState.TAILMISSION:
 				case EGameState.FIRSTMISSION:
 					missionGround.SetActive(true);
 					missionRoomVolcano.SetActive(true);
 					startForestGround.SetActive(false);
-					break;
+                    break;
 				case EGameState.SECONDMISSION:
                     missionGround.SetActive(true);
                     missionRoomVolcano.SetActive(true);
@@ -191,7 +196,24 @@ namespace JongJin
                     break;
 			}
 		}
-	}
+
+        private void UpdateBackgroundMusic(EGameState curState)
+        {
+            switch (curState)
+            {
+                case EGameState.CUTSCENE:
+                case EGameState.RUNNING:
+					SoundManager.instance.BackgroundMusicPlay(runningStateBackgroundMusic);
+                    break;
+                case EGameState.TAILMISSION:
+                case EGameState.FIRSTMISSION:
+                case EGameState.SECONDMISSION:
+                case EGameState.THIRDMISSION:
+                    SoundManager.instance.BackgroundMusicPlay(missionroomBackgroundMusic);
+                    break;
+            }
+        }
+    }
 }
 //TODO <이학승> 씬 전환시 작동 될 코드
 //private void DestroyUI;
