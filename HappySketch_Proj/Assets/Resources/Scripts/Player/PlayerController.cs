@@ -30,7 +30,6 @@ namespace JongJin
         enum EPlayer { PLAYER1, PLAYER2, PLAYER3, PLAYER4 }
         enum EPlayerState { CUTSCENE, RUNNING, MISSION }
 
-        // TODO<������> - �׽�Ʈ�� �ۼ� �����ʿ� - 20241110
         [SerializeField] private CSpawnController cSpawnController;
         [SerializeField] private GameSceneController gameSceneController;
 
@@ -38,8 +37,8 @@ namespace JongJin
         [SerializeField] private BoxCollider downCollider;
 
         [SerializeField] private float speed = 1.0f;
-        [SerializeField] private float increaseSuccessSpeed = 1.0f;
-        [SerializeField] private float decreaseFailSpeed = 0.5f;
+        [SerializeField] private float increaseSuccessSpeed = 1.5f;
+        [SerializeField] private float decreaseFailSpeed = 1.0f;
         [SerializeField] private float jumpForce = 5.0f;
 
         [SerializeField] private float increaseSpeed = 0.1f;
@@ -47,6 +46,9 @@ namespace JongJin
 
         [SerializeField] private float minSpeed = 0.5f;
         [SerializeField] private float maxSpeed = 10.0f;
+
+        [SerializeField] private ParticleSystem buffParticles;
+        [SerializeField] private ParticleSystem deBuffParticles;
 
         private EPlayer playerId;
         private RunningState runningController;
@@ -188,6 +190,9 @@ namespace JongJin
             animator.SetBool(paramMission, true);
 
             transform.position = new Vector3(148f + (int)playerId * 4f, 2.0f, 0.0f);
+
+            buffParticles.Stop();
+            deBuffParticles.Stop();
         }
 
         private void Move()
@@ -265,7 +270,12 @@ namespace JongJin
         {
             if (speed < minSpeed)
                 return;
-            speed -= Time.deltaTime * decreaseSpeed;
+
+            float deBuffRate = 1.0f;
+            if (runningController != null && runningController.isDebuff)
+                deBuffRate = 1.5f;
+
+            speed -= Time.deltaTime * decreaseSpeed * deBuffRate;
             animator.SetFloat(paramSpeed, speed);
         }
         private void HeartActive()
@@ -328,11 +338,29 @@ namespace JongJin
         }
         public void OnBuff()
         {
-
+            if (gameSceneController.CurState != EGameState.RUNNING)
+                return;
+            StartCoroutine(OnBuffState());
+        }
+        IEnumerator OnBuffState()
+        {
+            buffParticles.Play();
+            speed += increaseSuccessSpeed;
+            yield return new WaitForSeconds(runningController.NormalBuffTime);
+            buffParticles.Stop();
         }
         public void OnDeBuff()
         {
-
+            if (gameSceneController.CurState != EGameState.RUNNING)
+                return;
+            StartCoroutine(OnDeBuffState());
+        }
+        IEnumerator OnDeBuffState()
+        {
+            deBuffParticles.Play();
+            speed -= decreaseFailSpeed;
+            yield return new WaitForSeconds(runningController.NormalDeBuffTime);
+            deBuffParticles.Stop();
         }
     }
 }
