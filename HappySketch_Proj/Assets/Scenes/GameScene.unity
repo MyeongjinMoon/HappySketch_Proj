@@ -4017,11 +4017,14 @@ MonoBehaviour:
   - {fileID: 1634220259}
   - {fileID: 692168302}
   roundTimeLimit: 300
+  buffTime: 10
   totalRunningDistance: 500
   minDistance: 13
   maxDistance: 25
   playerSpacing: 3
+  buffDistance: 10
   tailMissionStartRate: 15
+  tailMissionEndRate: 90
   firstMissionRate: 35
   secondMissionRate: 55
   thirdMissionRate: 85
@@ -5772,6 +5775,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839155676036760774, guid: 687aa2a77cad7b44b9bbd0dba75dbc6e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7015843230738409125, guid: 687aa2a77cad7b44b9bbd0dba75dbc6e,
         type: 3}
@@ -11049,6 +11057,11 @@ PrefabInstance:
       propertyPath: gameSceneController
       value: 
       objectReference: {fileID: 807674218}
+    - target: {fileID: 2206348138624526545, guid: afa35d528dcfb984296ea9823357d499,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 4839155676036760774, guid: afa35d528dcfb984296ea9823357d499,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11099,6 +11112,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6936090722239080456, guid: afa35d528dcfb984296ea9823357d499,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6936090722239080456, guid: afa35d528dcfb984296ea9823357d499,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d49e8cb9075168e4aaa232d90b4e092a, type: 2}
+    - target: {fileID: 6936090722239080456, guid: afa35d528dcfb984296ea9823357d499,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6121f0bb8e131a0439e830d900731d4a, type: 2}
     - target: {fileID: 8155759913201001040, guid: afa35d528dcfb984296ea9823357d499,
         type: 3}
       propertyPath: maxSpeed

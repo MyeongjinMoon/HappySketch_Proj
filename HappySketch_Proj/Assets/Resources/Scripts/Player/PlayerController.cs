@@ -136,20 +136,27 @@ namespace JongJin
         }
         private void OnCollisionEnter(Collision collision)
         {
-            if (!collision.gameObject.CompareTag(groundTag))
-                return;
-            animator.SetBool(paramJump, false);
-            isGrounded++;
+            if(collision == null) return;
 
-            if (downCollider != null) downCollider.enabled = true;
+            switch (collision.gameObject.tag)
+            {
+                case "Ground":
+                    animator.SetBool(paramJump, false);
+                    isGrounded++;
+                    if (downCollider != null) downCollider.enabled = true;
+                    break;
+            }
         }
         private void OnCollisionExit(Collision collision)
         {
-            if (!collision.gameObject.CompareTag(groundTag))
-                return;
-            isGrounded--;
+            if (collision == null) return;
 
-            if (downCollider != null) downCollider.enabled = false;
+            switch (collision.gameObject.tag)
+            {
+                case "Ground":
+                    isGrounded--;
+                    break;
+            }
         }
         private void UpdateState()
         {
@@ -166,6 +173,8 @@ namespace JongJin
         }
         private void SetRunningState()
         {
+            isGrounded = 0;
+
             curState = EPlayerState.RUNNING;
             animator.SetBool(paramMission, false);
             transform.position = runningController.GetPlayerPrevPosition((int)playerId);
@@ -177,7 +186,7 @@ namespace JongJin
         {
             curState = EPlayerState.MISSION;
             animator.SetBool(paramMission, true);
-            // TODO<������> - ���� ��ȯ�� �ӽ� �÷��̾� ��ġ ���� �ʿ� - 20241112
+
             transform.position = new Vector3(148f + (int)playerId * 4f, 2.0f, 0.0f);
         }
 
@@ -205,6 +214,8 @@ namespace JongJin
                 animator.Play(jumpAniName, -1, 0f);
             animator.SetBool(paramJump, true);
             rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+            if (downCollider != null) downCollider.enabled = false;
         }
         private void Crouch()
         {
@@ -314,6 +325,14 @@ namespace JongJin
 
             isActivated = false;
             animator.SetBool(paramRightTouch, false);
+        }
+        public void OnBuff()
+        {
+
+        }
+        public void OnDeBuff()
+        {
+
         }
     }
 }

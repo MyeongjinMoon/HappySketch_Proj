@@ -46,7 +46,7 @@ namespace MyeongJin
 		}
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.tag == "Player1" || other.tag == "Player2")
+			if (other.tag == "PlayerCollider")
 			{
 				this.GetComponent<BoxCollider>().enabled = false;
 			}
