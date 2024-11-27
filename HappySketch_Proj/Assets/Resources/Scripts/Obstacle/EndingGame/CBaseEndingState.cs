@@ -11,7 +11,7 @@ namespace MyeongJin
 
         protected int topPlayerIndex;
         protected bool isFinish = false;
-        protected bool isGameSuccess;
+        public bool isGameSuccess;
 
         private void Awake()
         {
