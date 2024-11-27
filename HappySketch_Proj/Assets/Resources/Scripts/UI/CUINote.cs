@@ -1,8 +1,10 @@
 using HakSeung;
+using JongJin;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
@@ -102,10 +104,16 @@ namespace HakSeung
 			if (obstacle.GetComponent<BoxCollider>().enabled)
 				isHit = true;
 
-            if (isHit)
+			if (isHit)
+			{
 				gameObject.GetComponent<Image>().color = Color.green; //나중에 이미지로 받아오는거 변경 필요
+				player[myPlayerNum].GetComponent<PlayerController>().OnBuff();
+			}
 			else
+			{
 				gameObject.GetComponent<Image>().color = Color.red;
+                player[myPlayerNum].GetComponent<PlayerController>().OnDeBuff();
+            }
 
 			noteObjects[(int)ENoteImageObject.HITCHECKRING].SetActive(false);
 

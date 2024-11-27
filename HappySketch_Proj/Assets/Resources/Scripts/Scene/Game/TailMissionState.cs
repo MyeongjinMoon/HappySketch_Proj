@@ -37,10 +37,12 @@ namespace JongJin
 
         private int randomAttackPos = -1;
 
-        private bool isSuccess = false;
+        private bool isFinish = false;
+        private bool isDelayFinish = false;
         public void EnterState()
         {
-            isSuccess = false;
+            isFinish = false;
+            isDelayFinish = false;
 
             attackCount = ATTACKCOUNT;
 
@@ -52,6 +54,9 @@ namespace JongJin
         }
         public void UpdateState()
         {
+            if (isDelayFinish)
+                return;
+
             flowTime += Time.deltaTime;
             if (flowTime < attackDelayTime)
                 return;
@@ -82,7 +87,7 @@ namespace JongJin
             if (attackFlowTime < attackTime)
                 return;
 
-            isSuccess = tailController.CollisionCount == 0;
+            //함수 추가
 
             timingBar.gameObject.SetActive(false);
             warningEffect[randomAttackPos].SetActive(false);
@@ -93,6 +98,12 @@ namespace JongJin
             warningFlowTime = 0.0f;
             attackFlowTime = 0.0f;
             randomAttackPos = -1;
+
+            if (tailController.CollisionCount == 0 || attackCount == 0)
+            {
+                isDelayFinish = true;
+                StartCoroutine(DelayFinish()); 
+            }
         }
 
         public void ExitState()
@@ -110,14 +121,19 @@ namespace JongJin
         public bool IsFinishMission(out bool success)
         {
             success = false;
-            if (isSuccess)
+            if (isFinish)
             {
                 success = true;
+                if (attackCount <= 0)
+                    success = false;
                 return true;
             }
-            if (attackCount <= 0)
-                return true;
             return false;
+        }
+        IEnumerator DelayFinish()
+        {
+            yield return new WaitForSeconds(3.0f);
+            isFinish = true;
         }
     }
 }
