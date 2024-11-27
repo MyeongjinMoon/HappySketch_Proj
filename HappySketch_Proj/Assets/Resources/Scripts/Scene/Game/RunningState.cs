@@ -60,6 +60,8 @@ namespace JongJin
 		private float firstRankerDistance = 0.0f;
 		private float lastRankerDistance = 0.0f;
 
+        public float RoundTimeLimit { get { return roundTimeLimit; } }
+
         public float FirstRankerDistance { get { return firstRankerDistance; } }
 
         public float ProgressRate { get { return firstRankerDistance / totalRunningDistance * 100.0f; } }
