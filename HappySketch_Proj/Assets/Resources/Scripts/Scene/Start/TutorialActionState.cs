@@ -22,7 +22,7 @@ namespace JongJin
         private int[] actionSuccessCounts;
         private float[] currentRunningTimes;
 
-        private float runningStartTime = 0;
+        private float runningStartTime = 5;
 
         private float runningSuccessSpeed = 5f;
 
@@ -60,7 +60,7 @@ namespace JongJin
                 playerController[playerIndex].PlayerReset(tutorialState);
 
             
-            Debug.Log(tutorialState.ToString() + "����");
+            Debug.Log(tutorialState.ToString() + "튜토리얼");
         }
         public void UpdateState()
         {
