@@ -37,15 +37,15 @@ namespace JongJin
         [SerializeField] private BoxCollider downCollider;
 
         [SerializeField] private float speed = 1.0f;
-        [SerializeField] private float increaseSuccessSpeed = 1.5f;
-        [SerializeField] private float decreaseFailSpeed = 1.0f;
+        [SerializeField] private float increaseSuccessSpeed = 2.0f;
+        [SerializeField] private float failSpeed = 2.0f;
         [SerializeField] private float jumpForce = 5.0f;
 
-        [SerializeField] private float increaseSpeed = 0.1f;
-        [SerializeField] private float decreaseSpeed = 0.5f;
+        [SerializeField] private float runIncreaseSpeed = 0.1f;
+        [SerializeField] private float runDecreaseSpeed = 0.2f;
 
         [SerializeField] private float minSpeed = 0.5f;
-        [SerializeField] private float maxSpeed = 10.0f;
+        [SerializeField] private float maxSpeed = 8.0f;
 
         [SerializeField] private ParticleSystem buffParticles;
         [SerializeField] private ParticleSystem deBuffParticles;
@@ -56,6 +56,7 @@ namespace JongJin
 
         private int isGrounded = 0;
         private bool isActivated = false;
+        private bool canIncrease = true;
 
         private Rigidbody rigid;
         private Animator animator;
@@ -182,7 +183,7 @@ namespace JongJin
             transform.position = runningController.GetPlayerPrevPosition((int)playerId);
 
             if (runningController.isMissionSuccess) speed += increaseSuccessSpeed;
-            else speed -= decreaseFailSpeed;
+            else speed = failSpeed;
         }
         private void SetMissionState()
         {
@@ -260,10 +261,10 @@ namespace JongJin
             if (gameSceneController == null)
                 return;
 
-            if (speed > maxSpeed)
+            if (speed > maxSpeed || !canIncrease)
                 return;
 
-            speed += increaseSpeed;
+            speed += runIncreaseSpeed;
             animator.SetFloat(paramSpeed, speed);
         }
         private void DecreaseSpeed()
@@ -275,7 +276,7 @@ namespace JongJin
             if (runningController != null && runningController.isDebuff)
                 deBuffRate = 1.5f;
 
-            speed -= Time.deltaTime * decreaseSpeed * deBuffRate;
+            speed -= Time.deltaTime * runDecreaseSpeed * deBuffRate;
             animator.SetFloat(paramSpeed, speed);
         }
         private void HeartActive()
@@ -358,8 +359,10 @@ namespace JongJin
         IEnumerator OnDeBuffState()
         {
             deBuffParticles.Play();
-            speed -= decreaseFailSpeed;
+            speed = Mathf.Lerp(speed, failSpeed, 0.5f);
+            canIncrease = false;
             yield return new WaitForSeconds(runningController.NormalDeBuffTime);
+            canIncrease = true;
             deBuffParticles.Stop();
         }
     }

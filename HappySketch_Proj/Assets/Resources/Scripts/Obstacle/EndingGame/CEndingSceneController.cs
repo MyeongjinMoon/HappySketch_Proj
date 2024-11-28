@@ -15,10 +15,10 @@ namespace MyeongJin
 		[SerializeField] private CEndingResultState cEndingResultState;
 
 		private CEndingStateContext cEndingStateContext;
-		private EEndingGameState curState;
+		public EEndingGameState curState;
 
         // GameScene에서 isGameSuccess를 판단할 수 있는 게임 승리 변수를 정해줘야 함.
-        [HideInInspector] public bool isGameSuccess = false;
+        [HideInInspector] public bool isGameSuccess;
 
         // GameScene에서 topPlayerIndex 판단할 수 있는 1등 플레이어 변수를 정해줘야 함.
         [HideInInspector] public int topPlayerIndex = 0;
@@ -29,11 +29,16 @@ namespace MyeongJin
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.EndingPopupPanel);
 
-			cEndingEnterState = GetComponent<CEndingEnterState>();
-			cEndingAnimationState = GetComponent<CEndingAnimationState>();
-			cEndingResultState = GetComponent<CEndingResultState>();
+            isGameSuccess = false;
 
-			cEndingStateContext = new CEndingStateContext(this);
+            cEndingEnterState = GetComponent<CEndingEnterState>();
+            cEndingEnterState.isGameSuccess = isGameSuccess;
+            cEndingAnimationState = GetComponent<CEndingAnimationState>();
+            cEndingAnimationState.isGameSuccess = isGameSuccess;
+            cEndingResultState = GetComponent<CEndingResultState>();
+            cEndingResultState.isGameSuccess = isGameSuccess;
+
+            cEndingStateContext = new CEndingStateContext(this);
 			cEndingStateContext.Transition(cEndingEnterState);
 			curState = EEndingGameState.ENTERSCENE;
 		}

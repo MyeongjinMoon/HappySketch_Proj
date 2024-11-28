@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using static HakSeung.UIManager;
 
 namespace JongJin
@@ -11,6 +12,7 @@ namespace JongJin
     public class TailMissionState : MonoBehaviour, IGameState
     {
         // TODO<이종진> - 나중에 레벨 디자인 끝나면 SerializeField 지우기 필요 - 20241121
+        private readonly float ENDTIME = 0.0f;
         private readonly float startWarningBarX = -29.0f;
         private readonly float endWarningBarX = 29.0f;
         [SerializeField] private readonly float dinoPosDiff = 5.0f;
@@ -31,6 +33,7 @@ namespace JongJin
         private int attackCount;
         private float attackTime = 3f;
 
+        private float waitTime = 1.0f;
         private float flowTime = 0.0f;
         private float warningFlowTime = 0.0f;
         private float attackFlowTime = 0.0f;
@@ -38,9 +41,13 @@ namespace JongJin
         private int randomAttackPos = -1;
 
         private bool isFinish = false;
+        private bool isDelayStart = false;
         private bool isDelayFinish = false;
         public void EnterState()
         {
+
+            StartCoroutine(TutorialPopup(10.0f));
+
             isFinish = false;
             isDelayFinish = false;
 
@@ -54,7 +61,7 @@ namespace JongJin
         }
         public void UpdateState()
         {
-            if (isDelayFinish)
+            if (isDelayFinish || !isDelayStart)
                 return;
 
             flowTime += Time.deltaTime;
@@ -118,6 +125,27 @@ namespace JongJin
             randomAttackPos = -1;
         }
 
+        private IEnumerator TutorialPopup(float setTime)
+        {
+            isDelayStart = false;
+            yield return new WaitForSeconds(waitTime * 0.5f);
+
+            UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+
+            while (setTime > ENDTIME)
+            {
+                ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(setTime);
+                setTime -= Time.deltaTime;
+                yield return null;
+            }
+
+            ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(ENDTIME);
+
+            yield return new WaitForSeconds(waitTime);
+            UIManager.Instance.ClosePopupUI();
+
+            isDelayStart = true;
+        }
         public bool IsFinishMission(out bool success)
         {
             success = false;

@@ -16,17 +16,20 @@ namespace MyeongJin
         [SerializeField] private GameObject failedEndingObject;
 
         private Animator dinosaurAnimator;
+        private Animator[] endingPlayersAnimators;
 
         public override void EnterState()
         {
             if (isGameSuccess)
             {
+                endingPlayersAnimators = new Animator[endingPlayers.Length];
                 for (int i = 0; i < endingPlayers.Length; i++)
                 {
                     if (i == topPlayerIndex)
                         endingPlayers[i].GetComponent<Animator>().runtimeAnimatorController = playerController[0];
                     else
                         endingPlayers[i].GetComponent<Animator>().runtimeAnimatorController = playerController[1];
+                    endingPlayersAnimators[i] = endingPlayers[i].GetComponent<Animator>();
                 }
 
                 successEndingObject.SetActive(true);
@@ -44,7 +47,8 @@ namespace MyeongJin
         {
             if(isGameSuccess)
             {
-
+                if (!endingPlayersAnimators[0].GetCurrentAnimatorStateInfo(0).IsName("HumanSlowSprint") && (endingPlayersAnimators[0].speed <= 0))
+                    isFinish = true;
             }
             else
             {
