@@ -20,18 +20,29 @@ namespace JongJin
 		[SerializeField] private GameObject dinosaur;
 		[SerializeField] private GameObject[] crown;
 
+		[Header("Buff")]
+		[SerializeField] private ParticleSystem mapBuffParticle;
+		[SerializeField] private ParticleSystem[] buffParticles;
+		[SerializeField] private ParticleSystem[] deBuffParticles;
+
 		[Header("Time")]
 		[SerializeField] private float roundTimeLimit;
+		[SerializeField] private float buffTime = 5.0f;
+		[SerializeField] private float debuffTime = 5.0f;
+		[SerializeField] private float normalBuffTime = 3.0f;
+		[SerializeField] private float normalDeBuffTime = 3.0f;
 
-		[Header("Distance")]
+        [Header("Distance")]
 		[SerializeField] private float totalRunningDistance = 100.0f;
 		[SerializeField] private float minDistance = 5.0f;
 		[SerializeField] private float maxDistance = 15.0f;
 		[SerializeField] private float playerSpacing = 2.0f;
+		[SerializeField] private float buffDistance = 6.0f;
+		[SerializeField] private float deBuffDistance = 6.0f;
 
 		[Header("ProgressRate")]
 		[SerializeField] private float tailMissionStartRate = 15.0f;
-		// TODO<이종진> - 진행률에 따른 미션 이름 수정 필요 - 20241110
+		[SerializeField] private float tailMissionEndRate = 90.0f;
 		[SerializeField] private float firstMissionRate = 35.0f;
 		[SerializeField] private float secondMissionRate = 55.0f;
 		[SerializeField] private float thirdMissionRate = 80.0f;
@@ -40,6 +51,7 @@ namespace JongJin
 		[SerializeField] private GameObject runningViewCam;
 
 		[HideInInspector] public bool isMissionSuccess = false;
+		[HideInInspector] public bool isDebuff = false;
 
 		private int life = 3;
 		private float crownTimer = 0.0f;
@@ -57,6 +69,12 @@ namespace JongJin
 		private Vector3 prevDinosaurPosition;
 		private float firstRankerDistance = 0.0f;
 		private float lastRankerDistance = 0.0f;
+
+        public float RoundTimeLimit { get { return roundTimeLimit; } }
+		public float BuffTime { get { return buffTime; } }
+		public float NormalBuffTime {  get { return normalBuffTime; } }
+		public float NormalDeBuffTime { get { return normalDeBuffTime; } }
+		
 
         public float FirstRankerDistance { get { return firstRankerDistance; } }
 
@@ -89,7 +107,12 @@ namespace JongJin
 			SetInfo();
 			isRunning = true;
 
-			crownTimer = 0.0f;
+			if (isMissionSuccess)
+				StartCoroutine(OnBuff());
+			else
+				StartCoroutine(OnDeBuff());
+
+            crownTimer = 0.0f;
         }
 		public void UpdateState()
 		{
@@ -100,6 +123,9 @@ namespace JongJin
 
             if (!isPossibleTailMission && ProgressRate > tailMissionStartRate)
 				isPossibleTailMission = true;
+			if(isPossibleTailMission && ProgressRate > tailMissionEndRate)
+				isPossibleTailMission = false;
+
 			Move();
 			CalculateObjectDistance();
 			CalculateRank();
@@ -113,10 +139,13 @@ namespace JongJin
             UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
 
             isRunning = false;
+
+			EndBuffEffect();
+			EndDeBuffEffect();
         }
 		private void Move()
 		{
-			transform.position = Vector3.forward * firstRankerDistance;
+			transform.position = Vector3.forward * (Mathf.Lerp(transform.position.z, firstRankerDistance, 0.25f));
 		}
 
 		#region 씬 전환시 플레이어, 공룡 정보 Setting
@@ -125,7 +154,7 @@ namespace JongJin
 			float offset = 1.0f * (players.Length - 1) / 2.0f * playerSpacing;
 
 			for (int playerNum = 0; playerNum < players.Length; playerNum++)
-				prevPlayerPosition[playerNum] = new Vector3(offset + playerNum * -playerSpacing, 0.0f, 0.0f);
+				prevPlayerPosition[playerNum] = new Vector3(offset + playerNum * -playerSpacing, 0.15f, 0.0f);
 		}
 		private void SetInfo()
 		{
@@ -139,7 +168,7 @@ namespace JongJin
 		{
 			for (int playerNum = 0; playerNum < players.Length; playerNum++)
 				prevPlayerPosition[playerNum] =
-					new Vector3(players[playerNum].transform.position.x, players[playerNum].transform.position.y, players[playerNum].transform.position.z + 5.0f);
+					new Vector3(players[playerNum].transform.position.x, players[playerNum].transform.position.y + 0.15f, players[playerNum].transform.position.z + 5.0f);
 			prevDinosaurPosition = dinosaur.transform.position;
 		}
 		#endregion
@@ -242,6 +271,66 @@ namespace JongJin
             crown[1 - firstRankerId].gameObject.SetActive(false);
 			crown[firstRankerId].gameObject.SetActive(true);
 		}
+		#endregion
+
+		#region 버프 관련 함수 (미션씬에서 성공, 실패시)
+		IEnumerator OnBuff()
+		{
+			float curMaxDistance = maxDistance;
+			maxDistance += buffDistance;
+
+			StartBuffEffect();
+			yield return new WaitForSeconds(buffTime);
+			EndBuffEffect();
+
+			while (maxDistance > curMaxDistance)
+			{
+				maxDistance -= Time.deltaTime * 2.0f;
+				yield return null;
+			}
+
+			isMissionSuccess = false;
+		}
+		IEnumerator OnDeBuff()
+		{
+			float curMaxDistance = maxDistance;
+			maxDistance -= deBuffDistance;
+			isDebuff = true;
+
+			StartDeBuffEffect();
+			yield return new WaitForSeconds(debuffTime);
+			EndDeBuffEffect();
+
+            while (maxDistance < curMaxDistance)
+            {
+                maxDistance += Time.deltaTime * 2.0f;
+                yield return null;
+            }
+            isDebuff = false;
+		}
+
+		private void StartBuffEffect()
+		{
+			for (int playerNum = 0; playerNum < players.Length; playerNum++)
+				buffParticles[playerNum].Play();
+			mapBuffParticle.Play();
+		}
+		private void EndBuffEffect()
+		{
+            for (int playerNum = 0; playerNum < players.Length; playerNum++)
+                buffParticles[playerNum].Stop();
+            mapBuffParticle.Stop();
+        }
+        private void StartDeBuffEffect()
+        {
+            for (int playerNum = 0; playerNum < players.Length; playerNum++)
+                deBuffParticles[playerNum].Play();
+        }
+        private void EndDeBuffEffect()
+        {
+            for (int playerNum = 0; playerNum < players.Length; playerNum++)
+                deBuffParticles[playerNum].Stop();
+        }
         #endregion
 
         #region UI 관련 함수
