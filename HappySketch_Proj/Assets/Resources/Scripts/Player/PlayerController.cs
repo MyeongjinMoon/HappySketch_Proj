@@ -113,6 +113,7 @@ namespace JongJin
                 || (playerId == EPlayer.PLAYER2 && Input.GetKeyDown(KeyCode.UpArrow)))
             {
                 Jump();
+                SoundManager.instance.SFXPlay("Sounds/Jump");
             }
 
             if (curState == EPlayerState.RUNNING && gameSceneController != null)
