@@ -282,6 +282,7 @@ MonoBehaviour:
   cEndingEnterState: {fileID: 411905001}
   cEndingAnimationState: {fileID: 411905000}
   cEndingResultState: {fileID: 411904999}
+  curState: 0
   isGameSuccess: 0
   topPlayerIndex: 0
 --- !u!114 &411904999
@@ -296,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cac84920fb9adf46a94d5ce8b8df6d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameSuccess: 0
   image: {fileID: 1902923125}
   nextStageBtn: {fileID: 1902923127}
   restartBtn: {fileID: 1902923128}
@@ -313,6 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7140d43d8763f46829fb8f469ad7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameSuccess: 0
   dinosaur: {fileID: 97418399}
   endingPlayers:
   - {fileID: 2608606053858715378}
@@ -320,7 +323,7 @@ MonoBehaviour:
   playerController:
   - {fileID: 9100000, guid: 58d1c00f175c0de4a938debe317b273a, type: 2}
   - {fileID: 9100000, guid: 0e8d4863c8ec20b418ad37ad24fef82a, type: 2}
-  successEndingObject: {fileID: 0}
+  successEndingObject: {fileID: 319392398}
   failedEndingObject: {fileID: 1193902072}
 --- !u!114 &411905001
 MonoBehaviour:
@@ -334,6 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975122f8c89303e41b9c063322384134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameSuccess: 0
   fade: {fileID: 1559114217}
 --- !u!1001 &782283716
 PrefabInstance:
@@ -788,6 +792,7 @@ GameObject:
   - component: {fileID: 1083868231}
   - component: {fileID: 1083868230}
   - component: {fileID: 1083868233}
+  - component: {fileID: 1083868234}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -913,6 +918,30 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1083868234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083868229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a172e5ae8617b684e8a2e308ea629756, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dinosaur: {fileID: 97418399}
+  endingPlayer:
+  - {fileID: 2608606053858715378}
+  - {fileID: 4610570105862408534}
+  offsetX: 0
+  offsetY: 4
+  offsetZ: -10
+  playeroffsetX: 0.75
+  playeroffsetY: 1.25
+  playeroffsetZ: -3
+  CameraSpeed: 10
+  shakeOffset: {x: 1, y: 1, z: 0}
 --- !u!1 &1193902072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2553,15 +2582,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4610570105862408534}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.83915025, z: -0, w: 0.5438997}
-  m_LocalPosition: {x: 21.08, y: 0.21, z: 29.39}
+  m_LocalRotation: {x: 0, y: 0.976296, z: -0, w: -0.21643949}
+  m_LocalPosition: {x: 0.8, y: -1, z: -5.046034}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4761853243877584616}
   - {fileID: 4274873213962258963}
   m_Father: {fileID: 319392399}
-  m_LocalEulerAnglesHint: {x: 0, y: 114.101, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 205, z: 0}
 --- !u!4 &1356146701605471576
 Transform:
   m_ObjectHideFlags: 0
@@ -3108,6 +3137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5857948572533745646}
   - component: {fileID: 6021559905769906345}
+  - component: {fileID: 6021559905769906346}
   m_Layer: 0
   m_Name: EndingScenePlayer1
   m_TagString: Player1
@@ -4198,6 +4228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1316069733731054448}
   - component: {fileID: 3084699542988282775}
+  - component: {fileID: 4610570105862408535}
   m_Layer: 0
   m_Name: EndingScenePlayer2
   m_TagString: Player2
@@ -4205,6 +4236,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4610570105862408535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610570105862408534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9573ab4ad055314a843ec94f29246eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cDinosaurChase: {fileID: 1083868234}
 --- !u!1 &4662665941626606338
 GameObject:
   m_ObjectHideFlags: 0
@@ -4790,15 +4834,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2608606053858715378}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9429092, z: -0, w: 0.33304998}
-  m_LocalPosition: {x: 22.06, y: 0, z: 31.01}
+  m_LocalRotation: {x: 0, y: 0.9914449, z: 0, w: 0.13052626}
+  m_LocalPosition: {x: -0.8, y: -1.05, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1528618838920236703}
   - {fileID: 6774193675328447602}
   m_Father: {fileID: 319392399}
-  m_LocalEulerAnglesHint: {x: 0, y: 141.092, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 165, z: 0}
 --- !u!4 &5907917691260939212
 Transform:
   m_ObjectHideFlags: 0
@@ -4866,6 +4910,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6021559905769906346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608606053858715378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9573ab4ad055314a843ec94f29246eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cDinosaurChase: {fileID: 1083868234}
 --- !u!4 &6187750925415713195
 Transform:
   m_ObjectHideFlags: 0

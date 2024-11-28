@@ -50,7 +50,8 @@ namespace MyeongJin
 		{
             ShowResultPopup();
 
-			StartCoroutine(SetTable(SETTABLETIME));
+			if (isGameSuccess)
+				StartCoroutine(SetTable(SETTABLETIME));
 			StartCoroutine(SetButton(SETBUTTONTIME));
 		}
 		public override void ExitState()
@@ -61,8 +62,11 @@ namespace MyeongJin
 		{
 			// TODO <문명진> : 판넬 변경 조건 만들기
 			UIManager.Instance.ShowPopupUI(EPopupUIType.EndingPopupPanel.ToString());
-			((CUIEndingPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUIEndingPopup.EndingState.SUCCESS);
-		}
+			if (isGameSuccess)
+				((CUIEndingPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUIEndingPopup.EndingState.SUCCESS);
+			else
+				((CUIEndingPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUIEndingPopup.EndingState.FAILED);
+        }
 		private IEnumerator SetTable(float setTime)
 		{
 			while (setTime > ENDTIME)
