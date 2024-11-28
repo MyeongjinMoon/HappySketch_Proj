@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static HakSeung.UIManager;
 
@@ -67,6 +68,8 @@ namespace MyeongJin
                 topPlayerTime = cEndingSceneController.player2Time;
                 restPlayerTime = cEndingSceneController.player1Time;
             }
+
+			SetButton();
         }
 
 		public void EnterState()
@@ -150,6 +153,23 @@ namespace MyeongJin
 
 			tmpUGI.text = string.Format("{0:D2} : {1:D2} : {2:D2}", minute, second, millisecond);
         }
+		private void SetButton()
+		{
+			restartBtn.onClick.AddListener(OnClickRestart);
+            endGameBtn.onClick.AddListener(OnClickEndGame);
 
+        }
+        private void OnClickRestart()
+		{
+			SceneManager.LoadScene("StartScene");
+		}
+        private void OnClickEndGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit(); // 어플리케이션 종료
+#endif
+        }
     }
 }
