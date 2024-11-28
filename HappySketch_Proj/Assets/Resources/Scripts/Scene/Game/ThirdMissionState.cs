@@ -36,7 +36,7 @@ namespace JongJin
         public void ExitState()
         {
             ((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.Init();
-            UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
+           // UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
             RenderSettings.fog = false;
 
             spawnController.canSpawn = true;

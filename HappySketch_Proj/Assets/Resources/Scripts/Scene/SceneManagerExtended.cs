@@ -85,7 +85,7 @@ namespace HakSeung
         public void LoadScene(ESceneType type)
         {
             // TODO<이종진> - Scene 전환시 클리어에서 오류 발생, 의논 필요 - 20241118
-            // CurrentScene.Clear();
+           // UIManager.Instance.ClearAllUI();
             SceneManager.LoadScene(SceneTypeToString(type));
         }
 
@@ -109,6 +109,7 @@ namespace HakSeung
         public IEnumerator GoToGameScene()
         {
             InputManager.Instance.KeyAction = null;
+            UIManager.Instance.ClearAllUI();
             yield return new WaitForSeconds(3.0f);
             LoadScene(ESceneType.GAME);
         }

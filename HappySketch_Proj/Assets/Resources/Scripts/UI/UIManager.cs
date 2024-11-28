@@ -92,13 +92,19 @@ namespace HakSeung
         //Todo<이학승> 임시로 기본 Find를 통해 받아옴 추후 Tag던 이름이던 참조 해야됨
         private void Initialzie()
         {
-            MainCanvas = GameObject.Find("MainCanvas");
             uiPrefabs = new Dictionary<string, UnityEngine.Object>();
             uiObjs = new Dictionary<string, CUIBase>();
             popupUIStack = new Stack<CUIPopup>();
             SceneUIList = new List<CUIScene>();
+            
+        }
+
+        public void MainCanvasSetting()
+        {
+            MainCanvas = GameObject.Find("MainCanvas");
             for (int i = 0; i < MAXSCENEUICOUNT; i++)
                 SceneUIList.Add(null);
+            Debug.Log($"CreateSceneUI 호출. sceneUIIndex: {SceneUIList.Count}");
         }
 
         public UnityEngine.Object UICashing<T>(System.Type type, int enumIndex) where T : UnityEngine.Object
@@ -109,7 +115,10 @@ namespace HakSeung
             string uiName = type.GetEnumName(enumIndex);
 
             if (uiPrefabs.ContainsKey(uiName))
+            {
+                Debug.Log($"캐싱된 {uiName}이 있습니다");
                 return uiPrefabs[uiName];
+            }
 
             T uiObj = Resources.Load<T>(PREFABSPATH + $"{uiName}");
 
@@ -131,11 +140,13 @@ namespace HakSeung
                 return;
             }
 
-            if (SceneUIList[sceneUIIndex] != null)
+            if (SceneUIList[sceneUIIndex] != null && SceneUIList[sceneUIIndex].gameObject != null)
             {
                 SceneUIList[sceneUIIndex].Hide();
                 Destroy(SceneUIList[sceneUIIndex].gameObject);
+                SceneUIList[sceneUIIndex] = null;
             }
+
 
             if (sceneUI = uiPrefabs[key].GetComponent<CUIScene>())
             {
@@ -177,10 +188,16 @@ namespace HakSeung
 
             for (int i = 0; i < SceneUIList.Count; i++)
             {
+                if (SceneUIList[i] == null)
+                    continue;
+
                 SceneUIList[i].Hide();
                 Destroy(SceneUIList[i].gameObject);
+
+
             }
             SceneUIList.Clear();
+
         }
 
 
@@ -270,7 +287,10 @@ namespace HakSeung
         public void CloseAllPopupUI()
         {
             while (popupUIStack.Count > 0)
+            {
+                Debug.Log(popupUIStack.Count);
                 ClosePopupUI();
+            }
         }
 
         public void ClearUIObj()
@@ -292,8 +312,8 @@ namespace HakSeung
 
         public void ClearAllUI()
         {
-            ClearUIObj();
             ClearSceneUI();
+            ClearUIObj();
         }
 
 

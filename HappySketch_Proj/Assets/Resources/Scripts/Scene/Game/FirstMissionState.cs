@@ -46,7 +46,7 @@ namespace JongJin
 		public void ExitState()
 		{
 			((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.Init();
-			UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
+			//UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
 			player1.transform.localScale = player1Scale;
 			player2.transform.localScale = player2Scale;
             spawnController.canSpawn = true;
