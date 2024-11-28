@@ -114,8 +114,11 @@ namespace JongJin
 					}
 					break;
 				case EGameState.TAILMISSION:
-					if(tailMissionState.IsFinishMission(out runningState.isMissionSuccess))
+					if (tailMissionState.IsFinishMission(out runningState.isMissionSuccess))
+					{
+						DecreaseLife(runningState.isMissionSuccess);
 						UpdateState(EGameState.RUNNING);
+					}
 					break;
 				case EGameState.FIRSTMISSION:        
 					if (firstMissionState.IsFinishMission(out runningState.isMissionSuccess))        
@@ -182,6 +185,13 @@ namespace JongJin
 			curLookAt.transform.position = lookAt[(int)curState].transform.position;
 			curFollow.transform.position = follow[(int)curState].transform.position;
 		}
+
+		private void DecreaseLife(bool isSuccessMission)
+		{
+			if (isSuccessMission)
+				return;
+            runningState.Life--;
+        }
 
 		//TODO <이학승> 씬 전환시 작동 될 코드
 		//private void DestroyUI;

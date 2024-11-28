@@ -54,8 +54,12 @@ namespace JongJin
 		[HideInInspector] public bool isMissionSuccess = false;
 		[HideInInspector] public bool isDebuff = false;
 
-		private int life = 3;
+		public int Life { get; set; } = 3;
 		private float crownTimer = 0.0f;
+		private float totalRoundTime = 0.0f;
+		private float[] playersClearTime;
+		private int isClearStage = 0;
+		private bool isFinish = false;
 
 		private bool isRunning = true;
         private bool isPossibleTailMission = false;
@@ -80,6 +84,7 @@ namespace JongJin
         public float FirstRankerDistance { get { return firstRankerDistance; } }
 
         public float ProgressRate { get { return firstRankerDistance / totalRunningDistance * 100.0f; } }
+		public float ProgressEndRate { get { return lastRankerDistance / totalRunningDistance * 100.0f; } }
 
 		public float DinosaurSpeed { get { return dinosaurSpeed; } }
 		private float dinosaurSpeed = 2.0f;
@@ -96,10 +101,13 @@ namespace JongJin
         private void Start()
         {
             InitPlayerPos();
+
+			Life = 3;
+			totalRoundTime = roundTimeLimit;
+			playersClearTime = new float[players.Length];
         }
         public void EnterState()
 		{
-
             dinosaurSpeed = dinosaur.GetComponent<DinosaurController>().Speed;
             runningViewCam.GetComponent<CinemachineVirtualCamera>().Priority = 20;
 
@@ -112,13 +120,20 @@ namespace JongJin
 			if (isMissionSuccess)
 				StartCoroutine(OnBuff());
 			else
+			{
+                SetHeart();
 				StartCoroutine(OnDeBuff());
+            }
 
             crownTimer = 0.0f;
         }
 		public void UpdateState()
 		{
-			roundTimeLimit -= Time.deltaTime;
+            if (isFinish)
+                return;
+			EndGame();
+
+            roundTimeLimit -= Time.deltaTime;
 
 			UpdateUI();
 			UpdateCrown();
@@ -131,6 +146,7 @@ namespace JongJin
 			Move();
 			CalculateObjectDistance();
 			CalculateRank();
+
 		}
 
 		public void ExitState()
@@ -187,10 +203,12 @@ namespace JongJin
 		}
 		private void CalculateRank()
 		{
+			if (ProgressRate >= 100.0f)
+				return;
+
 			firstRankerDistance = playerDistance[0];
 			lastRankerDistance = playerDistance[0];
 			firstRankerId = 0;
-
 
             for (int playerNum = 1; playerNum < players.Length; playerNum++)
 			{
@@ -350,7 +368,7 @@ namespace JongJin
         }
 		private void SetProgressBar()
 		{
-			((CUIRunningCanvas)UIManager.Instance.CurSceneUI).SetProgressBar(ProgressRate);
+			((CUIRunningCanvas)UIManager.Instance.CurSceneUI).SetProgressBar(ProgressEndRate);
 		}
 		private void SetPlayerImage()
 		{
@@ -375,7 +393,38 @@ namespace JongJin
 		{
 			((CUIRunningCanvas)UIManager.Instance.CurSceneUI).SetTimer(roundTimeLimit);
         }
+		private void SetHeart()
+		{
+            ((CUIRunningCanvas)UIManager.Instance.CurSceneUI).SetHeart(Life);
+        }
 
+        #endregion
+
+        #region 스테이지 종료
+        private void EndGame()
+		{
+			if (ProgressRate >= 100.0f && playersClearTime[firstRankerId] == 0) playersClearTime[firstRankerId] = totalRoundTime - roundTimeLimit;
+			if (ProgressEndRate >= 100.0f && playersClearTime[1 - firstRankerId] == 0) playersClearTime[1 - firstRankerId] = totalRoundTime - roundTimeLimit;
+
+			if (Life > 0 && roundTimeLimit > 0.0f && ProgressEndRate < 100.0f)
+				return;
+
+			isFinish = true;
+
+			isClearStage = 0;
+			if (ProgressEndRate >= 100.0f)
+				isClearStage = 1;
+
+			SendEndingInfo();
+            StartCoroutine(SceneManagerExtended.Instance.GoToEndingScene());
+        }
+
+		private void SendEndingInfo()
+		{
+			PlayerPrefs.SetInt("ClearStage", isClearStage);
+			PlayerPrefs.SetFloat("Player1Time", (playersClearTime[0]));
+			PlayerPrefs.SetFloat("Player2Time",(playersClearTime[1]));
+		}
         #endregion
     }
 }

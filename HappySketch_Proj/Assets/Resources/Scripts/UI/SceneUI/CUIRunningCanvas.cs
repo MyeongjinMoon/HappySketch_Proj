@@ -36,6 +36,11 @@ namespace HakSeung
                     playerImagepos[i].anchoredPosition = new Vector2(playerPosX, playerImagepos[i].anchoredPosition.y);*/
         }
 
+        public void SetHeart(int curLife)
+        {
+            heartImages[curLife].enabled = false;
+        }
+
         public void SetProgressBar(float progressRate)
         {
             progressBarImage.fillAmount = progressRate / 100.0f;
