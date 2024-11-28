@@ -8,23 +8,30 @@ namespace HakSeung
 {
     public class Test : MonoBehaviour
     {
-
+        private bool testBool;
+        private int index = 3;
         private void Awake()
         {
             //사용할 UI 미리 Cashing 이 과정을 씬 초반에 무조건 해주어야 한다.
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.RunningCanvas);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.EventScenePanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.TutorialPopupPanel);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
+
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 
+
+            testBool = false;
 
         }
 
         void Start()
         {
             //씬 UI 생성 사용할 씬들을 미리 준비해 놓기. Default로 0번은 켜진 상태로 유지됨
-            UIManager.Instance.CreateSceneUI(UIManager.ETestType.EventScenePanel.ToString(), (int)UIManager.ETestType.RunningCanvas);
-            UIManager.Instance.CreateSceneUI(UIManager.ETestType.RunningCanvas.ToString(), (int)UIManager.ETestType.EventScenePanel);
+            UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.EventScenePanel.ToString(), (int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.RunningCanvas.ToString(), (int)UIManager.ESceneUIType.RunningCanvas);
+            UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.TailMissionPanel.ToString(), (int)UIManager.ESceneUIType.TailMissionPanel);
+
         }
 
         // Update is called once per frame
@@ -44,7 +51,7 @@ namespace HakSeung
 
             if (Input.GetKeyDown(KeyCode.K))
             {
-                UIManager.Instance.ShowPopupUI(UIManager.ETestType.FadePopupCanvas.ToString());
+                UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
             }
 
             //팝업 UI 닫기
@@ -65,6 +72,14 @@ namespace HakSeung
             {
                 UIManager.Instance.SceneUISwap(0);
             }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                UIManager.Instance.SceneUISwap(2);
+            }
+
+            if(Input.GetKeyDown(KeyCode.F))
+                ((CUITailMissionPanel)UIManager.Instance.CurSceneUI).OnFailedEvent(3 - index--);
             #endregion
 
             #region 씬 넘어갈 시 무조건 호출해주어야 하는 함수들
@@ -79,13 +94,22 @@ namespace HakSeung
             #endregion
 
 
-
-            //노트 값 설정
+            #region 팝업 스왑 테스트
+            if(Input.GetKeyDown(KeyCode.J))
+            {
+                if(testBool)
+                    UIManager.Instance.SwapPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
+                else
+                    UIManager.Instance.SwapPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+                testBool = !testBool;
+            }
+            #endregion
+            /*//노트 값 설정
             //((CUIEventPanel)UIManager.Instance.CurSceneUI).playerNotes[1].Show();
             //프로그래스 바의 맥스 값 설정
             ((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.MaxProgress = 100f;
             //프로그래스 바 값 수정
-            ((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.FillProgressBar(10f);
+            ((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.FillProgressBar(10f);*/
         }
     }
 }

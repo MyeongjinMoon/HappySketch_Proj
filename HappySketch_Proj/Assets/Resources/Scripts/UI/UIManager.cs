@@ -15,7 +15,7 @@ namespace HakSeung
         {
             RunningCanvas,
             EventScenePanel,
-
+            TailMissionPanel,
             END
         }
 
@@ -44,7 +44,7 @@ namespace HakSeung
 
         private const string UIMANGEROBJECTNAME = "_UIManager";
         private const string PREFABSPATH = "Prefabs/UI/";
-        private const int MAXSCENEUICOUNT = 2;
+        private const int MAXSCENEUICOUNT = 3;
 
         private GameSceneController gameSceneController;
 
@@ -228,6 +228,18 @@ namespace HakSeung
             return true;
 
         }
+
+        public void SwapPopupUI(String key)
+        {
+            if (popupUIStack.Count == 0)
+                ShowPopupUI(key);
+            else 
+            {
+                ClosePopupUI(CurrentPopupUI);
+                ShowPopupUI(key);
+            }
+        }
+
 
         public void ClosePopupUI()
         {

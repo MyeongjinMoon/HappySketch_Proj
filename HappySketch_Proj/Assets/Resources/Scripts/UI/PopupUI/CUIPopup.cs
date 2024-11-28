@@ -6,6 +6,20 @@ namespace HakSeung
 {
     public abstract class CUIPopup : CUIBase
     {
+        protected bool isPlayingPopup = false;
+
+        public override void Show()
+        {
+            base.Show();
+            isPlayingPopup = true;
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            isPlayingPopup = false;
+        }
+
         public virtual void ClosePopupUI()
         {
             // 상속받는애들은 정보 초기화 처리 해주기
