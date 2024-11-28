@@ -67,7 +67,7 @@ namespace JongJin
 			gameStateContext.Transition(runningState);
 			curState = EGameState.RUNNING;
 
-		}
+        }
 
 		private void Start()
 		{
@@ -75,11 +75,13 @@ namespace JongJin
 			UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.EventScenePanel.ToString(), (int)UIManager.ESceneUIType.EventScenePanel);
 
             SoundManager.instance.BackgroundMusicPlay(runningStateBackgroundMusic);
+            SoundManager.instance.SFXPlay("Sounds/JungleAmbience");
         }
 
 		private void Update()
 		{
-			switch (curState)
+
+            switch (curState)
 			{
 				case EGameState.CUTSCENE:
 					if (cutSceneState.IsFinishedCutScene())

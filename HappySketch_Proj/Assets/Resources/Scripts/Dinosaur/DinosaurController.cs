@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jaehoon;
 using UnityEngine;
 
 namespace JongJin
@@ -24,6 +25,12 @@ namespace JongJin
         private void Move()
         {
             transform.Translate(transform.forward * speed * Time.deltaTime);
+        }
+
+        IEnumerator countTime(float delyTime)
+        {
+            yield return new WaitForSeconds(1.0f);
+            SoundManager.instance.SFXPlay("Sounds/PlayerJump");
         }
     }
 }
