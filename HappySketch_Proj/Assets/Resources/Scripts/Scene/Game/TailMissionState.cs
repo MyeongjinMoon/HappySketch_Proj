@@ -45,7 +45,6 @@ namespace JongJin
         private bool isDelayFinish = false;
         public void EnterState()
         {
-
             StartCoroutine(TutorialPopup(10.0f));
 
             isFinish = false;
@@ -114,7 +113,8 @@ namespace JongJin
         }
 
         public void ExitState()
-        {
+        { 
+            //UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
             UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
 
             dinosaur.SetActive(false);
@@ -128,9 +128,9 @@ namespace JongJin
         private IEnumerator TutorialPopup(float setTime)
         {
             isDelayStart = false;
-            yield return new WaitForSeconds(waitTime * 0.5f);
-
             UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+
+            yield return new WaitForSeconds(waitTime);
 
             while (setTime > ENDTIME)
             {
@@ -141,8 +141,8 @@ namespace JongJin
 
             ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(ENDTIME);
 
-            yield return new WaitForSeconds(waitTime);
             UIManager.Instance.ClosePopupUI();
+            yield return new WaitForSeconds(waitTime);
 
             isDelayStart = true;
         }

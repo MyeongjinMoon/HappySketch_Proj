@@ -65,7 +65,7 @@ namespace JongJin
             if(PlayerActionCheak(0) && PlayerActionCheak(1))
                 StartCoroutine(ActionSuccessTimer());
             
-        }
+       }
 
         public void ExitState()
         {
@@ -104,7 +104,7 @@ namespace JongJin
                     else
                         currentRunningTimes[playerNum] = 0;
 
-                    actionSuccessCounts[playerNum] = (int)currentRunningTimes[playerNum]; 
+                    actionSuccessCounts[playerNum] = (int)currentRunningTimes[playerNum];
 
                     break;
                case CUITutorialPopup.TutorialState.JUMP:

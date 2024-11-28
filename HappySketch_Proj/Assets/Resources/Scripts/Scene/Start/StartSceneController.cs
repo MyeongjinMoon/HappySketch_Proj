@@ -29,10 +29,10 @@ namespace JongJin
             startStateContext = new StartStateContext(this);
             //startStateContext.Transition(storyDescriptionState);
             //curState = EStartGameState.STORYDESCRIPTION;
-            /*startStateContext.Transition(tutorialDescriptionState);
-            curState = EStartGameState.TUTORIALDESCRIPTION;*/
-            startStateContext.Transition(storyCutSceneState);
-            curState = EStartGameState.STORYCUTSCENE;
+            startStateContext.Transition(tutorialDescriptionState);
+            curState = EStartGameState.TUTORIALDESCRIPTION;
+            /*startStateContext.Transition(storyCutSceneState);
+            curState = EStartGameState.STORYCUTSCENE;*/
         }
         private void Update()
         {
@@ -51,10 +51,9 @@ namespace JongJin
                         UpdateState(EStartGameState.TUTORIALACTION);
                     break;
                 case EStartGameState.TUTORIALACTION:
-                    //if(Á¶°Ç)
-                    //  UpdateState(EStartGameState.TUTORIALDESCRIPTION);
-                    //else
-                    //  
+                    if(tutorialActionState.IsFinishedAction())
+                        UpdateState(EStartGameState.TUTORIALDESCRIPTION);
+
                     break;
             }
             startStateContext.CurrentState.UpdateState();
