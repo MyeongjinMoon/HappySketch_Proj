@@ -29,8 +29,10 @@ namespace MyeongJin
 
         private void Awake()
 		{
-            //UI Ä³½Ì 
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
+            //UI Ä³½Ì
+            UIManager.Instance.MainCanvasSetting();
+
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.EndingPopupPanel);
 
             cEndingEnterState = GetComponent<CEndingEnterState>();
@@ -44,13 +46,9 @@ namespace MyeongJin
 			cEndingStateContext.Transition(cEndingEnterState);
 			curState = EEndingGameState.ENTERSCENE;
 
-            //isGameSuccess = Convert.ToBoolean(PlayerPrefs.GetInt("ClearStage"));
-            //player1Time = PlayerPrefs.GetFloat("Player1Time");
-            //player2Time = PlayerPrefs.GetFloat("Player2Time");
-
-            isGameSuccess = false;
-            player1Time = 100.5f;
-            player2Time = 120.6f;
+            isGameSuccess = Convert.ToBoolean(PlayerPrefs.GetInt("ClearStage"));
+            player1Time = PlayerPrefs.GetFloat("Player1Time");
+            player2Time = PlayerPrefs.GetFloat("Player2Time");
 
             topPlayerIndex = (player1Time < player2Time) ? 0 : 1;
         }
