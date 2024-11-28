@@ -2,6 +2,7 @@ using HakSeung;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static HakSeung.CUITutorialPopup;
 
 namespace JongJin
 {
@@ -19,6 +20,7 @@ namespace JongJin
 
         private void Awake()
         {
+            UIManager.Instance.MainCanvasSetting();
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
 
             storyDescriptionState = GetComponent<StoryDescriptionState>();
@@ -51,9 +53,12 @@ namespace JongJin
                         UpdateState(EStartGameState.TUTORIALACTION);
                     break;
                 case EStartGameState.TUTORIALACTION:
-                    if(tutorialActionState.IsFinishedAction())
+                    if(tutorialActionState.IsFinishedAction() && tutorialActionState.CurrentTutorialState != CUITutorialPopup.TutorialState.HEART)
                         UpdateState(EStartGameState.TUTORIALDESCRIPTION);
-
+                    else if(tutorialActionState.CurrentTutorialState == CUITutorialPopup.TutorialState.HEART)
+                    {
+                        StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
+                    }
                     break;
             }
             startStateContext.CurrentState.UpdateState();

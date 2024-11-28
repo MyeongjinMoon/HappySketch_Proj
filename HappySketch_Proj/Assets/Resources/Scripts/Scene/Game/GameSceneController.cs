@@ -42,12 +42,19 @@ namespace JongJin
 
 		private void Awake()
 		{
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
+			UIManager.Instance.MainCanvasSetting();
+            
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 
-			cutSceneState = GetComponent<CutSceneState>();
+            UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.RunningCanvas.ToString(), (int)UIManager.ESceneUIType.RunningCanvas);
+            UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.EventScenePanel.ToString(), (int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.TailMissionPanel.ToString(), (int)UIManager.ESceneUIType.TailMissionPanel);
+
+            cutSceneState = GetComponent<CutSceneState>();
 			runningState = GetComponent<RunningState>();
 			tailMissionState = GetComponent<TailMissionState>();
 			firstMissionState = GetComponent<FirstMissionState>();
@@ -71,9 +78,7 @@ namespace JongJin
 
 		private void Start()
 		{
-			UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.RunningCanvas.ToString(), (int)UIManager.ESceneUIType.RunningCanvas);
-			UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.EventScenePanel.ToString(), (int)UIManager.ESceneUIType.EventScenePanel);
-
+			
             SoundManager.instance.BackgroundMusicPlay(runningStateBackgroundMusic);
         }
 
@@ -145,19 +150,24 @@ namespace JongJin
 			{
 				case EGameState.RUNNING:
 					gameStateContext.Transition(runningState);
-					break;
+                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.RunningCanvas);
+                    break;
 				case EGameState.TAILMISSION:
 					gameStateContext.Transition(tailMissionState);
-					break;
+                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.TailMissionPanel);
+                    break;
 				case EGameState.FIRSTMISSION:
 					gameStateContext.Transition(firstMissionState);
-					break;
+                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
+                    break;
 				case EGameState.SECONDMISSION:
 					gameStateContext.Transition(secondMissionState);
-					break;
+                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
+                    break;
 				case EGameState.THIRDMISSION:
 					gameStateContext.Transition(thirdMissionState);
-					break;
+                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
+                    break;
 			}
 		}
 

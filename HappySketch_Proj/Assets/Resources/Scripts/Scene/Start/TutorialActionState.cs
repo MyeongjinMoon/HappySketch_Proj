@@ -8,6 +8,7 @@ namespace JongJin
 {
     public class TutorialActionState : MonoBehaviour, IGameState
     {
+        public CUITutorialPopup.TutorialState CurrentTutorialState { get { return tutorialState; } }
         [SerializeField]private TutorialPlayerController[] playerController = new TutorialPlayerController[2];
 
         private CUITutorialPopup.TutorialState tutorialState = CUITutorialPopup.TutorialState.STORY;
@@ -23,7 +24,7 @@ namespace JongJin
 
         private float runningStartTime = 0;
 
-        private float runningSuccessSpeed = 8f;
+        private float runningSuccessSpeed = 5f;
 
         private bool prevPlayerActionTrigger;
 
@@ -58,19 +59,17 @@ namespace JongJin
             for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
                 playerController[playerIndex].PlayerReset(tutorialState);
 
+            
             Debug.Log(tutorialState.ToString() + "상태");
         }
         public void UpdateState()
         {
             if(PlayerActionCheak(0) && PlayerActionCheak(1))
                 StartCoroutine(ActionSuccessTimer());
-            
-       }
+        }
 
         public void ExitState()
         {
-            
-
             if (tutorialState == CUITutorialPopup.TutorialState.HEART)
             {
                 for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
@@ -78,6 +77,7 @@ namespace JongJin
                 if (SceneManagerExtended.Instance.CheckReady())
                     StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
             } 
+
         }
 
         // 임시
