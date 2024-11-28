@@ -10,6 +10,8 @@ namespace MyeongJin
         private CEndingSceneController cEndingSceneController;
 
         protected int topPlayerIndex;
+        protected float topPlayerTime;
+        protected float restPlayerTime;
         protected bool isFinish = false;
         public bool isGameSuccess;
 
@@ -18,6 +20,17 @@ namespace MyeongJin
             cEndingSceneController = GameObject.Find("EndingSceneController").GetComponent<CEndingSceneController>();
             isGameSuccess = cEndingSceneController.isGameSuccess;
             topPlayerIndex = cEndingSceneController.topPlayerIndex;
+
+            if (topPlayerIndex == 0)
+            {
+                topPlayerTime = cEndingSceneController.player1Time;
+                restPlayerTime = cEndingSceneController.player2Time;
+            }
+            else
+            {
+                topPlayerTime = cEndingSceneController.player2Time;
+                restPlayerTime = cEndingSceneController.player1Time;
+            }
         }
 
         public virtual void EnterState()
