@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -880,8 +880,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiName: EndingPopupPanel
   endingImage: {fileID: 4710119818939844396}
-  successSprite: {fileID: 21300000, guid: b36b2ded4cd1f03458d49d819b35f04c, type: 3}
-  failedSprite: {fileID: 21300000, guid: b912830dea0c7f24f999ff291d7d7009, type: 3}
+  successSprite: {fileID: 21300000, guid: 049cc4b3b364bb049a9efe002afaa197, type: 3}
+  failedSprite: {fileID: 21300000, guid: ca473091352b3414d9c3101d238d075a, type: 3}
   effectDuration: 0
   panelImage: {fileID: 5735533930544763258}
 --- !u!1 &4277719825123203374
@@ -1219,7 +1219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b36b2ded4cd1f03458d49d819b35f04c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 049cc4b3b364bb049a9efe002afaa197, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

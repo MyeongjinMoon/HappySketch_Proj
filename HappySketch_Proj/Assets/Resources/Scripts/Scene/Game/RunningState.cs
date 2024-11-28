@@ -154,8 +154,7 @@ namespace JongJin
 			SaveInfo();
             runningViewCam.GetComponent<CinemachineVirtualCamera>().Priority = 16;
 
-            //UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
-            UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
+            //UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
 
             isRunning = false;
 

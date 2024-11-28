@@ -15,7 +15,7 @@ namespace JongJin
         private float time = 0.0f;
         private float fTime = 1.0f;
 
-        private const int STARTTIME = 10;
+        private const int STARTTIME = 0;
         private const int ENDTIME = 0;
 
         private CUITutorialPopup.TutorialState tutorialState = CUITutorialPopup.TutorialState.STORY;

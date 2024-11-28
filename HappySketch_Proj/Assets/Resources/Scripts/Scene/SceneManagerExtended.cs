@@ -26,7 +26,7 @@ namespace HakSeung
 
 
         /// <summary>
-        /// Instance¸¦ ¹Þ¾Æ¿Í ¾²¹Ç·Î ¾îµð¼±°¡¿¡¼­ È£ÃâÇØÁÖ¾î¾ßÇÑ´Ù.
+        /// Instanceï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ð¼±°ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½Ñ´ï¿½.
         /// </summary>
         public static SceneManagerExtended Instance
         {
@@ -55,9 +55,9 @@ namespace HakSeung
             DontDestroyOnLoad(this.gameObject);
         }
         /// <summary>
-        ///  ¾Àº° ÀÌ¸§À» º¯È¯ÇÏ´Â ÄÚµå ¼öÁ¤ÇÊ¿ä
-        ///  SceneµéÀÇ ÀÌ¸§À» ¹Ì¸® °¡Á®¿À´Â ¹æ¹ýÀ» ¸ð¸£°Ú¾î¼­ ÀÏ´Ü ÀÌ ÄÚµå¸¦ ÅëÇØ typeÀ» ³ÖÀ¸¸é LoadScene¿¡ ÀÌ¿ëÇÒ ¼ö ÀÖµµ·Ï ÇØ³õ¾ÒÀ½
-        ///  SceneÀ» ¹Ì¸® ¸¸µé¾î ³õ°í ²¯´Ù Å°´Â ¹æ½ÄÀÎ°Ç°¡??
+        ///  ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½
+        ///  Sceneï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ð¸£°Ú¾î¼­ ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½Úµå¸¦ ï¿½ï¿½ï¿½ï¿½ typeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ LoadSceneï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½
+        ///  Sceneï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Î°Ç°ï¿½??
         /// </summary>
         public string SceneTypeToString(ESceneType type)
         {
@@ -84,11 +84,8 @@ namespace HakSeung
 
         public void LoadScene(ESceneType type)
         {
-            // TODO<ÀÌÁ¾Áø> - Scene ÀüÈ¯½Ã Å¬¸®¾î¿¡¼­ ¿À·ù ¹ß»ý, ÀÇ³í ÇÊ¿ä - 20241118
-            // CurrentScene.Clear();
-            StopAllCoroutines();
-            //UIManager.Instance.ClearAllUI();
-            
+            // TODO<ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½> - Scene ï¿½ï¿½È¯ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½, ï¿½Ç³ï¿½ ï¿½Ê¿ï¿½ - 20241118
+
             SceneManager.LoadScene(SceneTypeToString(type));
         }
 
@@ -102,7 +99,7 @@ namespace HakSeung
         }
         public bool CheckReady()
         {
-            // TODO<ÀÌÁ¾Áø> - ¸ÅÁ÷ »ó¼ö ¼öÁ¤ ÇÊ¿ä / ÀÓ½Ã 2¸íÀÇ ÇÃ·¹ÀÌ¾î¶ó°í °¡Á¤ÇÏ°í ÄÚµå ÀÛ¼º - 20241118
+            // TODO<ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½> - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ / ï¿½Ó½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Úµï¿½ ï¿½Û¼ï¿½ - 20241118
             for (int playerNum = 0; playerNum < 2; playerNum++)
                 if (!isPlayersReady[playerNum]) 
                     return false;
@@ -112,6 +109,7 @@ namespace HakSeung
         public IEnumerator GoToGameScene()
         {
             InputManager.Instance.KeyAction = null;
+            UIManager.Instance.ClearAllUI();
             yield return new WaitForSeconds(3.0f);
             LoadScene(ESceneType.GAME);
         }

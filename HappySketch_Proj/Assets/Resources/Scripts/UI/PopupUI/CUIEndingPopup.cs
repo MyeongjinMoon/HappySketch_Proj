@@ -36,8 +36,8 @@ namespace MyeongJin
         {
             base.Show();
             StartCoroutine(PlayPopupEffect());
-            if (panelImage.color.a != 0.392f)
-                panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0.392f);
+            if (panelImage.color.a != 0f)
+                panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
         }
 
         protected override IEnumerator PlayPopupEffect()

@@ -29,8 +29,10 @@ namespace MyeongJin
 
         private void Awake()
 		{
-            //UI Ä³½Ì 
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
+            //UI Ä³½Ì
+            UIManager.Instance.MainCanvasSetting();
+
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.EndingPopupPanel);
 
             cEndingEnterState = GetComponent<CEndingEnterState>();

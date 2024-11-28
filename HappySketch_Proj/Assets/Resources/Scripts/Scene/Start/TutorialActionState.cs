@@ -8,6 +8,7 @@ namespace JongJin
 {
     public class TutorialActionState : MonoBehaviour, IGameState
     {
+        public CUITutorialPopup.TutorialState CurrentTutorialState { get { return tutorialState; } }
         [SerializeField]private TutorialPlayerController[] playerController = new TutorialPlayerController[2];
 
         private CUITutorialPopup.TutorialState tutorialState = CUITutorialPopup.TutorialState.STORY;
@@ -58,21 +59,28 @@ namespace JongJin
             for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
                 playerController[playerIndex].PlayerReset(tutorialState);
 
-            Debug.Log(tutorialState.ToString() + "»óÅÂ");
+            
+            Debug.Log(tutorialState.ToString() + "ï¿½ï¿½ï¿½ï¿½");
         }
         public void UpdateState()
         {
             if(PlayerActionCheak(0) && PlayerActionCheak(1))
                 StartCoroutine(ActionSuccessTimer());
-            
-       }
+        }
 
         public void ExitState()
         {
-            
+            if (tutorialState == CUITutorialPopup.TutorialState.HEART)
+            {
+                for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
+                    SceneManagerExtended.Instance.SetReady(playerIndex, true);
+                if (SceneManagerExtended.Instance.CheckReady())
+                    StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
+            } 
+
         }
 
-        // ÀÓ½Ã
+        // ï¿½Ó½ï¿½
         private bool CurrentTutorialActionCheck()
         {
             return true;
@@ -107,7 +115,7 @@ namespace JongJin
                     if (playerController[playerNum].ActionTrigger && !prevPlayerActionTrigger)
                     {
                         ++actionSuccessCounts[playerNum];
-                        Debug.Log("Á¡ÇÁ ÆÇ´Ü Áß");
+                        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½");
                     }
 
                     if (prevPlayerActionTrigger != playerController[playerNum].ActionTrigger)
@@ -125,7 +133,7 @@ namespace JongJin
         }
         private IEnumerator ActionSuccessTimer()
         {
-            //Success Ç¥½Ã ¶ç¿ì±â 
+            //Success Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
             if (tutorialState != CUITutorialPopup.TutorialState.HEART)
             {
                 yield return new WaitForSeconds(successWaitTime);
