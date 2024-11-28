@@ -40,6 +40,9 @@ namespace JongJin
                 case CUITutorialPopup.TutorialState.JUMP:
                     tutorialState = CUITutorialPopup.TutorialState.HEART;
                     break;
+                case CUITutorialPopup.TutorialState.HEART:
+                    tutorialState = CUITutorialPopup.TutorialState.STORY;
+                    break;
             }
 
             isPopupTime = false;
@@ -47,10 +50,14 @@ namespace JongJin
         }
         public void UpdateState()
         {
+            if (tutorialState == CUITutorialPopup.TutorialState.STORY)
+                return;
+
             if (isPopupTime != true)
             {
                 ShowTutorialPopup(tutorialState);
-                StartCoroutine(PopupTimer(STARTTIME));
+                if (UIManager.Instance.CurrentPopupUI != null)
+                    StartCoroutine(PopupTimer(STARTTIME));
             }
         }
 

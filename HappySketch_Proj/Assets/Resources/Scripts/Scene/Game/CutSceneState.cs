@@ -1,3 +1,4 @@
+using HakSeung;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace JongJin
 
         public void EnterState()
         {
+            UIManager.Instance.CurSceneUI.Hide();
             StartCoroutine(SetFinish());
         }
         public void UpdateState()
@@ -20,6 +22,7 @@ namespace JongJin
 
         public void ExitState()
         {
+            UIManager.Instance.CurSceneUI.Show();
         }
 
         IEnumerator SetFinish()

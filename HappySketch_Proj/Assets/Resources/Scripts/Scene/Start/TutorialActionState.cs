@@ -23,7 +23,7 @@ namespace JongJin
 
         private float runningStartTime = 0;
 
-        private float runningSuccessSpeed = 8f;
+        private float runningSuccessSpeed = 5f;
 
         private bool prevPlayerActionTrigger;
 
@@ -70,14 +70,6 @@ namespace JongJin
         public void ExitState()
         {
             
-
-            if (tutorialState == CUITutorialPopup.TutorialState.HEART)
-            {
-                for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
-                    SceneManagerExtended.Instance.SetReady(playerIndex, true);
-                if (SceneManagerExtended.Instance.CheckReady())
-                    StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
-            } 
         }
 
         // 임시
@@ -88,6 +80,7 @@ namespace JongJin
 
         public bool IsFinishedAction()
         {
+
             return isActionConditionClear;
         }
 
@@ -133,8 +126,26 @@ namespace JongJin
         private IEnumerator ActionSuccessTimer()
         {
             //Success 표시 띄우기 
-            yield return new WaitForSeconds(successWaitTime);
-            isActionConditionClear = true;
+            if (tutorialState != CUITutorialPopup.TutorialState.HEART)
+            {
+                yield return new WaitForSeconds(successWaitTime);
+                isActionConditionClear = true;
+            }
+            else 
+            {
+
+                for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
+                {
+                    yield return null;
+                    SceneManagerExtended.Instance.SetReady(playerIndex, true);
+                }
+               if (SceneManagerExtended.Instance.CheckReady())
+                    StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
+             
+              }
+
+
+            yield return null;
         }
 
 

@@ -52,7 +52,15 @@ namespace HakSeung
 
         private List<CUIScene> SceneUIList = null;
         private Stack<CUIPopup> popupUIStack;
-        public CUIPopup CurrentPopupUI { get { return popupUIStack.Peek(); } }
+        public CUIPopup CurrentPopupUI 
+        { 
+            get 
+            {
+                if (popupUIStack.Count == 0)
+                    return null;
+                return popupUIStack.Peek(); 
+            } 
+        }
         public CUIScene CurSceneUI { get; private set; } = null;
 
         //TODO <이학승> RunningCanvas 이용을 위해 Get을 private 에서 해제 추후 Running Canvas 수정 필요

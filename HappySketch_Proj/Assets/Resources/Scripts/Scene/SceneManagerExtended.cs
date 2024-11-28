@@ -86,6 +86,9 @@ namespace HakSeung
         {
             // TODO<이종진> - Scene 전환시 클리어에서 오류 발생, 의논 필요 - 20241118
             // CurrentScene.Clear();
+            StopAllCoroutines();
+            //UIManager.Instance.ClearAllUI();
+            
             SceneManager.LoadScene(SceneTypeToString(type));
         }
 

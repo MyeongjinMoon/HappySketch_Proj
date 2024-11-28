@@ -27,12 +27,10 @@ namespace JongJin
             tutorialActionState = GetComponent<TutorialActionState>();
 
             startStateContext = new StartStateContext(this);
-            //startStateContext.Transition(storyDescriptionState);
-            //curState = EStartGameState.STORYDESCRIPTION;
-            startStateContext.Transition(tutorialDescriptionState);
-            curState = EStartGameState.TUTORIALDESCRIPTION;
-            /*startStateContext.Transition(storyCutSceneState);
-            curState = EStartGameState.STORYCUTSCENE;*/
+            startStateContext.Transition(storyDescriptionState);
+            curState = EStartGameState.STORYDESCRIPTION;
+            //startStateContext.Transition(tutorialDescriptionState);
+            //curState = EStartGameState.TUTORIALDESCRIPTION;
         }
         private void Update()
         {

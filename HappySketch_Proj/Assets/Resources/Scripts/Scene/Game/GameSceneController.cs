@@ -46,8 +46,14 @@ namespace JongJin
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
 
-			cutSceneState = GetComponent<CutSceneState>();
+
+            UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.RunningCanvas.ToString(), (int)UIManager.ESceneUIType.RunningCanvas);
+			UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.EventScenePanel.ToString(), (int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.TailMissionPanel.ToString(), (int)UIManager.ESceneUIType.TailMissionPanel);
+
+            cutSceneState = GetComponent<CutSceneState>();
 			runningState = GetComponent<RunningState>();
 			tailMissionState = GetComponent<TailMissionState>();
 			firstMissionState = GetComponent<FirstMissionState>();
@@ -62,17 +68,15 @@ namespace JongJin
 			missionRoomVolcano.SetActive(false);
 			
 			gameStateContext = new GameStateContext(this);
-			//gameStateContext.Transition(cutSceneState);
-			//curState = EGameState.CUTSCENE;
-			gameStateContext.Transition(runningState);
-			curState = EGameState.RUNNING;
+			gameStateContext.Transition(cutSceneState);
+			curState = EGameState.CUTSCENE;
+			//gameStateContext.Transition(runningState);
+			//curState = EGameState.RUNNING;
 
 		}
 
 		private void Start()
 		{
-			UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.RunningCanvas.ToString(), (int)UIManager.ESceneUIType.RunningCanvas);
-			UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.EventScenePanel.ToString(), (int)UIManager.ESceneUIType.EventScenePanel);
 
             SoundManager.instance.BackgroundMusicPlay(runningStateBackgroundMusic);
         }
