@@ -10,8 +10,8 @@ using static HakSeung.UIManager;
 
 namespace MyeongJin
 {
-	public class CEndingResultState : CBaseEndingState
-	{
+	public class CEndingResultState : MonoBehaviour, IGameState
+    {
 		[SerializeField] private Image image;
 		[SerializeField] private Button nextStageBtn;
 		[SerializeField] private Button restartBtn;
@@ -28,7 +28,15 @@ namespace MyeongJin
 		private bool canSetButton = false;
 		private bool isSetButton = false;
 
-		private void Awake()
+        private CEndingSceneController cEndingSceneController;
+
+        protected int topPlayerIndex;
+        protected float topPlayerTime;
+        protected float restPlayerTime;
+        protected bool isFinish = false;
+        public bool isGameSuccess;
+
+        private void Awake()
 		{
 			Transform[] children = resultTable.GetComponentsInChildren<Transform>();
 			tableText = new TextMeshProUGUI[children.Length - 1];
@@ -44,17 +52,36 @@ namespace MyeongJin
 				tableText[i] = child.GetComponent<TextMeshProUGUI>();
 				i++;
 			}
-		}
 
-		public override void EnterState()
+            cEndingSceneController = GameObject.Find("EndingSceneController").GetComponent<CEndingSceneController>();
+            isGameSuccess = cEndingSceneController.isGameSuccess;
+            topPlayerIndex = cEndingSceneController.topPlayerIndex;
+
+            if (topPlayerIndex == 0)
+            {
+                topPlayerTime = cEndingSceneController.player1Time;
+                restPlayerTime = cEndingSceneController.player2Time;
+            }
+            else
+            {
+                topPlayerTime = cEndingSceneController.player2Time;
+                restPlayerTime = cEndingSceneController.player1Time;
+            }
+        }
+
+		public void EnterState()
 		{
-            ShowResultPopup();
+			ShowResultPopup();
 
 			if (isGameSuccess)
 				StartCoroutine(SetTable(SETTABLETIME));
 			StartCoroutine(SetButton(SETBUTTONTIME));
-		}
-		public override void ExitState()
+        }
+        public void UpdateState()
+        {
+
+        }
+        public void ExitState()
 		{
 			// TODO <문명진> : 버튼 동작에 의한 이벤트 생성
 		}
@@ -66,9 +93,28 @@ namespace MyeongJin
 				((CUIEndingPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUIEndingPopup.EndingState.SUCCESS);
 			else
 				((CUIEndingPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUIEndingPopup.EndingState.FAILED);
-        }
+		}
 		private IEnumerator SetTable(float setTime)
 		{
+			if (topPlayerIndex == 0)
+			{
+				int topIndex = 1;
+				int restIndex = 2;
+				tableText[2].text = topIndex.ToString() + "P";
+				tableText[3].text = restIndex.ToString() + "P";
+				SetTime(tableText[4], topPlayerTime);
+				SetTime(tableText[5], restPlayerTime);
+            }
+			else
+			{
+				int topIndex = 2;
+				int restIndex = 1;
+				tableText[2].text = topIndex.ToString() + "P";
+				tableText[3].text = restIndex.ToString() + "P";
+                SetTime(tableText[4], topPlayerTime);
+                SetTime(tableText[5], restPlayerTime);
+            }
+
 			while (setTime > ENDTIME)
 			{
 				setTime -= Time.deltaTime;
@@ -96,5 +142,14 @@ namespace MyeongJin
 				endGameBtn.gameObject.SetActive(true);
 			}
 		}
-	}
+        private void SetTime(TextMeshProUGUI tmpUGI, float time)
+		{
+            int minute = (int)(time / 60.0f);
+            int second = (int)(time % 60.0f);
+			int millisecond = (int)((time * 100) % 100.0f);
+
+			tmpUGI.text = string.Format("{0:D2} : {1:D2} : {2:D2}", minute, second, millisecond);
+        }
+
+    }
 }

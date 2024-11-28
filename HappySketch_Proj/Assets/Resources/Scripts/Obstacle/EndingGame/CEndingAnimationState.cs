@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace MyeongJin
 {
-	public class CEndingAnimationState : CBaseEndingState
-	{
+	public class CEndingAnimationState : MonoBehaviour, IGameState
+    {
 		[SerializeField] private GameObject dinosaur;
 		[SerializeField] private GameObject[] endingPlayers;
 		[SerializeField] private GameObject[] endingResultPlayers;
@@ -25,7 +25,32 @@ namespace MyeongJin
 		private bool isEnabledResultPlayers = false;
 		private bool isFadeStart = false;
 
-		public override void EnterState()
+        private CEndingSceneController cEndingSceneController;
+
+        private int topPlayerIndex;
+        private float topPlayerTime;
+        private float restPlayerTime;
+        private bool isFinish = false;
+        public bool isGameSuccess;
+
+        private void Awake()
+        {
+            cEndingSceneController = GameObject.Find("EndingSceneController").GetComponent<CEndingSceneController>();
+            isGameSuccess = cEndingSceneController.isGameSuccess;
+            topPlayerIndex = cEndingSceneController.topPlayerIndex;
+
+            if (topPlayerIndex == 0)
+            {
+                topPlayerTime = cEndingSceneController.player1Time;
+                restPlayerTime = cEndingSceneController.player2Time;
+            }
+            else
+            {
+                topPlayerTime = cEndingSceneController.player2Time;
+                restPlayerTime = cEndingSceneController.player1Time;
+            }
+        }
+        public void EnterState()
 		{
 			if (isGameSuccess)
 			{
@@ -59,7 +84,7 @@ namespace MyeongJin
 
 			isFinish = false;
 		}
-		public override void UpdateState()
+		public void UpdateState()
 		{
 			if(isGameSuccess)
 			{
@@ -101,7 +126,11 @@ namespace MyeongJin
             }
             isFinish = true;
         }
-		public bool IsFinishedStoryCutScene()
+        public virtual void ExitState()
+        {
+
+        }
+        public bool IsFinishCurState()
 		{
 			return isFinish;
 		}
