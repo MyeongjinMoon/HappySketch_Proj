@@ -131,7 +131,6 @@ namespace JongJin
 			}
 			gameStateContext.CurrentState.UpdateState();
 		}
-
 		private void UpdateState(EGameState nextState)
 		{
 			if (curState == nextState)
@@ -171,7 +170,6 @@ namespace JongJin
 			curFollow.transform.position = follow[(int)curState].transform.position;
 		}
 
-<<<<<<< HEAD
 		private void DecreaseLife(bool isSuccessMission)
 		{
 			if (isSuccessMission)
@@ -181,9 +179,6 @@ namespace JongJin
 
 		//TODO <이학승> 씬 전환시 작동 될 코드
 		//private void DestroyUI;
-		
-	}
-=======
         private void UpdateMap(EGameState curState)
         {
             switch (curState)
@@ -232,5 +227,4 @@ namespace JongJin
         //private void DestroyUI;
 
     }
->>>>>>> 04b267124967da44e2efb7592030d83a89ca59f2
 }
