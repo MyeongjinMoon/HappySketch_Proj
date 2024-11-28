@@ -909,6 +909,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 479253395773534452, guid: 6e168c9ffca3b8e47bd5d184f24fc7f4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
     - target: {fileID: 581461654783259125, guid: 6e168c9ffca3b8e47bd5d184f24fc7f4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2614,10 +2619,15 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.20063953
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8155759913201001040, guid: 6e168c9ffca3b8e47bd5d184f24fc7f4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 479253395773534452, guid: 6e168c9ffca3b8e47bd5d184f24fc7f4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 474301575}
   m_SourcePrefab: {fileID: 100100000, guid: 6e168c9ffca3b8e47bd5d184f24fc7f4, type: 3}
 --- !u!1 &474301569 stripped
 GameObject:
@@ -2625,6 +2635,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 474301568}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &474301575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474301569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d5db4e5f0589f45a0af0546730b6c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startSceneController: {fileID: 2038109153}
+  jumpForce: 5
+  speed: 0
+  maxSpeed: 10
+  minSpeed: 0
 --- !u!1 &479418809
 GameObject:
   m_ObjectHideFlags: 0
@@ -4381,6 +4408,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7015843230738409125, guid: f0f30aaaa85314248975874547228f16,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player1
+      objectReference: {fileID: 0}
     - target: {fileID: 7040798989918705088, guid: f0f30aaaa85314248975874547228f16,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4721,10 +4753,15 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.2014393
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2147841809479262293, guid: f0f30aaaa85314248975874547228f16, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7015843230738409125, guid: f0f30aaaa85314248975874547228f16,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 511455281}
   m_SourcePrefab: {fileID: 100100000, guid: f0f30aaaa85314248975874547228f16, type: 3}
 --- !u!1 &511455275 stripped
 GameObject:
@@ -4732,6 +4769,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 511455274}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &511455281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511455275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d5db4e5f0589f45a0af0546730b6c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startSceneController: {fileID: 2038109153}
+  jumpForce: 5
+  speed: 0
+  maxSpeed: 10
+  minSpeed: 0
 --- !u!1001 &557238573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8854,8 +8908,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 474301575}
+  - {fileID: 511455281}
 --- !u!114 &2038109151
 MonoBehaviour:
   m_ObjectHideFlags: 0
