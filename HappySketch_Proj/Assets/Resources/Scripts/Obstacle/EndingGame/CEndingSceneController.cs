@@ -1,5 +1,6 @@
 using HakSeung;
 using JongJin;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -15,21 +16,22 @@ namespace MyeongJin
 		[SerializeField] private CEndingResultState cEndingResultState;
 
 		private CEndingStateContext cEndingStateContext;
+
 		public EEndingGameState curState;
 
         // GameScene에서 isGameSuccess를 판단할 수 있는 게임 승리 변수를 정해줘야 함.
         [HideInInspector] public bool isGameSuccess;
 
         // GameScene에서 topPlayerIndex 판단할 수 있는 1등 플레이어 변수를 정해줘야 함.
-        [HideInInspector] public int topPlayerIndex = 0;
+        [HideInInspector] public int topPlayerIndex;
+        [HideInInspector] public float player1Time;
+        [HideInInspector] public float player2Time;
 
-		private void Awake()
+        private void Awake()
 		{
             //UI 캐싱 
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.EndingPopupPanel);
-
-            isGameSuccess = false;
 
             cEndingEnterState = GetComponent<CEndingEnterState>();
             cEndingEnterState.isGameSuccess = isGameSuccess;
@@ -41,7 +43,17 @@ namespace MyeongJin
             cEndingStateContext = new CEndingStateContext(this);
 			cEndingStateContext.Transition(cEndingEnterState);
 			curState = EEndingGameState.ENTERSCENE;
-		}
+
+            //isGameSuccess = Convert.ToBoolean(PlayerPrefs.GetInt("ClearStage"));
+            //player1Time = PlayerPrefs.GetFloat("Player1Time");
+            //player2Time = PlayerPrefs.GetFloat("Player2Time");
+
+            isGameSuccess = false;
+            player1Time = 101.53f;
+            player2Time = 101.512f;
+
+            topPlayerIndex = (player1Time < player2Time) ? 0 : 1;
+        }
 		private void Update()
 		{
             switch (curState)

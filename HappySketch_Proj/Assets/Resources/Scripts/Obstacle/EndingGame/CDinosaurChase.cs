@@ -30,6 +30,7 @@ namespace MyeongJin
 		private bool isJumpStateChanged = false;
 		private bool isRoarState = false;
 		private bool isRoarStateChanged = false;
+		private bool isAdjustPosition = false;
 		private Animator targetAnimator;
 		private Animator[] PlayerAnimator;
 
@@ -73,13 +74,11 @@ namespace MyeongJin
 		{
 			if (isGameSuccess)
 			{
-				//if (cEndingSceneController.curState == EEndingGameState.ANIMATION && !PlayerAnimator[0].GetCurrentAnimatorStateInfo(0).IsName("HumanSlowSprint") && (PlayerAnimator[0].speed > 0))
-				//{
-				//	for (int i = 0; i < endingPlayer.Length; i++)
-				//	{
-				//		PlayerAnimator[i].speed -= 5 * Time.deltaTime;
-				//	}
-				//}
+                if (!endingPlayer[0].activeSelf && !isAdjustPosition)
+                {
+					isAdjustPosition = true;
+                    playeroffsetY += 1;
+                }
             }
 			else
 			{
