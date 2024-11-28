@@ -9,6 +9,7 @@ namespace HakSeung
     public class Test : MonoBehaviour
     {
         private bool testBool;
+        private int index = 3;
         private void Awake()
         {
             //사용할 UI 미리 Cashing 이 과정을 씬 초반에 무조건 해주어야 한다.
@@ -78,7 +79,7 @@ namespace HakSeung
             }
 
             if(Input.GetKeyDown(KeyCode.F))
-                ((CUITailMissionPanel)UIManager.Instance.CurSceneUI).OnFailedEvent();
+                ((CUITailMissionPanel)UIManager.Instance.CurSceneUI).OnFailedEvent(3 - index--);
             #endregion
 
             #region 씬 넘어갈 시 무조건 호출해주어야 하는 함수들

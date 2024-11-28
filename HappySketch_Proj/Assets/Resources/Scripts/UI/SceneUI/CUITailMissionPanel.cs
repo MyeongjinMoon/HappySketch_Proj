@@ -1,6 +1,7 @@
 using HakSeung;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,13 +63,12 @@ public class CUITailMissionPanel : CUIScene
         }
     }
 
-    public void OnFailedEvent()
+    public void OnFailedEvent(int lifeIndex)
     {
-        if (currentLife < TAILLIFENUM)
-        {
-            StartCoroutine(SpinImages(currentLife));
-            currentLife++;
-        }
+        if (lifeIndex >= TAILLIFENUM || lifeIndex < 0)
+            return;
+        
+        StartCoroutine(SpinImages(lifeIndex));
     }
 
     private IEnumerator SpinImages(int lifeIndex)
