@@ -29,6 +29,11 @@ namespace MyeongJin
 		}
 		protected bool IsStateChanged()
 		{
+			if(gamecSceneController == null && gameSceneController == null)
+			{
+                gameSceneController = GameObject.Find("GameSceneController");
+                gamecSceneController = gameSceneController.GetComponent<GameSceneController>();
+            }
 			return curState != gamecSceneController.CurState;
 		}
 		private void OnDisable()
