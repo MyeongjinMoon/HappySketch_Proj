@@ -15,7 +15,7 @@ namespace HakSeung
         {
             RunningCanvas,
             EventScenePanel,
-            TailMission,
+            TailMissionPanel,
             END
         }
 
@@ -44,7 +44,7 @@ namespace HakSeung
 
         private const string UIMANGEROBJECTNAME = "_UIManager";
         private const string PREFABSPATH = "Prefabs/UI/";
-        private const int MAXSCENEUICOUNT = 2;
+        private const int MAXSCENEUICOUNT = 3;
 
         private GameSceneController gameSceneController;
 
