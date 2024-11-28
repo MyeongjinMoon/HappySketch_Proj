@@ -37,8 +37,11 @@ namespace JongJin
 		private EGameState curState;
 		public EGameState CurState { get { return curState; } }
 
-		public AudioClip missionroomBackgroundMusic;             // 미션룸 배경 오디오 클립(삭제 예정)
-		public AudioClip runningStateBackgroundMusic;             // 달리는 상태 오디오 클립(삭제 예정)
+		[SerializeField] private AudioClip missionroomBackgroundMusic;             // 미션룸 배경 오디오 클립
+		[SerializeField] private AudioClip runningStateBackgroundMusic;             // 달리는 상태 오디오 클립
+
+		[SerializeField] private Canvas warningCanvasUI;			// 경고창
+		
 
 		private void Awake()
 		{
@@ -66,7 +69,6 @@ namespace JongJin
 			//curState = EGameState.CUTSCENE;
 			gameStateContext.Transition(runningState);
 			curState = EGameState.RUNNING;
-
         }
 
 		private void Start()
@@ -80,7 +82,6 @@ namespace JongJin
 
 		private void Update()
 		{
-
             switch (curState)
 			{
 				case EGameState.CUTSCENE:
@@ -90,8 +91,8 @@ namespace JongJin
 				case EGameState.RUNNING:
 					if (runningState.IsFirstMissionTriggered())
 					{
-						UpdateState(EGameState.FIRSTMISSION);
-					}
+                        UpdateState(EGameState.FIRSTMISSION);
+                    }
 					else if (runningState.IsSecondMissionTriggered())
 					{
 						UpdateState(EGameState.SECONDMISSION);      

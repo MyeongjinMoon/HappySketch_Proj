@@ -26,11 +26,5 @@ namespace JongJin
         {
             transform.Translate(transform.forward * speed * Time.deltaTime);
         }
-
-        IEnumerator countTime(float delyTime)
-        {
-            yield return new WaitForSeconds(1.0f);
-            SoundManager.instance.SFXPlay("Sounds/PlayerJump");
-        }
     }
 }
