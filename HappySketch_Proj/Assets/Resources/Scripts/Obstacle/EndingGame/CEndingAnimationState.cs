@@ -112,7 +112,7 @@ namespace MyeongJin
 			{
 				if(dinosaurAnimator.GetCurrentAnimatorStateInfo(0).IsName("Roarning"))
 				{
-					if (dinosaurAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+					if (dinosaurAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
 						isFinish = true;
 				}
 			}

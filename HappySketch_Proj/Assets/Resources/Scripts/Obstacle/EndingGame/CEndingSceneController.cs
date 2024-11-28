@@ -44,9 +44,13 @@ namespace MyeongJin
 			cEndingStateContext.Transition(cEndingEnterState);
 			curState = EEndingGameState.ENTERSCENE;
 
-            isGameSuccess = Convert.ToBoolean(PlayerPrefs.GetInt("ClearStage"));
-            player1Time = PlayerPrefs.GetFloat("Player1Time");
-            player2Time = PlayerPrefs.GetFloat("Player2Time");
+            //isGameSuccess = Convert.ToBoolean(PlayerPrefs.GetInt("ClearStage"));
+            //player1Time = PlayerPrefs.GetFloat("Player1Time");
+            //player2Time = PlayerPrefs.GetFloat("Player2Time");
+
+            isGameSuccess = false;
+            player1Time = 100.5f;
+            player2Time = 120.6f;
 
             topPlayerIndex = (player1Time < player2Time) ? 0 : 1;
         }

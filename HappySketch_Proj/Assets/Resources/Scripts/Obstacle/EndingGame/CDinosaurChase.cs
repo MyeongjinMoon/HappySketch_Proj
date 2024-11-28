@@ -16,6 +16,9 @@ namespace MyeongJin
         public float playeroffsetX;            // 카메라의 x좌표
         public float playeroffsetY;           // 카메라의 y좌표
         public float playeroffsetZ;          // 카메라의 z좌표
+        public float resultPlayeroffsetX;            // 카메라의 x좌표
+        public float resultPlayeroffsetY;           // 카메라의 y좌표
+        public float resultPlayeroffsetZ;          // 카메라의 z좌표
         [SerializeField] private float CameraSpeed;       // 카메라의 속도
 
 		[SerializeField] private Vector3 shakeOffset;
@@ -31,6 +34,7 @@ namespace MyeongJin
 		private bool isRoarState = false;
 		private bool isRoarStateChanged = false;
 		private bool isAdjustPosition = false;
+
 		private Animator targetAnimator;
 		private Animator[] PlayerAnimator;
 
@@ -55,18 +59,31 @@ namespace MyeongJin
 		}
 		void FixedUpdate()
 		{
-			if(!isGameSuccess)
-			TargetPos = new Vector3(
-				Target.transform.position.x + offsetX,
-				Target.transform.position.y + offsetY,
-				Target.transform.position.z + offsetZ
-				);
+			if (!isGameSuccess)
+				TargetPos = new Vector3(
+					Target.transform.position.x + offsetX,
+					Target.transform.position.y + offsetY,
+					Target.transform.position.z + offsetZ
+					);
 			else
-                TargetPos = new Vector3(
-                Target.transform.position.x + playeroffsetX,
-                Target.transform.position.y + playeroffsetY,
-                Target.transform.position.z + playeroffsetZ
-                );
+			{
+				if (!isAdjustPosition)
+				{
+					TargetPos = new Vector3(
+					Target.transform.position.x + playeroffsetX,
+					Target.transform.position.y + playeroffsetY,
+					Target.transform.position.z + playeroffsetZ
+					);
+				}
+				else
+				{
+                    TargetPos = new Vector3(
+                    Target.transform.position.x + resultPlayeroffsetX,
+                    Target.transform.position.y + resultPlayeroffsetY,
+                    Target.transform.position.z + resultPlayeroffsetZ
+                    );
+                }
+			}
 
             transform.position = Vector3.Lerp(transform.position, TargetPos, Time.deltaTime * CameraSpeed);
 		}
@@ -76,6 +93,7 @@ namespace MyeongJin
 			{
                 if (!endingPlayer[0].activeSelf && !isAdjustPosition)
                 {
+					this.transform.rotation = Quaternion.Euler(22, 0, 0);
 					isAdjustPosition = true;
                     playeroffsetY += 1;
                 }
@@ -94,8 +112,11 @@ namespace MyeongJin
 					isRoarState = true;
 				else
                 {
-                    if (isRoarState)
+					if (isRoarState)
+					{
+
                         isRoarStateChanged = true;
+					}
                 }
             }
 			if (isJumpStateChanged)
@@ -104,13 +125,12 @@ namespace MyeongJin
 				isJumpStateChanged = false;
 				StartCoroutine(ShakeCoroutine(200));
             }
-			if (isRoarStateChanged)
-			{
-				isRoarState = false;
-				isRoarStateChanged = false;
-				ResetCoroutine(80);
-
-            }
+			//if (isRoarStateChanged)
+			//{
+			//	isRoarState = false;
+			//	isRoarStateChanged = false;
+			//	ResetCoroutine(80);
+   //         }
 		}
 		private IEnumerator ShakeCoroutine(float shakeForce)
         {
@@ -135,9 +155,9 @@ namespace MyeongJin
 				}
 				yield return null;
 			}
-
-			//StartCoroutine(ResetCoroutine(500));
-		}
+            StartCoroutine(ShakeCoroutine(200));
+            //StartCoroutine(ResetCoroutine(500));
+        }
 		private IEnumerator ResetCoroutine(float shakeForce)
 		{
 			while (Quaternion.Angle(transform.rotation, originRotation) > 0)
