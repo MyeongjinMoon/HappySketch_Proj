@@ -292,11 +292,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fa72df7d70d934790a99974b1cdf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 769880172}
-  offsetX: 0.05
-  offsetY: 2.75
-  offsetZ: 4
-  cameraSpeed: 20
+  lookAt: {fileID: 0}
+  follow: {fileID: 0}
+  gameSceneController: {fileID: 0}
 --- !u!1 &769880172
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76e490371ccabe488e1dbee6a965096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
 --- !u!114 &769880178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,6 +380,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a0aa5ff5685d344bd5e0624c0e989f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dinosaur: {fileID: 0}
+  tailController: {fileID: 0}
+  warningEffect: []
+  warningExclamation: []
+  timingBar: {fileID: 0}
+  warningTime: 3
+  attackDelayTime: 3
 --- !u!114 &769880179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,13 +403,18 @@ MonoBehaviour:
   - {fileID: 1578827220}
   - {fileID: 1761438626}
   dinosaur: {fileID: 106847611}
+  crown: []
+  roundTimeLimit: 0
   totalRunningDistance: 100
   minDistance: 12
   maxDistance: 20
+  playerSpacing: 2
   tailMissionStartRate: 15
   firstMissionRate: 35
   secondMissionRate: 55
   thirdMissionRate: 80
+  runningViewCam: {fileID: 0}
+  isMissionSuccess: 0
 --- !u!114 &769880180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,11 +427,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae90731b52e84f42a9f13f727d3dcb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cutSceneState: {fileID: 0}
   runningState: {fileID: 0}
   tailMissionState: {fileID: 0}
   firstMissionState: {fileID: 0}
   secondMissionState: {fileID: 0}
   thirdMissionState: {fileID: 0}
+  curLookAt: {fileID: 0}
+  curFollow: {fileID: 0}
+  lookAt: []
+  follow: []
+  missionGround: {fileID: 0}
+  startForestGround: {fileID: 0}
+  skyboxNormal: {fileID: 0}
+  skyboxVolcano: {fileID: 0}
+  missionRoomVolcano: {fileID: 0}
+  missionroomBackgroundnMusic: {fileID: 0}
+  runningStateBackgroundMusic: {fileID: 0}
 --- !u!1 &1064507912
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,11 +755,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d9d530a6fe76647906e6f405d17f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cSpawnController: {fileID: 0}
   gameSceneController: {fileID: 769880180}
+  upCollider: {fileID: 0}
+  downCollider: {fileID: 0}
   speed: 1
+  increaseSuccessSpeed: 2
+  decreaseFailSpeed: 0.5
   jumpForce: 5
   increaseSpeed: 0.1
-  decreaseSpeed: 0.2
+  decreaseSpeed: 0.5
   minSpeed: 0.5
   maxSpeed: 5
 --- !u!136 &1578827224
@@ -937,11 +963,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d9d530a6fe76647906e6f405d17f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cSpawnController: {fileID: 0}
   gameSceneController: {fileID: 769880180}
+  upCollider: {fileID: 0}
+  downCollider: {fileID: 0}
   speed: 1
+  increaseSuccessSpeed: 2
+  decreaseFailSpeed: 0.5
   jumpForce: 5
   increaseSpeed: 0.1
-  decreaseSpeed: 0.2
+  decreaseSpeed: 0.5
   minSpeed: 0.5
   maxSpeed: 5
 --- !u!136 &1761438630
