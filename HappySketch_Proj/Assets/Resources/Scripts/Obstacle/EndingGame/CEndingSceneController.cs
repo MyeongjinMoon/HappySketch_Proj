@@ -29,7 +29,7 @@ namespace MyeongJin
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.EndingPopupPanel);
 
-            isGameSuccess = false;
+            isGameSuccess = true;
 
             cEndingEnterState = GetComponent<CEndingEnterState>();
             cEndingEnterState.isGameSuccess = isGameSuccess;
