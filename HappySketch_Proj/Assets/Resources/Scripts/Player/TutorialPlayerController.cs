@@ -33,10 +33,9 @@ namespace HakSeung
 
         private EPlayer playerId;
 
-
         private int isGrounded = 0;
         private bool isActivated = false;
-
+        
         public float Speed { get { return speed; } }
         public bool ActionTrigger { get; private set; } = false;
         private CUITutorialPopup.TutorialState curTutorialState;
@@ -145,7 +144,7 @@ namespace HakSeung
 
         private void Heart()
         {
-            if (SceneManagerExtended.Instance.GetReady((int)playerId))
+            if (isActivated)
                 HeartDeActive();
             else
                 HeartActive();
@@ -157,19 +156,22 @@ namespace HakSeung
             isActivated = true;
 
             if (curTutorialState == CUITutorialPopup.TutorialState.HEART)
-                ActionTrigger = true;
-            /*SceneManagerExtended.Instance.SetReady((int)playerId, true);
-            if (SceneManagerExtended.Instance.CheckReady())
-                StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());*/
+            {
+                Debug.Log($"{playerId} 하트 준비완료 ");
+                SceneManagerExtended.Instance.SetReady((int)playerId, true);
+            }
+                /*if (SceneManagerExtended.Instance.CheckReady())
+                    StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());*/
         }
-        private void HeartDeActive()
+            private void HeartDeActive()
         {
-            //SceneManagerExtended.Instance.SetReady((int)playerId, false);
             isActivated = false;
             animator.SetBool(paramHeart, false);
 
             if (curTutorialState == CUITutorialPopup.TutorialState.HEART)
-                ActionTrigger = false;
+                 SceneManagerExtended.Instance.SetReady((int)playerId, false);
+                 
+
         }
 
         public void PlayerReset(CUITutorialPopup.TutorialState tutorialState)
@@ -179,6 +181,9 @@ namespace HakSeung
             decreaseSpeed = 0.5f;
             speed = minSpeed;
             animator.SetFloat(paramSpeed, minSpeed);
+            ActionTrigger = false;
         }
+
+
     }
 }

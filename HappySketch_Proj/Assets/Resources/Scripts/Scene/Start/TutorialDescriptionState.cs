@@ -15,7 +15,7 @@ namespace JongJin
         private float time = 0.0f;
         private float fTime = 1.0f;
 
-        private const int STARTTIME = 0;
+        private const int STARTTIME = 2; 
         private const int ENDTIME = 0;
 
         private CUITutorialPopup.TutorialState tutorialState = CUITutorialPopup.TutorialState.STORY;
@@ -84,6 +84,7 @@ namespace JongJin
 
         private IEnumerator PopupTimer(float setTime)
         {
+            Debug.Log("타이머 작동중");
             yield return new WaitForSeconds(fTime * 0.5f);
 
             while (setTime > ENDTIME)

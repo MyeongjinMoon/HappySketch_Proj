@@ -8,8 +8,9 @@ namespace JongJin
 {
     public class TutorialActionState : MonoBehaviour, IGameState
     {
+        private const int TOTALPLAYERNUM = 2;
         public CUITutorialPopup.TutorialState CurrentTutorialState { get { return tutorialState; } }
-        [SerializeField]private TutorialPlayerController[] playerController = new TutorialPlayerController[2];
+        [SerializeField]private TutorialPlayerController[] playerController = new TutorialPlayerController[TOTALPLAYERNUM];
 
         private CUITutorialPopup.TutorialState tutorialState = CUITutorialPopup.TutorialState.STORY;
 
@@ -19,10 +20,10 @@ namespace JongJin
 
         private const int MAXACTIONCOUNT = 3;
       
-        private int[] actionSuccessCounts;
-        private float[] currentRunningTimes;
+        private int[] actionSuccessCounts = new int[TOTALPLAYERNUM];
+        private float[] currentRunningTimes = new float[TOTALPLAYERNUM];
 
-        private float runningStartTime = 5;
+        private float runningStartTime = 0;
 
         private float runningSuccessSpeed = 5f;
 
@@ -30,17 +31,14 @@ namespace JongJin
 
         public void EnterState()
         {
-            actionSuccessCounts = new int[playerController.Length];
-
-            for(int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
+            for(int playerIndex = 0; playerIndex < TOTALPLAYERNUM; playerIndex++)
                 actionSuccessCounts[playerIndex] = 0;
 
             switch (tutorialState)
             {
                 case CUITutorialPopup.TutorialState.STORY:
                     tutorialState = CUITutorialPopup.TutorialState.RUNNING;
-
-                    currentRunningTimes = new float[playerController.Length];
+                    
                     for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++ )
                         currentRunningTimes[playerIndex] = runningStartTime;
 
@@ -64,19 +62,15 @@ namespace JongJin
         }
         public void UpdateState()
         {
-            if(PlayerActionCheak(0) && PlayerActionCheak(1))
+            if ((PlayerActionCheak(0) && PlayerActionCheak(1)) && (CurrentTutorialState != CUITutorialPopup.TutorialState.HEART))
+                StartCoroutine(ActionSuccessTimer());
+            else if ((CurrentTutorialState == CUITutorialPopup.TutorialState.HEART) && SceneManagerExtended.Instance.CheckReady())
                 StartCoroutine(ActionSuccessTimer());
         }
 
         public void ExitState()
         {
-            if (tutorialState == CUITutorialPopup.TutorialState.HEART)
-            {
-                for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
-                    SceneManagerExtended.Instance.SetReady(playerIndex, true);
-                if (SceneManagerExtended.Instance.CheckReady())
-                    StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
-            } 
+     
 
         }
 
@@ -94,6 +88,7 @@ namespace JongJin
 
         private bool PlayerActionCheak(int playerNum)
         {
+            
             switch (tutorialState)
             {
                case CUITutorialPopup.TutorialState.RUNNING:
@@ -111,20 +106,16 @@ namespace JongJin
                case CUITutorialPopup.TutorialState.JUMP:
                     if (actionSuccessCounts[playerNum] >= MAXACTIONCOUNT)
                         return true;
-
+                    
                     if (playerController[playerNum].ActionTrigger && !prevPlayerActionTrigger)
-                    {
                         ++actionSuccessCounts[playerNum];
-                        Debug.Log("���� �Ǵ� ��");
-                    }
 
                     if (prevPlayerActionTrigger != playerController[playerNum].ActionTrigger)
                         prevPlayerActionTrigger = playerController[playerNum].ActionTrigger;
 
                     break;
                 case CUITutorialPopup.TutorialState.HEART:
-                    if (playerController[playerNum].ActionTrigger && !prevPlayerActionTrigger)
-                        return true;
+                    
 
                     break;
             }
@@ -134,23 +125,14 @@ namespace JongJin
         private IEnumerator ActionSuccessTimer()
         {
             //Success ǥ�� ���� 
-            if (tutorialState != CUITutorialPopup.TutorialState.HEART)
+            yield return new WaitForSeconds(successWaitTime);
+            isActionConditionClear = true;
+            
+           /* else 
             {
-                yield return new WaitForSeconds(successWaitTime);
-                isActionConditionClear = true;
-            }
-            else 
-            {
-
-                for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
-                {
-                    yield return null;
-                    SceneManagerExtended.Instance.SetReady(playerIndex, true);
-                }
                if (SceneManagerExtended.Instance.CheckReady())
                     StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
-             
-              }
+            }*/
 
 
             yield return null;

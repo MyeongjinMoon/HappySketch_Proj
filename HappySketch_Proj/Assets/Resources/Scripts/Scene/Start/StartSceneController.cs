@@ -29,10 +29,10 @@ namespace JongJin
             tutorialActionState = GetComponent<TutorialActionState>();
 
             startStateContext = new StartStateContext(this);
-            startStateContext.Transition(storyDescriptionState);
-            curState = EStartGameState.STORYDESCRIPTION;
-            //startStateContext.Transition(tutorialDescriptionState);
-            //curState = EStartGameState.TUTORIALDESCRIPTION;
+            /*startStateContext.Transition(storyDescriptionState);
+            curState = EStartGameState.STORYDESCRIPTION;*/
+            startStateContext.Transition(tutorialDescriptionState);
+            curState = EStartGameState.TUTORIALDESCRIPTION;
         }
         private void Update()
         {
@@ -51,12 +51,16 @@ namespace JongJin
                         UpdateState(EStartGameState.TUTORIALACTION);
                     break;
                 case EStartGameState.TUTORIALACTION:
-                    if(tutorialActionState.IsFinishedAction() && tutorialActionState.CurrentTutorialState != CUITutorialPopup.TutorialState.HEART)
-                        UpdateState(EStartGameState.TUTORIALDESCRIPTION);
-                    else if(tutorialActionState.CurrentTutorialState == CUITutorialPopup.TutorialState.HEART)
+                    if(tutorialActionState.IsFinishedAction())
                     {
-                        StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
+                        if(tutorialActionState.CurrentTutorialState != CUITutorialPopup.TutorialState.HEART)
+                            UpdateState(EStartGameState.TUTORIALDESCRIPTION);
+                        else
+                           StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
                     }
+
+                    
+                    
                     break;
             }
             startStateContext.CurrentState.UpdateState();
