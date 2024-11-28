@@ -70,10 +70,10 @@ namespace JongJin
 			missionRoomVolcano.SetActive(false);
 			
 			gameStateContext = new GameStateContext(this);
-			//gameStateContext.Transition(cutSceneState);
-			//curState = EGameState.CUTSCENE;
-			gameStateContext.Transition(runningState);
-			curState = EGameState.RUNNING;
+			gameStateContext.Transition(cutSceneState);
+			curState = EGameState.CUTSCENE;
+			//gameStateContext.Transition(runningState);
+			//curState = EGameState.RUNNING;
 
 		}
 

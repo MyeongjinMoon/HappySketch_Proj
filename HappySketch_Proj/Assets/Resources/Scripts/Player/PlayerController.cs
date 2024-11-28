@@ -147,19 +147,19 @@ namespace JongJin
             if (collision.gameObject.CompareTag(groundTag))
             {
                 animator.SetBool(paramJump, false);
-                isGrounded++;
+                isGrounded = 1;
                 if (downCollider != null) downCollider.enabled = true;
             }
         }
-        private void OnCollisionExit(Collision collision)
-        {
-            if (collision == null) return;
+        //private void OnCollisionExit(Collision collision)
+        //{
+        //    if (collision == null) return;
 
-            if (collision.gameObject.CompareTag(groundTag))
-            {
-                isGrounded--;
-            }
-        }
+        //    if (collision.gameObject.CompareTag(groundTag))
+        //    {
+        //        isGrounded--;
+        //    }
+        //}
         #region 플레이어 세팅(러닝, 미션)
         private void UpdateState()
         {
@@ -187,7 +187,7 @@ namespace JongJin
         }
         private void SetMissionState()
         {
-            isGrounded = 1;
+            isGrounded = 0;
 
             curState = EPlayerState.MISSION;
             animator.SetBool(paramMission, true);
@@ -222,6 +222,7 @@ namespace JongJin
         private void Jump()
         {
             if (downCollider != null) downCollider.enabled = false;
+            isGrounded = 0;
             if (animator.GetCurrentAnimatorStateInfo(0).IsName(jumpAniName))
                 animator.Play(jumpAniName, -1, 0f);
             animator.SetBool(paramJump, true);

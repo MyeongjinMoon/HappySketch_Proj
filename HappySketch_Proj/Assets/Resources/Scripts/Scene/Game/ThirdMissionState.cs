@@ -23,7 +23,7 @@ namespace JongJin
         {
             RenderSettings.fog = true;
             isSuccess = false;
-            timer = 60f;
+            timer = 1f;
         }
         public void UpdateState()
         {

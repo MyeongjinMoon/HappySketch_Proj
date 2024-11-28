@@ -38,6 +38,17 @@ namespace HakSeung
 
         public void SetHeart(int curLife)
         {
+            StartCoroutine(HeartAni(1));
+        }
+        IEnumerator HeartAni(int curLife)
+        {
+            for(int count = 0; count < 3; count++)
+            {
+                heartImages[curLife].enabled = false;
+                yield return new WaitForSeconds(0.3f);
+                heartImages[curLife].enabled = true;
+                yield return new WaitForSeconds(0.3f);
+            }
             heartImages[curLife].enabled = false;
         }
 

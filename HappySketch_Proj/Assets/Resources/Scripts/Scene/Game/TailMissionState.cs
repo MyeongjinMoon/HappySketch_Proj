@@ -1,4 +1,5 @@
 using HakSeung;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -70,7 +71,7 @@ namespace JongJin
 
             if (randomAttackPos == -1)
             {
-                randomAttackPos = Random.Range(0, 2);
+                randomAttackPos = UnityEngine.Random.Range(0, 2);
                 warningEffect[randomAttackPos].SetActive(true);
                 warningExclamation[randomAttackPos].SetActive(true);
             }
@@ -106,10 +107,13 @@ namespace JongJin
             attackFlowTime = 0.0f;
             randomAttackPos = -1;
 
+            if (tailController.CollisionCount != 0)
+                ((CUITailMissionPanel)UIManager.Instance.CurSceneUI).OnFailedEvent(2 - attackCount);
+
             if (tailController.CollisionCount == 0 || attackCount == 0)
             {
                 isDelayFinish = true;
-                StartCoroutine(DelayFinish()); 
+                StartCoroutine(DelayFinish());
             }
         }
 
