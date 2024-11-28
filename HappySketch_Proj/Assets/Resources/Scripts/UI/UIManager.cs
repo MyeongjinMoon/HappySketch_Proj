@@ -15,7 +15,7 @@ namespace HakSeung
         {
             RunningCanvas,
             EventScenePanel,
-
+            TailMission,
             END
         }
 
@@ -228,6 +228,18 @@ namespace HakSeung
             return true;
 
         }
+
+        public void SwapPopupUI(String key)
+        {
+            if (popupUIStack.Count == 0)
+                ShowPopupUI(key);
+            else 
+            {
+                ClosePopupUI(CurrentPopupUI);
+                ShowPopupUI(key);
+            }
+        }
+
 
         public void ClosePopupUI()
         {

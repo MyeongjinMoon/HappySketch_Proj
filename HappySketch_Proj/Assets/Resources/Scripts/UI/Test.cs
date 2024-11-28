@@ -8,15 +8,16 @@ namespace HakSeung
 {
     public class Test : MonoBehaviour
     {
-
+        private bool testBool;
         private void Awake()
         {
             //사용할 UI 미리 Cashing 이 과정을 씬 초반에 무조건 해주어야 한다.
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.RunningCanvas);
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.EventScenePanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ETestType), (int)UIManager.ETestType.TutorialPopupPanel);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 
+            testBool = false;
 
         }
 
@@ -44,7 +45,7 @@ namespace HakSeung
 
             if (Input.GetKeyDown(KeyCode.K))
             {
-                UIManager.Instance.ShowPopupUI(UIManager.ETestType.FadePopupCanvas.ToString());
+                UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
             }
 
             //팝업 UI 닫기
@@ -79,13 +80,22 @@ namespace HakSeung
             #endregion
 
 
-
-            //노트 값 설정
+            #region 팝업 스왑 테스트
+            if(Input.GetKeyDown(KeyCode.J))
+            {
+                if(testBool)
+                    UIManager.Instance.SwapPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
+                else
+                    UIManager.Instance.SwapPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+                testBool = !testBool;
+            }
+            #endregion
+            /*//노트 값 설정
             //((CUIEventPanel)UIManager.Instance.CurSceneUI).playerNotes[1].Show();
             //프로그래스 바의 맥스 값 설정
             ((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.MaxProgress = 100f;
             //프로그래스 바 값 수정
-            ((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.FillProgressBar(10f);
+            ((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.FillProgressBar(10f);*/
         }
     }
 }

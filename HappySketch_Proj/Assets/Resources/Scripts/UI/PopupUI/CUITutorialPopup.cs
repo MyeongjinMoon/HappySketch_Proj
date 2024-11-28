@@ -40,7 +40,6 @@ namespace HakSeung
             END
         }
 
-        private bool isPlayingEffect = false;
 
         [SerializeField] private Image guideImage;
         [SerializeField] private Image timerFillImage;
@@ -50,6 +49,9 @@ namespace HakSeung
         [SerializeField] private float effectDuration;
         [SerializeField] private GameObject timerImage;
 		[SerializeField] private Image panelImage;
+
+        private Vector3 startScale = Vector3.zero;
+        private Vector3 endScale = Vector3.one;
         protected override void InitUI()
         {
             effectDuration = 0.5f;
@@ -69,7 +71,7 @@ namespace HakSeung
         public override void Show()
         {
 			base.Show();
-			StartCoroutine(PlayPopupEffect());
+            StartCoroutine(PlayPopupEffect());
 			if (panelImage.color.a != 0.392f)
 				panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0.392f);
             timerImage.SetActive(true);
@@ -83,14 +85,7 @@ namespace HakSeung
 
 		protected override IEnumerator PlayPopupEffect()
 		{
-			if (isPlayingEffect)
-				yield break;
-			else
-				isPlayingEffect = true;
-
 			float elapsedTime = 0f;
-			Vector3 startScale = Vector3.zero;
-			Vector3 endScale = Vector3.one;
 
 			if (baseRectTransform == null)
 			{
@@ -98,7 +93,7 @@ namespace HakSeung
 				yield break;
 			}
 
-			while (effectDuration > elapsedTime)
+			while (effectDuration > elapsedTime && isPlayingPopup)
 			{
 				float timeProgress = elapsedTime / effectDuration;
 				baseRectTransform.localScale = Vector3.Lerp(startScale, endScale, timeProgress);
@@ -107,8 +102,6 @@ namespace HakSeung
 			}
 
 			baseRectTransform.localScale = endScale;
-
-			isPlayingEffect = false;
 
 		}
 
