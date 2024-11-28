@@ -103,6 +103,8 @@ namespace JongJin
                 Heart();
             }
 
+            Debug.Log(isGrounded);
+
             if (isGrounded <= 0 || isActivated)
                 return;
 
@@ -141,26 +143,23 @@ namespace JongJin
         {
             if(collision == null) return;
 
-            switch (collision.gameObject.tag)
+            if (collision.gameObject.CompareTag(groundTag))
             {
-                case "Ground":
-                    animator.SetBool(paramJump, false);
-                    isGrounded++;
-                    if (downCollider != null) downCollider.enabled = true;
-                    break;
+                animator.SetBool(paramJump, false);
+                isGrounded++;
+                if (downCollider != null) downCollider.enabled = true;
             }
         }
         private void OnCollisionExit(Collision collision)
         {
             if (collision == null) return;
 
-            switch (collision.gameObject.tag)
+            if (collision.gameObject.CompareTag(groundTag))
             {
-                case "Ground":
-                    isGrounded--;
-                    break;
+                isGrounded--;
             }
         }
+        #region 플레이어 세팅(러닝, 미션)
         private void UpdateState()
         {
             if (gameSceneController == null)
@@ -187,6 +186,8 @@ namespace JongJin
         }
         private void SetMissionState()
         {
+            isGrounded = 1;
+
             curState = EPlayerState.MISSION;
             animator.SetBool(paramMission, true);
 
@@ -195,6 +196,9 @@ namespace JongJin
             buffParticles.Stop();
             deBuffParticles.Stop();
         }
+        #endregion
+
+        #region 기본 동작 Move, Jump
 
         private void Move()
         {
@@ -216,13 +220,42 @@ namespace JongJin
         }
         private void Jump()
         {
+            if (downCollider != null) downCollider.enabled = false;
             if (animator.GetCurrentAnimatorStateInfo(0).IsName(jumpAniName))
                 animator.Play(jumpAniName, -1, 0f);
             animator.SetBool(paramJump, true);
             rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
-            if (downCollider != null) downCollider.enabled = false;
         }
+        #endregion
+
+        #region 속도 관련 함수
+        private void IncreaseSpeed()
+        {
+            if (gameSceneController == null)
+                return;
+
+            if (speed > maxSpeed || !canIncrease)
+                return;
+
+            speed += runIncreaseSpeed;
+            animator.SetFloat(paramSpeed, speed);
+        }
+        private void DecreaseSpeed()
+        {
+            if (speed < minSpeed)
+                return;
+
+            float deBuffRate = 1.0f;
+            if (runningController != null && runningController.isDebuff)
+                deBuffRate = 1.5f;
+
+            speed -= Time.deltaTime * runDecreaseSpeed * deBuffRate;
+            animator.SetFloat(paramSpeed, speed);
+        }
+        #endregion
+
+        #region 특수 동작 모션
         private void Crouch()
         {
             StartCoroutine(CrouchActive());
@@ -255,29 +288,6 @@ namespace JongJin
                 cSpawnController.GenerateSwatter((int)playerId, 1);
             else if (gameSceneController.CurState == EGameState.THIRDMISSION)
                 cSpawnController.GenerateRay();
-        }
-        private void IncreaseSpeed()
-        {
-            if (gameSceneController == null)
-                return;
-
-            if (speed > maxSpeed || !canIncrease)
-                return;
-
-            speed += runIncreaseSpeed;
-            animator.SetFloat(paramSpeed, speed);
-        }
-        private void DecreaseSpeed()
-        {
-            if (speed < minSpeed)
-                return;
-
-            float deBuffRate = 1.0f;
-            if (runningController != null && runningController.isDebuff)
-                deBuffRate = 1.5f;
-
-            speed -= Time.deltaTime * runDecreaseSpeed * deBuffRate;
-            animator.SetFloat(paramSpeed, speed);
         }
         private void HeartActive()
         {
@@ -337,6 +347,9 @@ namespace JongJin
             isActivated = false;
             animator.SetBool(paramRightTouch, false);
         }
+        #endregion
+
+        #region PlayerBuff 관련 함수
         public void OnBuff()
         {
             if (gameSceneController.CurState != EGameState.RUNNING)
@@ -365,5 +378,6 @@ namespace JongJin
             canIncrease = true;
             deBuffParticles.Stop();
         }
+        #endregion
     }
 }

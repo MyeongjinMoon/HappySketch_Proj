@@ -49,7 +49,7 @@ namespace JongJin
 
         [Header("Virtual Camera")] 
 		[SerializeField] private GameObject runningViewCam;
-		[SerializeField] private float plusCameraPosZ = 10.0f;
+		[SerializeField] private float plusCameraPosZ = 5.0f;
 
 		[HideInInspector] public bool isMissionSuccess = false;
 		[HideInInspector] public bool isDebuff = false;
@@ -99,6 +99,7 @@ namespace JongJin
         }
         public void EnterState()
 		{
+
             dinosaurSpeed = dinosaur.GetComponent<DinosaurController>().Speed;
             runningViewCam.GetComponent<CinemachineVirtualCamera>().Priority = 20;
 
@@ -137,6 +138,7 @@ namespace JongJin
 			SaveInfo();
             runningViewCam.GetComponent<CinemachineVirtualCamera>().Priority = 16;
 
+            //UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
             UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
 
             isRunning = false;
@@ -148,7 +150,7 @@ namespace JongJin
 		{
 			float plusPos = 0.0f;
 			if (isMissionSuccess) plusPos = plusCameraPosZ;
-			transform.position = Vector3.forward * (Mathf.Lerp(transform.position.z, firstRankerDistance + plusPos, 0.1f));
+			transform.position = Vector3.forward * (Mathf.Lerp(transform.position.z, firstRankerDistance + plusPos, 0.5f));
 		}
 
 		#region 씬 전환시 플레이어, 공룡 정보 Setting
@@ -157,7 +159,7 @@ namespace JongJin
 			float offset = 1.0f * (players.Length - 1) / 2.0f * playerSpacing;
 
 			for (int playerNum = 0; playerNum < players.Length; playerNum++)
-				prevPlayerPosition[playerNum] = new Vector3(offset + playerNum * -playerSpacing, 0.15f, 0.0f);
+				prevPlayerPosition[playerNum] = new Vector3(offset + playerNum * -playerSpacing, 0.5f, 0.0f);
 		}
 		private void SetInfo()
 		{
@@ -171,7 +173,7 @@ namespace JongJin
 		{
 			for (int playerNum = 0; playerNum < players.Length; playerNum++)
 				prevPlayerPosition[playerNum] =
-					new Vector3(players[playerNum].transform.position.x, players[playerNum].transform.position.y + 0.15f, players[playerNum].transform.position.z + 5.0f);
+					new Vector3(players[playerNum].transform.position.x, players[playerNum].transform.position.y + 0.5f, players[playerNum].transform.position.z + 5.0f);
 			prevDinosaurPosition = dinosaur.transform.position;
 		}
 		#endregion
@@ -288,10 +290,10 @@ namespace JongJin
 
 			while (maxDistance > curMaxDistance)
 			{
-				maxDistance -= Time.deltaTime * 2.0f;
+				maxDistance -= Time.deltaTime;
 				yield return null;
 			}
-
+			
 			isMissionSuccess = false;
 		}
 		IEnumerator OnDeBuff()
@@ -306,7 +308,7 @@ namespace JongJin
 
             while (maxDistance < curMaxDistance)
             {
-                maxDistance += Time.deltaTime * 2.0f;
+                maxDistance += Time.deltaTime;
                 yield return null;
             }
             isDebuff = false;
