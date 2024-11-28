@@ -4064,6 +4064,7 @@ MonoBehaviour:
   secondMissionRate: 55
   thirdMissionRate: 85
   runningViewCam: {fileID: 1532651065}
+  plusCameraPosZ: 5
   isMissionSuccess: 0
   isDebuff: 0
 --- !u!4 &807674224
@@ -11281,6 +11282,16 @@ PrefabInstance:
       objectReference: {fileID: 117116847}
     - target: {fileID: 2147841809479262293, guid: afa35d528dcfb984296ea9823357d499,
         type: 3}
+      propertyPath: decreaseSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2147841809479262293, guid: afa35d528dcfb984296ea9823357d499,
+        type: 3}
+      propertyPath: increaseSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2147841809479262293, guid: afa35d528dcfb984296ea9823357d499,
+        type: 3}
       propertyPath: deBuffParticles
       value: 
       objectReference: {fileID: 1243930530}
@@ -11294,6 +11305,11 @@ PrefabInstance:
       propertyPath: gameSceneController
       value: 
       objectReference: {fileID: 807674218}
+    - target: {fileID: 2147841809479262293, guid: afa35d528dcfb984296ea9823357d499,
+        type: 3}
+      propertyPath: increaseSuccessSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2206348138624526545, guid: afa35d528dcfb984296ea9823357d499,
         type: 3}
       propertyPath: m_LocalPosition.y

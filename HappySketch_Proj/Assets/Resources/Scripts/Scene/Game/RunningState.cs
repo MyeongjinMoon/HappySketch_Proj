@@ -49,6 +49,7 @@ namespace JongJin
 
         [Header("Virtual Camera")] 
 		[SerializeField] private GameObject runningViewCam;
+		[SerializeField] private float plusCameraPosZ = 10.0f;
 
 		[HideInInspector] public bool isMissionSuccess = false;
 		[HideInInspector] public bool isDebuff = false;
@@ -145,7 +146,9 @@ namespace JongJin
         }
 		private void Move()
 		{
-			transform.position = Vector3.forward * (Mathf.Lerp(transform.position.z, firstRankerDistance, 0.25f));
+			float plusPos = 0.0f;
+			if (isMissionSuccess) plusPos = plusCameraPosZ;
+			transform.position = Vector3.forward * (Mathf.Lerp(transform.position.z, firstRankerDistance + plusPos, 0.1f));
 		}
 
 		#region 씬 전환시 플레이어, 공룡 정보 Setting
