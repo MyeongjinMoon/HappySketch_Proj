@@ -3,6 +3,7 @@ using MyeongJin;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using static HakSeung.UIManager;
 
 namespace JongJin
@@ -14,6 +15,11 @@ namespace JongJin
         private bool isMissionFinished = false;
         private bool isWait = false;
         private float timer = 60f;
+
+        private readonly float ENDTIME = 0.0f;
+        private float waitTime = 1.0f;
+        private bool isDelayStart = false;
+        private bool isDelayFinish = false;
 
         private void Awake()
         {
@@ -93,6 +99,26 @@ namespace JongJin
         private void SetTimer()
         {
             ((CUIEventPanel)UIManager.Instance.CurSceneUI).SetTimer(timer);
+        }
+        private IEnumerator TutorialPopup(float setTime)
+        {
+            isDelayStart = false;
+            UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+            ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(EGameState.THIRDMISSION);
+
+            while (setTime > ENDTIME)
+            {
+                ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(setTime);
+                setTime -= Time.deltaTime;
+                yield return null;
+            }
+
+            ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(ENDTIME);
+
+            UIManager.Instance.ClosePopupUI();
+            yield return new WaitForSeconds(waitTime);
+
+            isDelayStart = true;
         }
     }
 }

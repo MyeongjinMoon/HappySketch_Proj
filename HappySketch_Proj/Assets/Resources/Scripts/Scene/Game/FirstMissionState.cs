@@ -3,6 +3,7 @@ using MyeongJin;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using static HakSeung.UIManager;
 
 namespace JongJin
@@ -20,7 +21,12 @@ namespace JongJin
 		private Vector3 player1Scale;
 		private Vector3 player2Scale;
 
-		private void Awake()
+        private readonly float ENDTIME = 0.0f;
+        private float waitTime = 1.0f;
+        private bool isDelayStart = false;
+        private bool isDelayFinish = false;
+
+        private void Awake()
 		{
 			player1 = GameObject.FindWithTag("Player1");
 			player2 = GameObject.FindWithTag("Player2");
@@ -30,7 +36,9 @@ namespace JongJin
 		}
 		public void EnterState()
 		{
-			isSuccess = false;
+            ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(EGameState.FIRSTMISSION);
+
+            isSuccess = false;
 			player1.transform.localScale = player1.transform.localScale * 1.5f;
 			player2.transform.localScale = player2.transform.localScale * 1.5f;
 			timer = 1f;
@@ -107,5 +115,24 @@ namespace JongJin
 		{
 			((CUIEventPanel)UIManager.Instance.CurSceneUI).SetTimer(timer);
 		}
-	}
+        private IEnumerator TutorialPopup(float setTime)
+        {
+            isDelayStart = false;
+            UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+
+            while (setTime > ENDTIME)
+            {
+                ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(setTime);
+                setTime -= Time.deltaTime;
+                yield return null;
+            }
+
+            ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(ENDTIME);
+
+            UIManager.Instance.ClosePopupUI();
+            yield return new WaitForSeconds(waitTime);
+
+            isDelayStart = true;
+        }
+    }
 }

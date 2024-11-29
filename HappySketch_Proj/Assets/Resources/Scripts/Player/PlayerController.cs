@@ -151,15 +151,6 @@ namespace JongJin
                 if (downCollider != null) downCollider.enabled = true;
             }
         }
-        //private void OnCollisionExit(Collision collision)
-        //{
-        //    if (collision == null) return;
-
-        //    if (collision.gameObject.CompareTag(groundTag))
-        //    {
-        //        isGrounded--;
-        //    }
-        //}
         #region 플레이어 세팅(러닝, 미션)
         private void UpdateState()
         {

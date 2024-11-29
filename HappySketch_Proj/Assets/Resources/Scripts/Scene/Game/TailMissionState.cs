@@ -42,13 +42,14 @@ namespace JongJin
         private int randomAttackPos = -1;
 
         private bool isFinish = false;
-        private bool isDelayStart = true;
-        //private bool isDelayStart = false;
+        private bool isDelayStart = false;
         private bool isDelayFinish = false;
         public void EnterState()
         {
-            //StartCoroutine(TutorialPopup(10.0f));
-
+            if (!isDelayStart)
+            {
+                StartCoroutine(TutorialPopup(10.0f));
+            }
             isFinish = false;
             isDelayFinish = false;
 
@@ -134,6 +135,7 @@ namespace JongJin
         {
             isDelayStart = false;
             UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+            ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(EGameState.TAILMISSION);
 
             yield return new WaitForSeconds(waitTime);
 
