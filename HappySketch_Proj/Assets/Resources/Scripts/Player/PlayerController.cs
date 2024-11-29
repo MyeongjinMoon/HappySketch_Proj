@@ -101,6 +101,7 @@ namespace JongJin
                 || (playerId == EPlayer.PLAYER2 && Input.GetKeyDown(KeyCode.RightShift))))
             {
                 Heart();
+                SoundManager.instance.SFXPlay("Sounds/HeartMotion");
             }
 
             Debug.Log(isGrounded);

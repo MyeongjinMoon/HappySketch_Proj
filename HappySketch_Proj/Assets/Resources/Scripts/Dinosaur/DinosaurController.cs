@@ -10,10 +10,13 @@ namespace JongJin
         [SerializeField] private GameSceneController gameSceneController;
 
         [SerializeField] private float speed = 2.0f;
+
+        bool isSoundActivated = false;
+
         public float Speed { get { return speed; } }
         private void Start()
         {
-
+            
         }
 
         private void Update()
@@ -26,6 +29,14 @@ namespace JongJin
         private void Move()
         {
             transform.Translate(transform.forward * speed * Time.deltaTime);
+            SoundManager.instance.SFXPlay("Sounds/DinosaurMove");
+            
         }
     }
 }
+
+//if (!isSoundActivated)
+//{
+//    isSoundActivated = true;
+//    SoundManager.instance.SFXPlay("Sounds/DinosaurMove");
+//}
