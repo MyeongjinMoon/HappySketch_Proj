@@ -14,7 +14,7 @@ namespace JongJin
 		private bool isSuccess = false;
 		private bool isMissionFinished = false;
 		private bool isWait = false;
-		private float timer = 10f;
+		private float timer = 60f;
 
 		private GameObject player1;
 		private GameObject player2;
