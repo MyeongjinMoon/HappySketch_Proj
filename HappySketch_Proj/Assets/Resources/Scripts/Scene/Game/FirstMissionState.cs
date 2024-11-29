@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using MyeongJin;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace JongJin
             isSuccess = false;
 			player1.transform.localScale = player1.transform.localScale * 1.5f;
 			player2.transform.localScale = player2.transform.localScale * 1.5f;
-			timer = 1f;
+			//timer = 1f;
 		}
 		public void UpdateState()
 		{
@@ -70,14 +71,20 @@ namespace JongJin
 			if (isSuccess)
 			{
 				if (!isWait)
+				{
+					SoundManager.instance.SFXPlay("Sounds/MissionSuccess");
 					StartCoroutine(Stay(isSuccess));
+				}
 				success = true;
 				return isMissionFinished;
 			}
 			if (timer <= 0)
 			{
 				if (!isWait)
-					StartCoroutine(Stay(isSuccess));
+                {
+                    SoundManager.instance.SFXPlay("Sounds/MissionFail");
+                    StartCoroutine(Stay(isSuccess));
+				}
 				return isMissionFinished;
 			}
 			return false;

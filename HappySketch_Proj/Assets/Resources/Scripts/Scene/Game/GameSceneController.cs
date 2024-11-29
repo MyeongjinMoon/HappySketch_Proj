@@ -40,10 +40,9 @@ namespace JongJin
 		private EGameState curState;
 		public EGameState CurState { get { return curState; } }
 
-		public AudioClip missionroomBackgroundMusic;             // 미션룸 배경 오디오 클립(삭제 예정)
-		public AudioClip runningStateBackgroundMusic;             // 달리는 상태 오디오 클립(삭제 예정)
-
-		private void Awake()
+        [SerializeField] private AudioClip missionroomBackgroundMusic;             // 미션룸 배경 오디오 클립
+        [SerializeField] private AudioClip runningStateBackgroundMusic;             // 달리는 상태 오디오 클립
+        private void Awake()
 		{
 			UIManager.Instance.MainCanvasSetting();
             
@@ -83,6 +82,7 @@ namespace JongJin
 		private void Start()
 		{
             SoundManager.instance.BackgroundMusicPlay(runningStateBackgroundMusic);
+			SoundManager.instance.SFXPlay("Sounds/JungleAmbience");
         }
 
 		private void Update()

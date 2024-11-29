@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Jaehoon;
 using UnityEngine;
 
 namespace MyeongJin
@@ -18,6 +19,9 @@ namespace MyeongJin
 		public int targetNum = 0;
 		// <<
 		private int hitCount = 1;
+
+        private bool isSoundActivated = false;
+
 		private void Awake()
 		{
 			controlPoints.Add(GameObject.Find("GroundControlPoint1").GetComponent<CGroundControlPoint>().controlPoints);
@@ -33,7 +37,8 @@ namespace MyeongJin
 		{
 			targetNum = UnityEngine.Random.Range(0, 2);
 			SetStartPosition();
-			if(targetNum == 1)
+            isSoundActivated = false;
+            if (targetNum == 1)
 			{
 				Vector3 rotation = new Vector3(5, 220, 0);
 				this.transform.rotation = Quaternion.Euler(rotation);
@@ -63,7 +68,7 @@ namespace MyeongJin
             this.GetComponent<BoxCollider>().enabled = true;
 
             SetStartPosition();
-		}
+        }
 		private void SetStartPosition()
 		{
 			if (controlPoints.Count != 0)
@@ -99,7 +104,16 @@ namespace MyeongJin
 
 				// 마지막 구간을 지나면 스크립트 중지
 				if (currentSegment == 1)
-                    this.GetComponentInChildren<Animator>().SetBool("isTouch", true);
+				{
+					this.GetComponentInChildren<Animator>().SetBool("isTouch", true);
+
+                    if (!isSoundActivated)
+                    {
+                        isSoundActivated = true;
+
+                        SoundManager.instance.SFXPlay("Sounds/Crocodile");
+                    }
+                }
 
 				if (currentSegment >= controlPoints[targetNum].Length - 3)
 				{

@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using JongJin;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace MyeongJin
         private GameSceneController gamecSceneController;
         private EGameState curState = EGameState.SECONDMISSION;
 
+        private bool isDead = false;
+
         private void Awake()
 		{
             flyParticleSystem = this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
@@ -36,6 +39,8 @@ namespace MyeongJin
         {
             if (IsStateChanged())
                 ReturnToPool();
+            if (!isDead)
+                SoundManager.instance.SFXPlay("Sounds/InsectFly", 1.5f);
         }
         private void OnDisable()
 		{
@@ -79,6 +84,8 @@ namespace MyeongJin
 
             var mainModule2 = lightBugParticleSystem.main;
             mainModule2.gravityModifier = 0.6f;
+
+            SoundManager.instance.SFXPlay("Sounds/InsectKill");
 
             StartCoroutine("Catch");
 		}
