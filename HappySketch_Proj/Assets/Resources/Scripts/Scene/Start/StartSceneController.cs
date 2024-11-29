@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static HakSeung.CUITutorialPopup;
+using static HakSeung.UIManager;
 
 namespace JongJin
 {
@@ -22,6 +23,10 @@ namespace JongJin
         {
             UIManager.Instance.MainCanvasSetting();
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
+            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TutorialCheckUIPanel);
+
+            UIManager.Instance.CreateSceneUI(ESceneUIType.TutorialCheckUIPanel.ToString());
+            //UIManager.Instance.CurSceneUI.Hide();
 
             storyDescriptionState = GetComponent<StoryDescriptionState>();
             storyCutSceneState = GetComponent<StoryCutSceneState>();
@@ -29,10 +34,10 @@ namespace JongJin
             tutorialActionState = GetComponent<TutorialActionState>();
 
             startStateContext = new StartStateContext(this);
-            startStateContext.Transition(storyDescriptionState);
-            curState = EStartGameState.STORYDESCRIPTION;
-            //startStateContext.Transition(tutorialDescriptionState);
-            //curState = EStartGameState.TUTORIALDESCRIPTION;
+            /*startStateContext.Transition(storyDescriptionState);
+            curState = EStartGameState.STORYDESCRIPTION;*/
+            startStateContext.Transition(tutorialDescriptionState);
+            curState = EStartGameState.TUTORIALDESCRIPTION;
         }
         private void Update()
         {
@@ -44,19 +49,27 @@ namespace JongJin
                     break;
                 case EStartGameState.STORYCUTSCENE:
                     if (storyCutSceneState.IsFinishedStoryCutScene())
+                    {
                         UpdateState(EStartGameState.TUTORIALDESCRIPTION);
+                        UIManager.Instance.CurSceneUI.Show();
+                        
+                    }
                     break;
                 case EStartGameState.TUTORIALDESCRIPTION:
                     if (tutorialDescriptionState.IsFinishedTutorialPopup())
                         UpdateState(EStartGameState.TUTORIALACTION);
                     break;
                 case EStartGameState.TUTORIALACTION:
-                    if(tutorialActionState.IsFinishedAction() && tutorialActionState.CurrentTutorialState != CUITutorialPopup.TutorialState.HEART)
-                        UpdateState(EStartGameState.TUTORIALDESCRIPTION);
-                    else if(tutorialActionState.CurrentTutorialState == CUITutorialPopup.TutorialState.HEART)
+                    if(tutorialActionState.IsFinishedAction())
                     {
-                        StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
+                        if(tutorialActionState.CurrentTutorialState != CUITutorialPopup.TutorialState.HEART)
+                            UpdateState(EStartGameState.TUTORIALDESCRIPTION);
+                        else
+                           StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
                     }
+
+                    
+                    
                     break;
             }
             startStateContext.CurrentState.UpdateState();

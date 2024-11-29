@@ -16,6 +16,7 @@ namespace HakSeung
             RunningCanvas,
             EventScenePanel,
             TailMissionPanel,
+            TutorialCheckUIPanel,
             END
         }
 
