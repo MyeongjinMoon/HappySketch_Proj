@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using JongJin;
 using System;
 using System.Collections;
@@ -50,9 +51,20 @@ namespace MyeongJin
             player1Time = PlayerPrefs.GetFloat("Player1Time");
             player2Time = PlayerPrefs.GetFloat("Player2Time");
 
+            isGameSuccess = false;
+            player1Time = PlayerPrefs.GetFloat("Player1Time");
+            player2Time = PlayerPrefs.GetFloat("Player2Time");
+
             topPlayerIndex = (player1Time < player2Time) ? 0 : 1;
         }
-		private void Update()
+        private void Start()
+        {
+            if (isGameSuccess)
+                SoundManager.instance.SFXPlay("Sounds/GameClear");
+            else
+                SoundManager.instance.SFXPlay("Sounds/GameFail");
+        }
+        private void Update()
 		{
             switch (curState)
             {
