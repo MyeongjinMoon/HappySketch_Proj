@@ -37,7 +37,8 @@ namespace JongJin
 		[SerializeField] private Fade fade;
 
 		private GameStateContext gameStateContext;
-		private EGameState curState;
+		private EGameState curState = EGameState.CUTSCENE;
+
 		public EGameState CurState { get { return curState; } }
 
         [SerializeField] private AudioClip missionroomBackgroundMusic;             // 미션룸 배경 오디오 클립
@@ -72,10 +73,10 @@ namespace JongJin
 			missionRoomVolcano.SetActive(false);
 			
 			gameStateContext = new GameStateContext(this);
-			//gameStateContext.Transition(cutSceneState);
-			//curState = EGameState.CUTSCENE;
-			gameStateContext.Transition(runningState);
-			curState = EGameState.RUNNING;
+			gameStateContext.Transition(cutSceneState);
+			curState = EGameState.CUTSCENE;
+			//gameStateContext.Transition(runningState);
+			//curState = EGameState.RUNNING;
 
 		}
 
@@ -87,7 +88,7 @@ namespace JongJin
 
 		private void Update()
 		{
-			if (!fade.IsFinished)
+			if (!fade.IsFinished && curState != EGameState.CUTSCENE)
 				return;
 			switch (curState)
 			{
@@ -132,7 +133,8 @@ namespace JongJin
 		{
 			if (curState == nextState)
 				return;
-			
+			if (curState != EGameState.CUTSCENE)
+				fade.FadeInOut();
 
             fade.FadeInOut();
 			StartCoroutine(WaitUpdate(nextState));
@@ -141,7 +143,10 @@ namespace JongJin
 		IEnumerator WaitUpdate(EGameState nextState)
 		{
 			curState = EGameState.END;
-			yield return new WaitForSeconds(2.0f);
+
+            if (curState != EGameState.CUTSCENE)
+                yield return new WaitForSeconds(2.0f);
+
 			curState = nextState;
 
             UpdateCamera(curState);

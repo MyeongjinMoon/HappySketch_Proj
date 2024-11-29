@@ -15,7 +15,7 @@ namespace JongJin
         private bool isSuccess = false;
         private bool isMissionFinished = false;
         private bool isWait = false;
-        private float timer = 1f;
+        private float timer = 60f;
 
         private readonly float ENDTIME = 0.0f;
         private float waitTime = 1.0f;

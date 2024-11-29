@@ -79,7 +79,7 @@ namespace MyeongJin
 				{
 					case EGameState.RUNNING:
                         RunningTimerIncrease();
-						if (IsSpawnTime(6f))
+						if (IsSpawnTime(8f))
 						{
 							CheckCanSpawnObstacle();
 							obstacleTimer = 0;

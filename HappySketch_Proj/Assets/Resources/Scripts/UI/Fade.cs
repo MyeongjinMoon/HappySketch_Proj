@@ -13,7 +13,7 @@ namespace JongJin
         private float time = 0.0f;
         private float fTime = 1.0f;
 
-        public bool IsFinished { get; private set; } = true;
+        public bool IsFinished { get; private set; } = false;
         
         public void FadeInOut()
         {
