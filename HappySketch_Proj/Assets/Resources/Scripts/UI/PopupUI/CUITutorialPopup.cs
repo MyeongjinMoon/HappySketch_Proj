@@ -4,6 +4,7 @@ using JongJin;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -51,13 +52,23 @@ namespace HakSeung
         [SerializeField] private GameObject timerImage;
 		[SerializeField] private Image panelImage;
 
+		enum SoundTipe
+		{
+			DEFAULT,
+			SUCCESS,
+			FAIL,
+			END
+		}
+
         private Vector3 startScale = Vector3.zero;
         private Vector3 endScale = Vector3.one;
 		private bool isOnSound;
+		private SoundTipe soundTipe;
         protected override void InitUI()
         {
             effectDuration = 0.5f;
             isOnSound = false;
+            soundTipe = SoundTipe.DEFAULT;
         }
 
         public void TimerUpdate(float curTime)
@@ -99,7 +110,8 @@ namespace HakSeung
 				yield break;
 			}
 
-			while (effectDuration > elapsedTime && isPlayingPopup)
+
+            while (effectDuration > elapsedTime && isPlayingPopup)
 			{
 				float timeProgress = elapsedTime / effectDuration;
 				baseRectTransform.localScale = Vector3.Lerp(startScale, endScale, timeProgress);
@@ -108,11 +120,25 @@ namespace HakSeung
 			}
 
 			baseRectTransform.localScale = endScale;
-			if (isOnSound == true)
-			{
-				SoundManager.instance.SFXPlay("Sounds/PopupUI");
-				isOnSound = false;
-			}
+			
+            if (isOnSound)
+            {
+                switch (soundTipe)
+                {
+                    case SoundTipe.FAIL:
+                        SoundManager.instance.SFXPlay("Sounds/MissionFail");
+                        break;
+                    case SoundTipe.SUCCESS:
+                        SoundManager.instance.SFXPlay("Sounds/MissionSuccess");
+                        break;
+					default:
+                        SoundManager.instance.SFXPlay("Sounds/PopupUI");
+                        break;
+                }
+               soundTipe = SoundTipe.DEFAULT;
+
+                isOnSound = false;
+            }
 		}
 
 		public void ImageSwap(TutorialState tutorialAction)
@@ -139,7 +165,9 @@ namespace HakSeung
 		}
 		public void ImageSwap(EGameState gameSceneState)
 		{
-			switch (gameSceneState)
+			
+
+            switch (gameSceneState)
 			{
 				case EGameState.TAILMISSION: //����
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.TAIL];
@@ -160,15 +188,19 @@ namespace HakSeung
 
 		public void ImageSwap(EventResult gameSceneState)
 		{
-			switch (gameSceneState)
+
+            switch (gameSceneState)
 			{
 				case EventResult.SUCCESS: 
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.SUCCESS];
                     panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
+                    soundTipe = SoundTipe.SUCCESS;
                     break;
 				case EventResult.FAILED: // �ͷ�
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.FAILED];
                     panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
+
+					soundTipe = SoundTipe.FAIL;
                     break;
 			
 				default:
