@@ -14,7 +14,7 @@ namespace JongJin
 		private bool isSuccess = false;
 		private bool isMissionFinished = false;
 		private bool isWait = false;
-		private float timer = 60f;
+		private float timer = 10f;
 
 		private GameObject player1;
 		private GameObject player2;
@@ -41,14 +41,14 @@ namespace JongJin
             isSuccess = false;
 			player1.transform.localScale = player1.transform.localScale * 1.5f;
 			player2.transform.localScale = player2.transform.localScale * 1.5f;
-			//timer = 1f;
 		}
 		public void UpdateState()
 		{
             if (!isDelayStart)
                 return;
 
-            DecreaseTime();
+			if (spawnController.canSpawn)
+				DecreaseTime();
 
 			SetTimer();
 			CheckProgressBar();
@@ -141,6 +141,8 @@ namespace JongJin
             ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(ENDTIME);
 
             UIManager.Instance.CloseAllPopupUI();
+            ((CUIEventPanel)UIManager.Instance.CurSceneUI).SetTimer(timer);
+
             yield return new WaitForSeconds(waitTime);
 
             isDelayStart = true;
