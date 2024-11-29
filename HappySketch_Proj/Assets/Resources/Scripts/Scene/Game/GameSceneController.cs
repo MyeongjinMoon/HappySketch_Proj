@@ -100,12 +100,12 @@ namespace JongJin
 					if (runningState.IsFirstMissionTriggered())
 						UpdateState(EGameState.FIRSTMISSION);
 					else if (runningState.IsSecondMissionTriggered())
-						UpdateState(EGameState.SECONDMISSION);      
+						UpdateState(EGameState.SECONDMISSION);
 					else if (runningState.IsThirdMissionTriggered())
 						UpdateState(EGameState.THIRDMISSION);
 					else if (runningState.IsTailMissionTriggered())
 						UpdateState(EGameState.TAILMISSION);
-					break;
+                    break;
 				case EGameState.TAILMISSION:
 					if (tailMissionState.IsFinishMission(out runningState.isMissionSuccess))
 					{
@@ -162,6 +162,7 @@ namespace JongJin
                 case EGameState.TAILMISSION:
                     gameStateContext.Transition(tailMissionState);
                     UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.TailMissionPanel);
+                    SoundManager.instance.SFXPlay("Sounds/TailMissionDinosaurRoar");
                     break;
                 case EGameState.FIRSTMISSION:
                     gameStateContext.Transition(firstMissionState);

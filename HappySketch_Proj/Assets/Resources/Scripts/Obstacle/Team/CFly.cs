@@ -40,7 +40,10 @@ namespace MyeongJin
             if (IsStateChanged())
                 ReturnToPool();
             if (!isDead)
+            {
+                isDead = true;
                 SoundManager.instance.SFXPlay("Sounds/InsectFly", 1.5f);
+            }
         }
         private void OnDisable()
 		{
