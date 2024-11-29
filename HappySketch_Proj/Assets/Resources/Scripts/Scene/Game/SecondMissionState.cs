@@ -36,7 +36,8 @@ namespace JongJin
             if (!isDelayStart)
                 return;
 
-            DecreaseTime();
+            if (spawnController.canSpawn)
+                DecreaseTime();
 
             SetTimer();
             CheckProgressBar();
@@ -126,6 +127,8 @@ namespace JongJin
             ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(ENDTIME);
 
             UIManager.Instance.CloseAllPopupUI();
+            ((CUIEventPanel)UIManager.Instance.CurSceneUI).SetTimer(timer);
+
             yield return new WaitForSeconds(waitTime);
 
             isDelayStart = true;

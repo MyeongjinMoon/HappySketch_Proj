@@ -1,3 +1,4 @@
+using Jaehoon;
 using JongJin;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace MyeongJin
         private float topPlayerTime;
         private float restPlayerTime;
         private bool isFinish = false;
+        private bool isRoarSoundActivated = false;
         public bool isGameSuccess;
 
         private void Awake()
@@ -110,6 +112,11 @@ namespace MyeongJin
             }
 			else
 			{
+				if(dinosaurAnimator.GetCurrentAnimatorStateInfo(0).IsName("Strat Roarning") && !isRoarSoundActivated)
+                {
+                    isRoarSoundActivated = true;
+                    SoundManager.instance.SFXPlay("Sounds/DinosaurRoar");
+                }
 				if(dinosaurAnimator.GetCurrentAnimatorStateInfo(0).IsName("Roarning"))
 				{
 					if (dinosaurAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)

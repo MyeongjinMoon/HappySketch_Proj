@@ -155,7 +155,11 @@ namespace MyeongJin
 			if (gamecSceneController.CurState != curState)
 			{
 				ChangedState(gamecSceneController.CurState);
-
+				if (gamecSceneController.CurState != EGameState.RUNNING)
+				{
+					canSpawn = false;
+					StartCoroutine(StayForTutorialPopUp(10f));
+                }
                 obstacleTimer = 0;
             }
 			curState = gamecSceneController.CurState;
@@ -222,6 +226,15 @@ namespace MyeongJin
 		private bool IsFlySpawnTime(float time)
 		{
 			return flyTimer > time;
+		}
+		private IEnumerator StayForTutorialPopUp(float time)
+		{
+			while(time > 0)
+			{
+				time -= Time.deltaTime;
+				yield return null;
+			}
+			canSpawn = true;
 		}
 	}
 }
