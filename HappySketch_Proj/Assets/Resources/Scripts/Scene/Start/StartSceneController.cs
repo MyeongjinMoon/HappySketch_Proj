@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,8 @@ namespace JongJin
             curState = EStartGameState.STORYDESCRIPTION;
             /*startStateContext.Transition(tutorialDescriptionState);
             curState = EStartGameState.TUTORIALDESCRIPTION;*/
+
+            SoundManager.instance.SFXPlay("Sounds/EntranceScene");
         }
         private void Update()
         {

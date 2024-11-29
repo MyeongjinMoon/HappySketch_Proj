@@ -1,3 +1,4 @@
+using Jaehoon;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,7 @@ public class EnterSceneController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleText;
     void Start()
     {
+        SoundManager.instance.SFXPlay("Sounds/EntranceScene");
         StartCoroutine(TextOnOff());
     }
 
