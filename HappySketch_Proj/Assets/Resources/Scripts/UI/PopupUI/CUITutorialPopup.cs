@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using JongJin;
 using System.Collections;
 using System.Collections.Generic;
@@ -102,7 +103,7 @@ namespace HakSeung
 			}
 
 			baseRectTransform.localScale = endScale;
-
+			SoundManager.instance.SFXPlay("Sounds/PopupUI");
 		}
 
 		public void ImageSwap(TutorialState tutorialAction)
