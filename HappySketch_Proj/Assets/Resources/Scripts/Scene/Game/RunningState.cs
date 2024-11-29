@@ -122,12 +122,16 @@ namespace JongJin
 			if (isMissionSuccess)
 				StartCoroutine(OnBuff());
 			else
+			{
+                SetHeart();
 				StartCoroutine(OnDeBuff());
+            }
 
             crownTimer = 0.0f;
         }
 		public void UpdateState()
 		{
+			Debug.Log(dinosaur.transform.position);
             if (isFinish)
                 return;
 			EndGame();
@@ -181,13 +185,17 @@ namespace JongJin
 					= new Vector3(prevPlayerPosition[playerNum].x, prevPlayerPosition[playerNum].y, prevPlayerPosition[playerNum].z);
 			dinosaur.transform.position = prevDinosaurPosition;
 
-		}
+			transform.position = new Vector3(transform.position.x, transform.position.y, firstRankerDistance);
+        }
 		private void SaveInfo()
 		{
 			for (int playerNum = 0; playerNum < players.Length; playerNum++)
 				prevPlayerPosition[playerNum] =
-					new Vector3(players[playerNum].transform.position.x, players[playerNum].transform.position.y + 0.5f, players[playerNum].transform.position.z + 5.0f);
+					new Vector3(players[playerNum].transform.position.x, players[playerNum].transform.position.y + 0.5f, players[playerNum].transform.position.z + 8.0f);
 			prevDinosaurPosition = dinosaur.transform.position;
+			firstRankerDistance = players[firstRankerId].transform.position.z;
+			lastRankerDistance = players[1 - firstRankerId].transform.position.z;
+
 		}
 		#endregion
 
@@ -239,7 +247,7 @@ namespace JongJin
 				return false;
 			if (!isRunning)
 				return false;
-			if (minDistance <= lastRankerDistance - dinosaurDistance)
+			if (minDistance + 0.001f <= lastRankerDistance - dinosaurDistance)
 				return false;
 			return true;
 		}
@@ -362,7 +370,6 @@ namespace JongJin
 			SetDinosaurImage();
 			SetDinosaurDistanceText();
             SetEndLineDistanceText();
-			SetHeart();
         }
 		private void SetProgressBar()
 		{

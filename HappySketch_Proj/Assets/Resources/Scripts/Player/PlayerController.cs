@@ -171,7 +171,8 @@ namespace JongJin
                 SetRunningState();
             else if (curState != EPlayerState.MISSION
                   && gameSceneController.CurState != EGameState.RUNNING
-                  && gameSceneController.CurState != EGameState.CUTSCENE)
+                  && gameSceneController.CurState != EGameState.CUTSCENE
+                  && gameSceneController.CurState != EGameState.END)
                 SetMissionState();
         }
         private void SetRunningState()

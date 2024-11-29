@@ -17,8 +17,9 @@ namespace JongJin
 
         private void Update()
         {
-            if(gameSceneController.CurState == EGameState.RUNNING)
-                Move();
+            if (gameSceneController.CurState != EGameState.RUNNING)
+                return;
+            Move();
         }
 
         private void Move()

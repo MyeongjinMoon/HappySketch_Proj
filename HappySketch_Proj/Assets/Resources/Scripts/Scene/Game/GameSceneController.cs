@@ -139,6 +139,7 @@ namespace JongJin
 		}
 		IEnumerator WaitUpdate(EGameState nextState)
 		{
+			curState = EGameState.END;
 			yield return new WaitForSeconds(1.0f);
 			curState = nextState;
 
