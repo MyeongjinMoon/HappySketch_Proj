@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using JongJin;
 using System.Collections;
 using System.Collections.Generic;
@@ -93,6 +94,7 @@ namespace MyeongJin
 
             if (sprite.color.a == 0)
 			{
+				SoundManager.instance.SFXPlay("Sounds/RemoveVolcanoAsh");
                 ReturnToPool(10);
             }
         }

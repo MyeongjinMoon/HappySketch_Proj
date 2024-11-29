@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Jaehoon;
 using UnityEngine;
 
 namespace MyeongJin
@@ -16,7 +17,11 @@ namespace MyeongJin
 		private int currentSegment = 0;     // 현재 이동 중인 곡선 구간
 											// <<
 		private int hitCount = 1;
-		private void Start()
+
+		private bool isSoundActivated = false;
+
+
+        private void Start()
 		{
 			controlPoints = GameObject.Find("SmallPteranodonControlPoints").GetComponent< CSkyControlPoint>().controlPoints;
 		}
@@ -29,7 +34,8 @@ namespace MyeongJin
 		private void OnEnable()
 		{
 			this.transform.Rotate(45, 0, 0);
-		}
+            isSoundActivated = false;
+        }
 		private void OnDisable()
 		{
 			ResetObstacle();
@@ -89,7 +95,14 @@ namespace MyeongJin
 				{
 					this.GetComponentInChildren<Animator>().SetBool("isTouch", true);
 					this.transform.Rotate(-45, 0, 0);
-				}
+
+                    if (!isSoundActivated)
+                    {
+                        isSoundActivated = true;
+
+                        SoundManager.instance.SFXPlay("Sounds/Pterosaur");
+                    }
+                }
 
 				if (currentSegment >= controlPoints.Length - 3)
 				{
