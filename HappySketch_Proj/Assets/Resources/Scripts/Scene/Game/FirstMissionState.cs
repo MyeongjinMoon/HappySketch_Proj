@@ -71,20 +71,16 @@ namespace JongJin
 			if (isSuccess)
 			{
 				if (!isWait)
-				{
-					SoundManager.instance.SFXPlay("Sounds/MissionSuccess");
 					StartCoroutine(Stay(isSuccess));
-				}
+
 				success = true;
 				return isMissionFinished;
 			}
 			if (timer <= 0)
 			{
 				if (!isWait)
-                {
-                    SoundManager.instance.SFXPlay("Sounds/MissionFail");
                     StartCoroutine(Stay(isSuccess));
-				}
+
 				return isMissionFinished;
 			}
 			return false;

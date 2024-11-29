@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using JongJin;
 using System;
 using System.Collections;
@@ -117,6 +118,7 @@ namespace HakSeung
                 animator.Play(jumpAniName, -1, 0f);
             animator.SetBool(paramJump, true);
             rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            SoundManager.instance.SFXPlay("Sounds/PlayerJump");
         }
 
         private void IncreaseSpeed()

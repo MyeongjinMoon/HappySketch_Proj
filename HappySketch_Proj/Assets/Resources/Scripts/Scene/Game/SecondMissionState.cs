@@ -58,10 +58,8 @@ namespace JongJin
             if (isSuccess)
             {
                 if (!isWait)
-                {
-                    SoundManager.instance.SFXPlay("Sounds/MissionSuccess");
                     StartCoroutine("Stay");
-                }
+
                 success = true;
                 return isMissionFinished;
             }
