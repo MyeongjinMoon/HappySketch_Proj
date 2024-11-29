@@ -415,13 +415,13 @@ namespace JongJin
 			if (ProgressRate >= 100.0f && playersClearTime[firstRankerId] == 0) playersClearTime[firstRankerId] = totalRoundTime - roundTimeLimit;
 			if (ProgressEndRate >= 100.0f && playersClearTime[1 - firstRankerId] == 0) playersClearTime[1 - firstRankerId] = totalRoundTime - roundTimeLimit;
 
-			if (Life > 0 && roundTimeLimit > 0.0f && ProgressEndRate < 100.0f)
+			if (Life > 0 && roundTimeLimit > 0.0f && ProgressEndRate < 99.0f)
 				return;
 
 			isFinish = true;
 
 			isClearStage = 0;
-			if (ProgressEndRate >= 100.0f)
+			if (ProgressEndRate >= 99.0f)
 				isClearStage = 1;
 
 			SendEndingInfo();
