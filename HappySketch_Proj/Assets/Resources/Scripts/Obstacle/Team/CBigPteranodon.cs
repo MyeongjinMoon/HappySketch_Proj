@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Jaehoon;
 using UnityEngine;
 
 namespace MyeongJin
@@ -17,6 +18,9 @@ namespace MyeongJin
 											// <<
 		private int rotateSpeed = 15;
 		private int hitCount = 2;
+
+		private bool isSoundActivated = false;
+
 		private void Awake()
 		{
 			controlPoints = GameObject.Find("BigPteranodonControlPoints").GetComponent<CSkyControlPoint>().controlPoints;
@@ -31,6 +35,7 @@ namespace MyeongJin
 		private void OnEnable()
 		{
 			this.transform.Rotate(-45, 0, 0);
+            isSoundActivated = false;
         }
 		private void OnDisable()
 		{
@@ -92,7 +97,13 @@ namespace MyeongJin
 				{
 					this.GetComponentInChildren<Animator>().SetBool("isTouch", true);
 					rotateSpeed *= 8;
-				}
+                    if (!isSoundActivated)
+                    {
+                        isSoundActivated = true;
+
+                        SoundManager.instance.SFXPlay("Sounds/Pterosaur");
+                    }
+                }
 
 				// 마지막 구간을 지나면 스크립트 중지
 				if (currentSegment >= controlPoints.Length - 3)

@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using MyeongJin;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace JongJin
         private bool isSuccess = false;
         private bool isMissionFinished = false;
         private bool isWait = false;
-        private float timer = 60f;
+        private float timer = 1f;
 
         private void Awake()
         {
@@ -22,7 +23,6 @@ namespace JongJin
         public void EnterState()
         {
             isSuccess = false;
-            timer = 1f;
         }
         public void UpdateState()
         {
@@ -46,14 +46,20 @@ namespace JongJin
             if (isSuccess)
             {
                 if (!isWait)
+                {
+                    SoundManager.instance.SFXPlay("Sounds/MissionSuccess");
                     StartCoroutine("Stay");
+                }
                 success = true;
                 return isMissionFinished;
             }
             if (timer <= 0)
             {
                 if (!isWait)
+                {
+                    SoundManager.instance.SFXPlay("Sounds/MissionFail");
                     StartCoroutine("Stay");
+                }
                 return isMissionFinished;
             }
             return false;
