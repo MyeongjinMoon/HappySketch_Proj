@@ -27,7 +27,7 @@ namespace JongJin
 
         private float runningSuccessSpeed = 5f;
 
-        private bool prevPlayerActionTrigger;
+        private bool[] prevPlayerActionTrigger = new bool[TOTALPLAYERNUM];
 
         public void EnterState()
         {
@@ -52,18 +52,25 @@ namespace JongJin
             }
 
             isActionConditionClear = false;
-            prevPlayerActionTrigger = false;
 
             for (int playerIndex = 0; playerIndex < playerController.Length; playerIndex++)
+            {
                 playerController[playerIndex].PlayerReset(tutorialState);
-
+                prevPlayerActionTrigger[playerIndex] = false;
+            }
             
             Debug.Log(tutorialState.ToString() + "튜토리얼");
         }
         public void UpdateState()
         {
-            if ((PlayerActionCheak(0) && PlayerActionCheak(1)) && (CurrentTutorialState != CUITutorialPopup.TutorialState.HEART))
-                StartCoroutine(ActionSuccessTimer());
+            if (CurrentTutorialState != CUITutorialPopup.TutorialState.HEART)
+            {
+                bool isP1ActionTrue = PlayerActionCheak(0);
+                bool isP2ActionTrue = PlayerActionCheak(1);
+
+                if ((isP1ActionTrue && isP2ActionTrue))
+                    StartCoroutine(ActionSuccessTimer());
+            }
             else if ((CurrentTutorialState == CUITutorialPopup.TutorialState.HEART) && SceneManagerExtended.Instance.CheckReady())
                 StartCoroutine(ActionSuccessTimer());
         }
@@ -106,12 +113,17 @@ namespace JongJin
                case CUITutorialPopup.TutorialState.JUMP:
                     if (actionSuccessCounts[playerNum] >= MAXACTIONCOUNT)
                         return true;
-                    
-                    if (playerController[playerNum].ActionTrigger && !prevPlayerActionTrigger)
-                        ++actionSuccessCounts[playerNum];
 
-                    if (prevPlayerActionTrigger != playerController[playerNum].ActionTrigger)
-                        prevPlayerActionTrigger = playerController[playerNum].ActionTrigger;
+                    if (playerController[playerNum].ActionTrigger && (prevPlayerActionTrigger[playerNum] != playerController[playerNum].ActionTrigger))
+                    {
+                        ++actionSuccessCounts[playerNum];
+                        Debug.Log(playerNum + "점프 중");
+                    }
+
+
+                    prevPlayerActionTrigger[playerNum] = playerController[playerNum].ActionTrigger;
+
+                    
 
                     break;
                 case CUITutorialPopup.TutorialState.HEART:
@@ -119,6 +131,8 @@ namespace JongJin
 
                     break;
             }
+
+            ((CUITutorialPanel)UIManager.Instance.CurSceneUI).ActionCountSet(playerNum, 3 - actionSuccessCounts[playerNum]);
 
             return false;
         }

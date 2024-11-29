@@ -108,7 +108,8 @@ namespace JongJin
             {
                 case CUITutorialPopup.TutorialState.RUNNING:
                     UIManager.Instance.ShowPopupUI(EPopupUIType.TutorialPopupPanel.ToString());
-                    ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUITutorialPopup.TutorialState.RUNNING);
+                   ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUITutorialPopup.TutorialState.RUNNING);
+                    //((CUITutorialPanel)UIManager.Instance.CurSceneUI).uiSetting();
                     break;
                 case CUITutorialPopup.TutorialState.JUMP:
                     UIManager.Instance.ShowPopupUI(EPopupUIType.TutorialPopupPanel.ToString());
