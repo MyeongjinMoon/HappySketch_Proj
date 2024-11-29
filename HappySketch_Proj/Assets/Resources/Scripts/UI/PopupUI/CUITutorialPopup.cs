@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using JongJin;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,6 +76,7 @@ namespace HakSeung
 			if (panelImage.color.a != 0.392f)
 				panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0.392f);
             timerImage.SetActive(true);
+			
 		}
 
 		public void TimerHide()
@@ -102,8 +104,8 @@ namespace HakSeung
 			}
 
 			baseRectTransform.localScale = endScale;
-
-		}
+            SoundManager.instance.SFXPlay("Sounds/PopupUI");
+        }
 
 		public void ImageSwap(TutorialState tutorialAction)
 		{
