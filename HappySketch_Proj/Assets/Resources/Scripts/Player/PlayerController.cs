@@ -192,10 +192,11 @@ namespace JongJin
             curState = EPlayerState.MISSION;
             animator.SetBool(paramMission, true);
 
-            transform.position = new Vector3(148f + (int)playerId * 4f, 2.0f, 0.0f);
 
             buffParticles.Stop();
             deBuffParticles.Stop();
+
+            transform.position = new Vector3(148f + (int)playerId * 4f, 2.0f, 0.0f);
         }
         #endregion
 

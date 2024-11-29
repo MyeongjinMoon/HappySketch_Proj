@@ -55,6 +55,7 @@ namespace JongJin
 		[HideInInspector] public bool isDebuff = false;
 
 		public int Life { get; set; } = 3;
+		private bool isSetLife = true;
 		private float crownTimer = 0.0f;
 		private float totalRoundTime = 0.0f;
 		private float[] playersClearTime;
@@ -116,14 +117,12 @@ namespace JongJin
 
 			SetInfo();
 			isRunning = true;
+			isSetLife = false;
 
 			if (isMissionSuccess)
 				StartCoroutine(OnBuff());
 			else
-			{
-                SetHeart();
 				StartCoroutine(OnDeBuff());
-            }
 
             crownTimer = 0.0f;
         }
@@ -146,7 +145,6 @@ namespace JongJin
 			Move();
 			CalculateObjectDistance();
 			CalculateRank();
-
 		}
 
 		public void ExitState()
@@ -364,6 +362,7 @@ namespace JongJin
 			SetDinosaurImage();
 			SetDinosaurDistanceText();
             SetEndLineDistanceText();
+			SetHeart();
         }
 		private void SetProgressBar()
 		{
@@ -394,7 +393,11 @@ namespace JongJin
         }
 		private void SetHeart()
 		{
-            ((CUIRunningCanvas)UIManager.Instance.CurSceneUI).SetHeart(Life);
+			if (!isSetLife)
+			{
+				((CUIRunningCanvas)UIManager.Instance.CurSceneUI).SetHeart(Life);
+				isSetLife = true;
+			}
         }
 
         #endregion

@@ -73,41 +73,43 @@ public class CUITailMissionPanel : CUIScene
 
     private IEnumerator SpinImages(int lifeIndex)
     {
-        
-        while(-startScale <= tailLifes[lifeIndex].transform.localScale.x)
+        int count = 2;
+        while (count-- > 0)
         {
-            tailLifes[lifeIndex].transform.localScale = new Vector3(tailLifes[lifeIndex].transform.localScale.x - spinSpeed * Time.deltaTime,
-                                                                    tailLifes[lifeIndex].transform.localScale.y,
-                                                                    1);
-            if (dinoImageObjects[lifeIndex].activeSelf == tailLifes[lifeIndex].transform.localScale.x <= 0)
-                dinoImageObjects[lifeIndex].SetActive(false);
+            while (-startScale <= tailLifes[lifeIndex].transform.localScale.x)
+            {
+                tailLifes[lifeIndex].transform.localScale = new Vector3(tailLifes[lifeIndex].transform.localScale.x - spinSpeed * Time.deltaTime,
+                                                                        tailLifes[lifeIndex].transform.localScale.y,
+                                                                        1);
+                if (dinoImageObjects[lifeIndex].activeSelf == tailLifes[lifeIndex].transform.localScale.x <= 0)
+                    dinoImageObjects[lifeIndex].SetActive(false);
 
-            yield return null;
-        }
+                yield return null;
+            }
 
-        tailLifes[lifeIndex].transform.localScale = new Vector3(-startScale,
-                                                                tailLifes[lifeIndex].transform.localScale.y,
-                                                                1);
-
-
-        while (startScale >= tailLifes[lifeIndex].transform.localScale.x)
-        {
-            tailLifes[lifeIndex].transform.localScale = new Vector3(tailLifes[lifeIndex].transform.localScale.x + spinSpeed * Time.deltaTime,
+            tailLifes[lifeIndex].transform.localScale = new Vector3(-startScale,
                                                                     tailLifes[lifeIndex].transform.localScale.y,
                                                                     1);
 
-            if (!dinoImageObjects[lifeIndex].activeSelf == tailLifes[lifeIndex].transform.localScale.x >= 0)
-                dinoImageObjects[lifeIndex].SetActive(true);
 
-            yield return null;
+            while (startScale >= tailLifes[lifeIndex].transform.localScale.x)
+            {
+                tailLifes[lifeIndex].transform.localScale = new Vector3(tailLifes[lifeIndex].transform.localScale.x + spinSpeed * Time.deltaTime,
+                                                                        tailLifes[lifeIndex].transform.localScale.y,
+                                                                        1);
+
+                if (!dinoImageObjects[lifeIndex].activeSelf == tailLifes[lifeIndex].transform.localScale.x >= 0)
+                    dinoImageObjects[lifeIndex].SetActive(true);
+
+                yield return null;
+            }
+
+            tailLifes[lifeIndex].transform.localScale = new Vector3(startScale,
+                                                                    tailLifes[lifeIndex].transform.localScale.y,
+                                                                    1);
         }
-
-        tailLifes[lifeIndex].transform.localScale = new Vector3(startScale,
-                                                                tailLifes[lifeIndex].transform.localScale.y,
-                                                                1);
 
         for (int imageIndex = 0; imageIndex < TAILLIFEIMAGENUM; imageIndex++)
             tailLifeImages[lifeIndex, imageIndex].color = Color.gray;
-
     }
 }

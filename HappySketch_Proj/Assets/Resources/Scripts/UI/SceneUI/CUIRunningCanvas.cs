@@ -38,7 +38,7 @@ namespace HakSeung
 
         public void SetHeart(int curLife)
         {
-            StartCoroutine(HeartAni(1));
+            StartCoroutine(HeartAni(curLife));
         }
         IEnumerator HeartAni(int curLife)
         {

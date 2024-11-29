@@ -33,6 +33,9 @@ namespace JongJin
 
 		[SerializeField] private GameObject missionRoomVolcano;
 
+		[Header("Etc..")]
+		[SerializeField] private Fade fade;
+
 		private GameStateContext gameStateContext;
 		private EGameState curState;
 		public EGameState CurState { get { return curState; } }
@@ -70,10 +73,10 @@ namespace JongJin
 			missionRoomVolcano.SetActive(false);
 			
 			gameStateContext = new GameStateContext(this);
-			gameStateContext.Transition(cutSceneState);
-			curState = EGameState.CUTSCENE;
-			//gameStateContext.Transition(runningState);
-			//curState = EGameState.RUNNING;
+			//gameStateContext.Transition(cutSceneState);
+			//curState = EGameState.CUTSCENE;
+			gameStateContext.Transition(runningState);
+			curState = EGameState.RUNNING;
 
 		}
 
@@ -84,6 +87,8 @@ namespace JongJin
 
 		private void Update()
 		{
+			if (!fade.IsFinished)
+				return;
 			switch (curState)
 			{
 				case EGameState.CUTSCENE:
@@ -92,21 +97,13 @@ namespace JongJin
 					break;
 				case EGameState.RUNNING:
 					if (runningState.IsFirstMissionTriggered())
-					{
 						UpdateState(EGameState.FIRSTMISSION);
-					}
 					else if (runningState.IsSecondMissionTriggered())
-					{
 						UpdateState(EGameState.SECONDMISSION);      
-					}
 					else if (runningState.IsThirdMissionTriggered())
-					{
 						UpdateState(EGameState.THIRDMISSION);
-					}
 					else if (runningState.IsTailMissionTriggered())
-					{
 						UpdateState(EGameState.TAILMISSION);
-					}
 					break;
 				case EGameState.TAILMISSION:
 					if (tailMissionState.IsFinishMission(out runningState.isMissionSuccess))
@@ -116,22 +113,16 @@ namespace JongJin
 					}
 					break;
 				case EGameState.FIRSTMISSION:        
-					if (firstMissionState.IsFinishMission(out runningState.isMissionSuccess))        
-					{ 
-						UpdateState(EGameState.RUNNING);           
-					}
+					if (firstMissionState.IsFinishMission(out runningState.isMissionSuccess))
+						UpdateState(EGameState.RUNNING);
 					break;
 				case EGameState.SECONDMISSION:        
-					if (secondMissionState.IsFinishMission(out runningState.isMissionSuccess))         
-					{
-						UpdateState(EGameState.RUNNING);            
-					}
+					if (secondMissionState.IsFinishMission(out runningState.isMissionSuccess))
+						UpdateState(EGameState.RUNNING);
 					break;
 				case EGameState.THIRDMISSION:         
-					if (thirdMissionState.IsFinishMission(out runningState.isMissionSuccess))       
-					{
-						UpdateState(EGameState.RUNNING);            
-					}
+					if (thirdMissionState.IsFinishMission(out runningState.isMissionSuccess))
+						UpdateState(EGameState.RUNNING);
 					break;
 			}
 			gameStateContext.CurrentState.UpdateState();
@@ -140,36 +131,46 @@ namespace JongJin
 		{
 			if (curState == nextState)
 				return;
+			
+
+            fade.FadeInOut();
+			StartCoroutine(WaitUpdate(nextState));
+            
+		}
+		IEnumerator WaitUpdate(EGameState nextState)
+		{
+			yield return new WaitForSeconds(1.0f);
 			curState = nextState;
 
-			UpdateCamera(curState);
-			UpdateMap(curState);
-			UpdateBackgroundMusic(curState);
+            UpdateCamera(curState);
+            UpdateMap(curState);
+            UpdateBackgroundMusic(curState);
 
-			switch (curState)
-			{
-				case EGameState.RUNNING:
-					gameStateContext.Transition(runningState);
+            switch (curState)
+            {
+                case EGameState.RUNNING:
+                    gameStateContext.Transition(runningState);
                     UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.RunningCanvas);
                     break;
-				case EGameState.TAILMISSION:
-					gameStateContext.Transition(tailMissionState);
+                case EGameState.TAILMISSION:
+                    gameStateContext.Transition(tailMissionState);
                     UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.TailMissionPanel);
                     break;
-				case EGameState.FIRSTMISSION:
-					gameStateContext.Transition(firstMissionState);
+                case EGameState.FIRSTMISSION:
+                    gameStateContext.Transition(firstMissionState);
                     UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
                     break;
-				case EGameState.SECONDMISSION:
-					gameStateContext.Transition(secondMissionState);
+                case EGameState.SECONDMISSION:
+                    gameStateContext.Transition(secondMissionState);
                     UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
                     break;
-				case EGameState.THIRDMISSION:
-					gameStateContext.Transition(thirdMissionState);
+                case EGameState.THIRDMISSION:
+                    gameStateContext.Transition(thirdMissionState);
                     UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
                     break;
-			}
-		}
+            }
+			yield return null;
+        }
 
 		private void UpdateCamera(EGameState curState)
 		{
