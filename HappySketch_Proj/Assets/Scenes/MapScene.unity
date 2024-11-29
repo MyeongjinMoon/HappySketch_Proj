@@ -6898,14 +6898,16 @@ MonoBehaviour:
   playerSpacing: 3
   buffDistance: 10
   deBuffDistance: 6
-  tailMissionStartRate: 100
+  tailMissionStartRate: 5
   tailMissionEndRate: 90
-  firstMissionRate: 0
-  secondMissionRate: 1
-  thirdMissionRate: 2
+  firstMissionRate: 10
+  secondMissionRate: 70
+  thirdMissionRate: 80
   runningViewCam: {fileID: 1034790891}
   plusCameraPosZ: 2.5
+  fadeImage: {fileID: 0}
   isMissionSuccess: 0
+  isPrevStateTail: 0
   isDebuff: 0
 --- !u!114 &1431323198
 MonoBehaviour:
