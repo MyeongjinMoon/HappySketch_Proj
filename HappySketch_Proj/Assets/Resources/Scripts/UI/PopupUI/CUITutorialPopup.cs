@@ -53,9 +53,11 @@ namespace HakSeung
 
         private Vector3 startScale = Vector3.zero;
         private Vector3 endScale = Vector3.one;
+		private bool isOnSound;
         protected override void InitUI()
         {
             effectDuration = 0.5f;
+            isOnSound = false;
         }
 
         public void TimerUpdate(float curTime)
@@ -72,13 +74,16 @@ namespace HakSeung
         public override void Show()
         {
 			base.Show();
+			isOnSound = true;
             StartCoroutine(PlayPopupEffect());
 			if (panelImage.color.a != 0.392f)
 				panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0.392f);
             timerImage.SetActive(true);
 		}
 
-		public void TimerHide()
+        
+
+        public void TimerHide()
 		{
 			timerImage.SetActive(false);
 		}
@@ -103,7 +108,11 @@ namespace HakSeung
 			}
 
 			baseRectTransform.localScale = endScale;
-			SoundManager.instance.SFXPlay("Sounds/PopupUI");
+			if (isOnSound == true)
+			{
+				SoundManager.instance.SFXPlay("Sounds/PopupUI");
+				isOnSound = false;
+			}
 		}
 
 		public void ImageSwap(TutorialState tutorialAction)

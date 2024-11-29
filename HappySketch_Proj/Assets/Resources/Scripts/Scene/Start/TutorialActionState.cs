@@ -1,6 +1,7 @@
 using HakSeung;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static HakSeung.UIManager;
 
@@ -16,7 +17,7 @@ namespace JongJin
 
         private bool isActionConditionClear;
 
-        private float successWaitTime = 2f;
+        private float successWaitTime = 3f;
 
         private const int MAXACTIONCOUNT = 3;
       
@@ -29,9 +30,13 @@ namespace JongJin
 
         private bool[] prevPlayerActionTrigger = new bool[TOTALPLAYERNUM];
 
+        private bool isOnSuccess;
+
         public void EnterState()
         {
-            for(int playerIndex = 0; playerIndex < TOTALPLAYERNUM; playerIndex++)
+            isOnSuccess = false;
+
+            for (int playerIndex = 0; playerIndex < TOTALPLAYERNUM; playerIndex++)
                 actionSuccessCounts[playerIndex] = 0;
 
             switch (tutorialState)
@@ -63,6 +68,9 @@ namespace JongJin
         }
         public void UpdateState()
         {
+            if (isOnSuccess)
+                return;
+
             if (CurrentTutorialState != CUITutorialPopup.TutorialState.HEART)
             {
                 bool isP1ActionTrue = PlayerActionCheak(0);
@@ -138,6 +146,11 @@ namespace JongJin
         }
         private IEnumerator ActionSuccessTimer()
         {
+            isOnSuccess = true;
+            UIManager.Instance.ShowPopupUI(UIManager.ETestType.TutorialPopupPanel.ToString());
+            ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.SUCCESS);
+            ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
+
             //Success ǥ�� ���� 
             yield return new WaitForSeconds(successWaitTime);
             isActionConditionClear = true;
