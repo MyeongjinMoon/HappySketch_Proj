@@ -10,10 +10,13 @@ namespace JongJin
         [SerializeField] private GameSceneController gameSceneController;
 
         [SerializeField] private float speed = 2.0f;
+
+        private float soundIntervalFootstep = 0.0f;
+
         public float Speed { get { return speed; } }
         private void Start()
         {
-
+ 
         }
 
         private void Update()
@@ -26,6 +29,13 @@ namespace JongJin
         private void Move()
         {
             transform.Translate(transform.forward * speed * Time.deltaTime);
+
+            soundIntervalFootstep += Time.deltaTime;
+            if (soundIntervalFootstep >= 1.0f)
+            {
+                soundIntervalFootstep = 0.0f;
+                SoundManager.instance.SFXPlay("Sounds/DinosaurMove");
+            }
         }
     }
 }
