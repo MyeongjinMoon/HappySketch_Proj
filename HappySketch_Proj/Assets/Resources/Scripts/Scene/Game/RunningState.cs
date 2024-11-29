@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static HakSeung.UIManager;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace JongJin
 {
@@ -50,6 +51,9 @@ namespace JongJin
         [Header("Virtual Camera")] 
 		[SerializeField] private GameObject runningViewCam;
 		[SerializeField] private float plusCameraPosZ = 5.0f;
+
+		[Header("UI")]
+		[SerializeField] private Image fadeImage;
 
 		[HideInInspector] public bool isMissionSuccess = false;
 		[HideInInspector] public bool isPrevStateTail = false;
@@ -421,6 +425,7 @@ namespace JongJin
 				isClearStage = 1;
 
 			SendEndingInfo();
+			StartCoroutine(FadeIN());
             StartCoroutine(SceneManagerExtended.Instance.GoToEndingScene());
         }
 
@@ -429,7 +434,21 @@ namespace JongJin
 			PlayerPrefs.SetInt("ClearStage", isClearStage);
 			PlayerPrefs.SetFloat("Player1Time", (playersClearTime[0]));
 			PlayerPrefs.SetFloat("Player2Time",(playersClearTime[1]));
-		}
+        }
+        IEnumerator FadeIN()
+		{
+            fadeImage.gameObject.SetActive(true);
+            float time = 0.0f;
+
+            Color alpha = fadeImage.color;
+            while (alpha.a < 1.0f)
+            {
+                time += Time.deltaTime;
+                alpha.a = Mathf.Lerp(0.0f, 1.0f, time);
+                fadeImage.color = alpha;
+                yield return null;
+            }
+        }
         #endregion
     }
 }
