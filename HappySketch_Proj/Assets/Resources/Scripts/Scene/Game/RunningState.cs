@@ -52,10 +52,10 @@ namespace JongJin
 		[SerializeField] private float plusCameraPosZ = 5.0f;
 
 		[HideInInspector] public bool isMissionSuccess = false;
+		[HideInInspector] public bool isPrevStateTail = false;
 		[HideInInspector] public bool isDebuff = false;
 
 		public int Life { get; set; } = 3;
-		private bool isSetLife = true;
 		private float crownTimer = 0.0f;
 		private float totalRoundTime = 0.0f;
 		private float[] playersClearTime;
@@ -117,13 +117,13 @@ namespace JongJin
 
 			SetInfo();
 			isRunning = true;
-			isSetLife = false;
 
 			if (isMissionSuccess)
 				StartCoroutine(OnBuff());
 			else
 			{
-                SetHeart();
+				if(isPrevStateTail)
+					SetHeart();
 				StartCoroutine(OnDeBuff());
             }
 
@@ -131,7 +131,6 @@ namespace JongJin
         }
 		public void UpdateState()
 		{
-			Debug.Log(dinosaur.transform.position);
             if (isFinish)
                 return;
 			EndGame();
@@ -156,7 +155,7 @@ namespace JongJin
 			SaveInfo();
             runningViewCam.GetComponent<CinemachineVirtualCamera>().Priority = 16;
 
-            //UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
 
             isRunning = false;
 
@@ -400,11 +399,8 @@ namespace JongJin
         }
 		private void SetHeart()
 		{
-			if (!isSetLife)
-			{
-				((CUIRunningCanvas)UIManager.Instance.CurSceneUI).SetHeart(Life);
-				isSetLife = true;
-			}
+			isPrevStateTail = false;
+			((CUIRunningCanvas)UIManager.Instance.CurSceneUI).SetHeart(Life);
         }
 
         #endregion

@@ -24,7 +24,6 @@ namespace JongJin
         private readonly float ENDTIME = 0.0f;
         private float waitTime = 1.0f;
         private bool isDelayStart = false;
-        private bool isDelayFinish = false;
 
         private void Awake()
 		{
@@ -36,7 +35,7 @@ namespace JongJin
 		}
 		public void EnterState()
 		{
-            ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(EGameState.FIRSTMISSION);
+            StartCoroutine(TutorialPopup(10.0f));
 
             isSuccess = false;
 			player1.transform.localScale = player1.transform.localScale * 1.5f;
@@ -45,7 +44,10 @@ namespace JongJin
 		}
 		public void UpdateState()
 		{
-			DecreaseTime();
+            if (!isDelayStart)
+                return;
+
+            DecreaseTime();
 
 			SetTimer();
 			CheckProgressBar();
@@ -60,7 +62,8 @@ namespace JongJin
             spawnController.canSpawn = true;
 
             UIManager.Instance.ClosePopupUI();
-		}
+            UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
+        }
 		public bool IsFinishMission(out bool success)
 		{
 			success = false;
@@ -118,7 +121,8 @@ namespace JongJin
         private IEnumerator TutorialPopup(float setTime)
         {
             isDelayStart = false;
-            UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+            UIManager.Instance.SwapPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+            ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(EGameState.FIRSTMISSION);
 
             while (setTime > ENDTIME)
             {
@@ -129,7 +133,7 @@ namespace JongJin
 
             ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(ENDTIME);
 
-            UIManager.Instance.ClosePopupUI();
+            UIManager.Instance.CloseAllPopupUI();
             yield return new WaitForSeconds(waitTime);
 
             isDelayStart = true;

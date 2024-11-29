@@ -108,6 +108,7 @@ namespace JongJin
 				case EGameState.TAILMISSION:
 					if (tailMissionState.IsFinishMission(out runningState.isMissionSuccess))
 					{
+						runningState.isPrevStateTail = true;
 						DecreaseLife(runningState.isMissionSuccess);
 						UpdateState(EGameState.RUNNING);
 					}

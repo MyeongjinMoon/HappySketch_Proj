@@ -134,7 +134,7 @@ namespace JongJin
         private IEnumerator TutorialPopup(float setTime)
         {
             isDelayStart = false;
-            UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
+            UIManager.Instance.SwapPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
             ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(EGameState.TAILMISSION);
 
             yield return new WaitForSeconds(waitTime);
@@ -148,7 +148,7 @@ namespace JongJin
 
             ((CUITutorialPopup)UIManager.Instance.CurrentPopupUI).TimerUpdate(ENDTIME);
 
-            UIManager.Instance.ClosePopupUI();
+            UIManager.Instance.CloseAllPopupUI();
             yield return new WaitForSeconds(waitTime);
 
             isDelayStart = true;
