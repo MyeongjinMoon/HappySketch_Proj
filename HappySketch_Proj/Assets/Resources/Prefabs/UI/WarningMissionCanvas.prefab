@@ -583,6 +583,7 @@ GameObject:
   - component: {fileID: 6823010494586028927}
   - component: {fileID: 546776319567045202}
   - component: {fileID: 3788542961164549590}
+  - component: {fileID: 2773355727356900295}
   m_Layer: 5
   m_Name: WarningMissionCanvas
   m_TagString: Untagged
@@ -673,6 +674,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2773355727356900295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747720470551785749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85564e40cf0e6fc428e96f2cb894c2b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 6823010494586028927}
 --- !u!1 &1977332258343200056
 GameObject:
   m_ObjectHideFlags: 0
