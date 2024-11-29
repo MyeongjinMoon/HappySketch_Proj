@@ -35,14 +35,41 @@ namespace Jaehoon
             }
         }
 
-        public void SFXPlay(string sfxName)
+        //public void SFXPlay(string sfxName)
+        //{
+        //    AudioClip clip = Resources.Load<AudioClip>(sfxName);                         // Resources 폴더에서 오디오 클립 로드
+
+        //    if (clip == null)
+        //    {
+        //        Debug.Log("오디오 클립을 찾을 수 없습니다. Resources 폴더를 확인하세요.");
+        //        return;
+        //    }
+
+        //    GameObject go = new GameObject(sfxName + "Sound");
+        //    AudioSource audiosource = go.AddComponent<AudioSource>();
+        //    audiosource.clip = clip;
+        //    audiosource.Play();
+
+        //    Destroy(go, clip.length);
+        //}
+        public void SFXPlay(string sfxName, float delay = 0f)
         {
-            AudioClip clip = Resources.Load<AudioClip>(sfxName);                         // Resources 폴더에서 오디오 클립 로드
+            StartCoroutine(PlaySFXWithDelay(sfxName, delay));
+        }
+
+        private IEnumerator PlaySFXWithDelay(string sfxName, float delay)
+        {
+            if (delay > 0f)
+            {
+                yield return new WaitForSeconds(delay); // 지정된 시간만큼 대기
+            }
+
+            AudioClip clip = Resources.Load<AudioClip>(sfxName); // Resources 폴더에서 오디오 클립 로드
 
             if (clip == null)
             {
                 Debug.Log("오디오 클립을 찾을 수 없습니다. Resources 폴더를 확인하세요.");
-                return;
+                yield break;
             }
 
             GameObject go = new GameObject(sfxName + "Sound");
@@ -65,26 +92,26 @@ namespace Jaehoon
 
             currentBackgroundClip = clip;       // 현재 배경음악 업데이트
         }
-
-        //public void BackgroundMusicPlay(string clipName)
-        //{
-        //    AudioClip clip = Resources.Load<AudioClip>(clipName);
-
-        //    if (clip == null)
-        //    {
-        //        Debug.Log("BGM 오디오 클립을 찾을 수 없습니다. Resources 폴더를 확인하세요.");
-        //        return;
-        //    }
-
-        //    if (currentBackgroundClip == clip)
-        //        return;
-
-        //    backgroundSound.clip = clip;
-        //    backgroundSound.loop = true;
-        //    backgroundSound.volume = 0.1f;
-        //    backgroundSound.Play();
-
-        //    currentBackgroundClip = clip;
-        //}
     }
 }
+
+//public void BackgroundMusicPlay(string clipName)
+//{
+//    AudioClip clip = Resources.Load<AudioClip>(clipName);
+
+//    if (clip == null)
+//    {
+//        Debug.Log("BGM 오디오 클립을 찾을 수 없습니다. Resources 폴더를 확인하세요.");
+//        return;
+//    }
+
+//    if (currentBackgroundClip == clip)
+//        return;
+
+//    backgroundSound.clip = clip;
+//    backgroundSound.loop = true;
+//    backgroundSound.volume = 0.1f;
+//    backgroundSound.Play();
+
+//    currentBackgroundClip = clip;
+//}
