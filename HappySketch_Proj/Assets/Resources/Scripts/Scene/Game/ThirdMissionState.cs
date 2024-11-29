@@ -20,7 +20,6 @@ namespace JongJin
         private readonly float ENDTIME = 0.0f;
         private float waitTime = 1.0f;
         private bool isDelayStart = false;
-        private bool isDelayFinish = false;
 
         private void Awake()
         {
@@ -28,11 +27,16 @@ namespace JongJin
         }
         public void EnterState()
         {
+            StartCoroutine(TutorialPopup(10.0f));
+
             RenderSettings.fog = true;
             isSuccess = false;
         }
         public void UpdateState()
         {
+            if (!isDelayStart)
+                return;
+
             DecreaseTime();
 
             SetTimer();
@@ -47,6 +51,7 @@ namespace JongJin
 
             spawnController.canSpawn = true;
             UIManager.Instance.ClosePopupUI();
+            UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
         }
         public bool IsFinishMission(out bool success)
         {
