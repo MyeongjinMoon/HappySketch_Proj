@@ -22,7 +22,7 @@ namespace JongJin
         public void EnterState()
         {
             isSuccess = false;
-            timer = 60f;
+            timer = 1f;
         }
         public void UpdateState()
         {

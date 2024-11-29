@@ -170,7 +170,8 @@ namespace MyeongJin
 			else
                 for (int i = 0; i < playerCount; i++)
                 {
-                    ((CUIEventPanel)UIManager.Instance.CurSceneUI).playerNotes[i].gameObject.SetActive(false);
+					// TODO < 이종진 > - 여기서 오류가 나서 일단 주석처리 - 2024.11.29
+                    //((CUIEventPanel)UIManager.Instance.CurSceneUI).playerNotes[i].gameObject.SetActive(false);
                 }
         }
         private void CheckCanSpawnObstacle()

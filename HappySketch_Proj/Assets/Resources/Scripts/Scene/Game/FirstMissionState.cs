@@ -33,7 +33,7 @@ namespace JongJin
 			isSuccess = false;
 			player1.transform.localScale = player1.transform.localScale * 1.5f;
 			player2.transform.localScale = player2.transform.localScale * 1.5f;
-			timer = 60f;
+			timer = 1f;
 		}
 		public void UpdateState()
 		{
