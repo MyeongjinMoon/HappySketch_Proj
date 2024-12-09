@@ -13,6 +13,7 @@ namespace JongJin
 
         public void EnterState()
         {
+            fade.FadeIn();
             UIManager.Instance.CurSceneUI.Hide();
             StartCoroutine(SetFinish());
         }
@@ -27,8 +28,9 @@ namespace JongJin
 
         IEnumerator SetFinish()
         {
-            yield return new WaitForSeconds((float)timelineDirector.duration - 1f);
+            yield return new WaitForSeconds((float)timelineDirector.duration - 1.0f);
             fade.FadeInOut();
+            yield return new WaitForSeconds(1.0f);
         }
         public bool IsFinishedCutScene()
         {

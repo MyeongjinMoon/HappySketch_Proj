@@ -40,12 +40,14 @@ namespace HakSeung
         {
             StartCoroutine(HeartAni(curLife));
         }
+
         IEnumerator HeartAni(int curLife)
         {
-            for(int count = 0; count < 3; count++)
+            for (int count = 0; count < 10; count++)
             {
                 heartImages[curLife].enabled = false;
                 yield return new WaitForSeconds(0.3f);
+
                 heartImages[curLife].enabled = true;
                 yield return new WaitForSeconds(0.3f);
             }

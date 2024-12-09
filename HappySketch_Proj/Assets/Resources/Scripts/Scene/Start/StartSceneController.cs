@@ -40,7 +40,7 @@ namespace JongJin
             /*startStateContext.Transition(tutorialDescriptionState);
             curState = EStartGameState.TUTORIALDESCRIPTION;*/
 
-            SoundManager.instance.SFXPlay("Sounds/EntranceScene");
+            //SoundManager.instance.SFXPlay("Sounds/EntranceScene");
         }
         private void Update()
         {
@@ -55,7 +55,6 @@ namespace JongJin
                     {
                         UpdateState(EStartGameState.TUTORIALDESCRIPTION);
                         UIManager.Instance.CurSceneUI.Show();
-                        
                     }
                     break;
                 case EStartGameState.TUTORIALDESCRIPTION:
@@ -71,8 +70,6 @@ namespace JongJin
                            StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
                     }
 
-                    
-                    
                     break;
             }
             startStateContext.CurrentState.UpdateState();
