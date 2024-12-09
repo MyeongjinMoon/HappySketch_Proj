@@ -75,9 +75,6 @@ namespace JongJin
 			gameStateContext = new GameStateContext(this);
 			gameStateContext.Transition(cutSceneState);
 			curState = EGameState.CUTSCENE;
-			//gameStateContext.Transition(runningState);
-			//curState = EGameState.RUNNING;
-
 		}
 
 		private void Start()
@@ -136,14 +133,11 @@ namespace JongJin
 			if (curState != EGameState.CUTSCENE)
 				fade.FadeInOut();
 
-            fade.FadeInOut();
 			StartCoroutine(WaitUpdate(nextState));
             
 		}
 		IEnumerator WaitUpdate(EGameState nextState)
 		{
-			curState = EGameState.END;
-
             if (curState != EGameState.CUTSCENE)
                 yield return new WaitForSeconds(2.0f);
 
@@ -194,6 +188,13 @@ namespace JongJin
 			if (isSuccessMission)
 				return;
             runningState.Life--;
+
+			if (runningState.Life <= 0)
+			{
+                PlayerPrefs.SetInt("ClearStage", 0);
+				fade.FadeOut();
+                StartCoroutine(SceneManagerExtended.Instance.GoToEndingScene());
+            }
         }
 
 		//TODO <이학승> 씬 전환시 작동 될 코드

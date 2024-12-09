@@ -20,6 +20,14 @@ namespace JongJin
             IsFinished = false;
             StartCoroutine(FadeFlow());
         }
+        public void FadeIn()
+        {
+            StartCoroutine(FadeInFlow());
+        }
+        public void FadeOut()
+        {
+            StartCoroutine(FadeOutFlow());
+        }
 
         protected override void InitUI()
         {
@@ -48,7 +56,6 @@ namespace JongJin
         /// <returns></returns>
         protected override IEnumerator PlayPopupEffect()
         {
-            panel.gameObject.SetActive(true);
             time = 0.0f;
 
             Color alpha = panel.color;
@@ -71,7 +78,6 @@ namespace JongJin
                 panel.color = alpha;
                 yield return null;
             }
-            panel.gameObject.SetActive(false);
 
             UIManager.Instance.ClosePopupUI(this);
             yield return null;
@@ -79,7 +85,6 @@ namespace JongJin
 
         IEnumerator FadeFlow()
         {
-            panel.gameObject.SetActive(true);
             time = 0.0f;
 
             Color alpha = panel.color;
@@ -90,7 +95,7 @@ namespace JongJin
                 panel.color = alpha;
                 yield return null;
             }
-
+            
             time = 0.0f;
             yield return new WaitForSeconds(1.0f);
             IsFinished = true;
@@ -102,8 +107,34 @@ namespace JongJin
                 panel.color = alpha;
                 yield return null;
             }
-            panel.gameObject.SetActive(false);
             yield return null;
+        }
+        IEnumerator FadeInFlow()
+        {
+            time = 0.0f;
+            Color alpha = panel.color;
+
+            while (alpha.a > 0.0f)
+            {
+                time += Time.deltaTime / fTime;
+                alpha.a = Mathf.Lerp(1.0f, 0.0f, time);
+                panel.color = alpha;
+                yield return null;
+            }
+            yield return null;
+        }
+        IEnumerator FadeOutFlow()
+        {
+            time = 0.0f;
+
+            Color alpha = panel.color;
+            while (alpha.a < 1.0f)
+            {
+                time += Time.deltaTime / fTime;
+                alpha.a = Mathf.Lerp(0.0f, 1.0f, time);
+                panel.color = alpha;
+                yield return null;
+            }
         }
     }
 }

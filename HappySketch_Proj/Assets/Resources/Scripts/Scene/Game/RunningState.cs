@@ -412,8 +412,8 @@ namespace JongJin
         #region 스테이지 종료
         private void EndGame()
 		{
-			if (ProgressRate >= 100.0f && playersClearTime[firstRankerId] == 0) playersClearTime[firstRankerId] = totalRoundTime - roundTimeLimit;
-			if (ProgressEndRate >= 100.0f && playersClearTime[1 - firstRankerId] == 0) playersClearTime[1 - firstRankerId] = totalRoundTime - roundTimeLimit;
+			if (ProgressRate >= 99.0f && playersClearTime[firstRankerId] == 0) playersClearTime[firstRankerId] = totalRoundTime - roundTimeLimit;
+			if (ProgressEndRate >= 99.0f && playersClearTime[1 - firstRankerId] == 0) playersClearTime[1 - firstRankerId] = totalRoundTime - roundTimeLimit;
 
 			if (Life > 0 && roundTimeLimit > 0.0f && ProgressEndRate < 99.0f)
 				return;
@@ -437,7 +437,6 @@ namespace JongJin
         }
         IEnumerator FadeIN()
 		{
-            fadeImage.gameObject.SetActive(true);
             float time = 0.0f;
 
             Color alpha = fadeImage.color;

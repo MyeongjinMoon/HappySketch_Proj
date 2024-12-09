@@ -1,9 +1,8 @@
 using JongJin;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 namespace HakSeung
 {
@@ -24,6 +23,7 @@ namespace HakSeung
 
         private const string sceneManagerObjectName = "@SceneManager";
 
+        private Image fadeImage;
 
         /// <summary>
         /// Instance�� �޾ƿ� ���Ƿ� ��𼱰����� ȣ�����־���Ѵ�.
@@ -53,6 +53,8 @@ namespace HakSeung
             }
             s_Instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+            fadeImage = GameObject.Find("PanelFade").GetComponent<Image>();
         }
         /// <summary>
         ///  ���� �̸��� ��ȯ�ϴ� �ڵ� �����ʿ�
@@ -110,13 +112,24 @@ namespace HakSeung
         {
             InputManager.Instance.KeyAction = null;
             UIManager.Instance.ClearAllUI();
-            yield return new WaitForSeconds(3.0f);
+
+            float time = 0.0f;
+
+            Color alpha = fadeImage.color;
+            while (time < 1.0f)
+            {
+                time += Time.deltaTime;
+                alpha.a = Mathf.Lerp(0.0f, 1.0f, time);
+                fadeImage.color = alpha;
+                yield return null;
+            }
+
             LoadScene(ESceneType.GAME);
         }
         public IEnumerator GoToEndingScene()
         {
             InputManager.Instance.KeyAction = null;
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.0f);
             LoadScene(ESceneType.ENDING);
         }
     }
