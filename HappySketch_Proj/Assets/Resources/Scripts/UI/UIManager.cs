@@ -29,14 +29,6 @@ namespace HakSeung
             END
         }
 
-        public enum ETestType
-        {
-            RunningCanvas,
-            EventScenePanel,
-            TutorialPopupPanel,
-            FadePopupCanvas,
-            END
-        }
 
         private static UIManager s_Instance;
 

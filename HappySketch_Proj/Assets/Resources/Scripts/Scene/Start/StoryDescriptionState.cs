@@ -11,7 +11,7 @@ namespace JongJin
         [SerializeField] private Fade fade;
         public void EnterState()
         {
-            UIManager.Instance.ShowPopupUI(UIManager.ETestType.TutorialPopupPanel.ToString());
+            UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
             ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.TutorialState.STORY);
             ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
 

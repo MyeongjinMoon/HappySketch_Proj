@@ -12,6 +12,7 @@ namespace HakSeung
         private int index = 3;
         private void Awake()
         {
+            UIManager.Instance.MainCanvasSetting();
             //사용할 UI 미리 Cashing 이 과정을 씬 초반에 무조건 해주어야 한다.
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
             UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
@@ -41,11 +42,13 @@ namespace HakSeung
             //팝업 UI 보이기
             if (Input.GetKeyDown(KeyCode.P))
             {
-               /* UIManager.Instance.ShowPopupUI(UIManager.ETestType.TutorialPopupPanel.ToString());
+                //튜토리얼 이미지 스왑
+                UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
                 ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.FAILED);
-                ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();*/
+                ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
 
-                UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
+                //페이드인 페이드 아웃
+                //UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
                 
             }
 
@@ -93,7 +96,6 @@ namespace HakSeung
 
             #endregion
 
-
             #region 팝업 스왑 테스트
             if(Input.GetKeyDown(KeyCode.J))
             {
@@ -104,6 +106,10 @@ namespace HakSeung
                 testBool = !testBool;
             }
             #endregion
+
+
+
+
             /*//노트 값 설정
             //((CUIEventPanel)UIManager.Instance.CurSceneUI).playerNotes[1].Show();
             //프로그래스 바의 맥스 값 설정
