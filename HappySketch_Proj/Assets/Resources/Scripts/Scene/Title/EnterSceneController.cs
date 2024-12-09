@@ -2,15 +2,17 @@ using Jaehoon;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class EnterSceneController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private AudioClip entranceSceneSound;
     void Start()
     {
-        SoundManager.instance.SFXPlay("Sounds/EntranceScene");
+        SoundManager.instance.BackgroundMusicPlay(entranceSceneSound);
         StartCoroutine(TextOnOff());
     }
 
@@ -20,10 +22,19 @@ public class EnterSceneController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             StopCoroutine(TextOnOff());
-            SceneManager.LoadScene(1);
+            SoundManager.instance.SFXPlay("Sounds/EnterSound");
+            StartCoroutine(Wait(3f));
         }
     }
-
+    IEnumerator Wait(float time)
+    {
+        while (time > 0)
+        {
+            time-= Time.deltaTime;
+            yield return null;
+        }
+        SceneManager.LoadScene(1);
+    }
     IEnumerator TextOnOff()
     {
         while (true)

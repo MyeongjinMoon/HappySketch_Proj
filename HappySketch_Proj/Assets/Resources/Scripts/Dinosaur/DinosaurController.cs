@@ -31,7 +31,7 @@ namespace JongJin
             transform.Translate(transform.forward * speed * Time.deltaTime);
 
             soundIntervalFootstep += Time.deltaTime;
-            if (soundIntervalFootstep >= 1.0f)
+            if (soundIntervalFootstep >= 1.05f)
             {
                 soundIntervalFootstep = 0.0f;
                 SoundManager.instance.SFXPlay("Sounds/DinosaurMove");

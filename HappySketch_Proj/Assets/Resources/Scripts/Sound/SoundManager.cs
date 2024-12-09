@@ -87,7 +87,7 @@ namespace Jaehoon
 
             backgroundSound.clip = clip;
             backgroundSound.loop = true;
-            backgroundSound.volume = 0.1f;
+            backgroundSound.volume = 0.5f;
             backgroundSound.Play();
 
             currentBackgroundClip = clip;       // 현재 배경음악 업데이트
