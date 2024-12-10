@@ -2,6 +2,7 @@ using HakSeung;
 using Jaehoon;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -17,7 +18,6 @@ namespace JongJin
 		[SerializeField] private SecondMissionState secondMissionState;
 		[SerializeField] private ThirdMissionState thirdMissionState;
 
-		
 		[Header("MissionCamera Set")]
 		[SerializeField] private GameObject curLookAt;
 		[SerializeField] private GameObject curFollow;
@@ -43,6 +43,9 @@ namespace JongJin
 
         [SerializeField] private AudioClip missionroomBackgroundMusic;             // 미션룸 배경 오디오 클립
         [SerializeField] private AudioClip runningStateBackgroundMusic;             // 달리는 상태 오디오 클립
+
+		//public GameObject warningCanvas;                              // 경보 UI
+		//public GameObject warningUI;
         private void Awake()
 		{
 			UIManager.Instance.MainCanvasSetting();
@@ -131,21 +134,24 @@ namespace JongJin
 			if (curState == nextState)
 				return;
 			if (curState != EGameState.CUTSCENE)
-				fade.FadeInOut();
+                fade.FadeInOut();
+			
 
-			StartCoroutine(WaitUpdate(nextState));
-            
+            StartCoroutine(WaitUpdate(nextState));
 		}
 		IEnumerator WaitUpdate(EGameState nextState)
 		{
             if (curState != EGameState.CUTSCENE)
                 yield return new WaitForSeconds(2.0f);
 
-			curState = nextState;
+            curState = nextState;
 
             UpdateCamera(curState);
             UpdateMap(curState);
             UpdateBackgroundMusic(curState);
+
+   //         warningCanvas = Instantiate(warningUI);			// 경보 UI 추가
+			//warningCanvas.SetActive(false);
 
             switch (curState)
             {
@@ -182,7 +188,7 @@ namespace JongJin
 			curLookAt.transform.position = lookAt[(int)curState].transform.position;
 			curFollow.transform.position = follow[(int)curState].transform.position;
 		}
-
+		 
 		private void DecreaseLife(bool isSuccessMission)
 		{
 			if (isSuccessMission)
@@ -207,7 +213,6 @@ namespace JongJin
                 case EGameState.RUNNING:
                     missionGround.SetActive(false);
                     missionRoomVolcano.SetActive(false);
-
                     break;
                 case EGameState.TAILMISSION:
                 case EGameState.FIRSTMISSION:
