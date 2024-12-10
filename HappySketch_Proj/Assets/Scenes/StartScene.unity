@@ -1440,6 +1440,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 169970647}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &53760715 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 387665498058543684, guid: f0f30aaaa85314248975874547228f16,
+    type: 3}
+  m_PrefabInstance: {fileID: 169970647}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53760714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d5db4e5f0589f45a0af0546730b6c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &69860767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2542,6 +2554,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 144554985}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &586961703 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7262806766331873984, guid: d1155263b8887584d876be2554833423,
+    type: 3}
+  m_PrefabInstance: {fileID: 4861903777758834099}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &640558106
 GameObject:
   m_ObjectHideFlags: 0
@@ -4798,6 +4816,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2017747469}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1268101934 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2882577608445826759, guid: 6e168c9ffca3b8e47bd5d184f24fc7f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2017747469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268101933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d5db4e5f0589f45a0af0546730b6c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1282634527
 GameObject:
   m_ObjectHideFlags: 0
@@ -7098,8 +7128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 53760715}
+  - {fileID: 1268101934}
 --- !u!114 &1752784062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7354,7 +7384,8 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 586961703}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2

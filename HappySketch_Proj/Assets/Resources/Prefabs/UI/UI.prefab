@@ -43,7 +43,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6578740213049899059}
   - component: {fileID: 7262806766331873984}
-  - component: {fileID: 1980767448437063939}
   - component: {fileID: 4874772275167935728}
   m_Layer: 5
   m_Name: UICamera
@@ -106,7 +105,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -118,14 +117,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1980767448437063939
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9215758552523189483}
-  m_Enabled: 1
 --- !u!114 &4874772275167935728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +132,7 @@ MonoBehaviour:
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
+  m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
