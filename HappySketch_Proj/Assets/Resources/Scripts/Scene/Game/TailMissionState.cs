@@ -1,4 +1,5 @@
 using HakSeung;
+using Jaehoon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -84,6 +85,7 @@ namespace JongJin
                 warningExclamation[randomAttackPos].SetActive(false);
                 dinosaur.SetActive(true);
                 dinosaur.transform.eulerAngles = new Vector3(dinosaurRotX[randomAttackPos], dinosaur.transform.eulerAngles.y, dinosaur.transform.eulerAngles.z);
+                SoundManager.instance.SFXPlay("Sounds/Tail_Attack");
 
                 timingBar.anchoredPosition
                     = new Vector2(-29.0f, warningEffect[randomAttackPos].GetComponent<RectTransform>().anchoredPosition.y);
@@ -109,7 +111,10 @@ namespace JongJin
             randomAttackPos = -1;
 
             if (tailController.CollisionCount != 0)
+            {
                 ((CUITailMissionPanel)UIManager.Instance.CurSceneUI).OnFailedEvent(2 - attackCount);
+                SoundManager.instance.SFXPlay("Sounds/Tail_Fail");
+            }
 
             if (tailController.CollisionCount == 0 || attackCount == 0)
             {

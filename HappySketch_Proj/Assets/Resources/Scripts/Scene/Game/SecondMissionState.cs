@@ -40,7 +40,9 @@ namespace JongJin
                 DecreaseTime();
 
             SetTimer();
-            CheckProgressBar();
+
+            if (timer > 0)
+                CheckProgressBar();
         }
 
         public void ExitState()

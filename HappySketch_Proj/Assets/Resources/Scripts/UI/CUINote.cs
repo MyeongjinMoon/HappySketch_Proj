@@ -52,7 +52,8 @@ namespace HakSeung
 		}
 		public void Show(GameObject newObstacle, int playerNum)
 		{
-			myPlayerNum = playerNum;
+            gameObject.GetComponent<Image>().color = Color.white; //나중에 이미지로 받아오는거 변경 필요
+            myPlayerNum = playerNum;
             obstacle = newObstacle;
 			this.gameObject.SetActive(true);
 		}

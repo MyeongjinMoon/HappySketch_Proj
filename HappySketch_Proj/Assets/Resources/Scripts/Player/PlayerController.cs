@@ -54,6 +54,7 @@ namespace JongJin
         private RunningState runningController;
         private EPlayerState curState;
 
+        private float soundIntervalFootstep = 0.0f;
         private int isGrounded = 0;
         private bool isActivated = false;
         private bool canIncrease = true;
@@ -211,6 +212,16 @@ namespace JongJin
             }
 
             transform.Translate(transform.forward * Time.deltaTime * speed);
+
+            soundIntervalFootstep += Time.deltaTime;
+            if (soundIntervalFootstep >= 0.25f)
+            {
+                soundIntervalFootstep = 0.0f;
+                if (downCollider.enabled)
+                {
+                    SoundManager.instance.SFXPlay("Sounds/PlayerFootStep");
+                }
+            }
         }
         private void Jump()
         {

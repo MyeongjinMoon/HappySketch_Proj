@@ -28,6 +28,9 @@ namespace MyeongJin
         [HideInInspector] public float player1Time;
         [HideInInspector] public float player2Time;
 
+        [SerializeField] private AudioClip successSound;
+        [SerializeField] private AudioClip failSound;
+
         private void Awake()
 		{
             //UI Ä³½Ì
@@ -56,9 +59,9 @@ namespace MyeongJin
         private void Start()
         {
             if (isGameSuccess)
-                SoundManager.instance.SFXPlay("Sounds/GameClear");
+                SoundManager.instance.BackgroundMusicPlay(successSound);
             else
-                SoundManager.instance.SFXPlay("Sounds/GameFail");
+                SoundManager.instance.BackgroundMusicPlay(failSound);
         }
         private void Update()
 		{
