@@ -185,7 +185,7 @@ namespace JongJin
 
 		private void DecreaseLife(bool isSuccessMission)
 		{
-			if (isSuccessMission)
+            if (isSuccessMission)
 				return;
             runningState.Life--;
 
@@ -243,8 +243,7 @@ namespace JongJin
                     break;
             }
         }
-        //TODO <이학승> 씬 전환시 작동 될 코드
-        //private void DestroyUI;
+
 
     }
 }

@@ -52,7 +52,7 @@ namespace HakSeung
         [SerializeField] private GameObject timerImage;
 		[SerializeField] private Image panelImage;
 		[SerializeField] private ParticleSystem successParticle;
-
+		[SerializeField] private ParticleSystem failParticle;
 		enum SoundTipe
 		{
 			DEFAULT,
@@ -93,7 +93,14 @@ namespace HakSeung
             timerImage.SetActive(true);
 		}
 
-        
+        public override void Hide()
+        {
+            base.Hide();
+			successParticle.Stop();
+			failParticle.Stop();
+        }
+
+
 
         public void TimerHide()
 		{
@@ -201,8 +208,8 @@ namespace HakSeung
 				case EventResult.FAILED: // �ͷ�
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.FAILED];
                     panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
-
-					soundTipe = SoundTipe.FAIL;
+					failParticle.Play();
+                    soundTipe = SoundTipe.FAIL;
                     break;
 			
 				default:

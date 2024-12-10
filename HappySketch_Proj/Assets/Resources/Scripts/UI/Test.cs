@@ -44,7 +44,7 @@ namespace HakSeung
             {
                 //튜토리얼 이미지 스왑
                 UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
-                ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.SUCCESS);
+                ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.FAILED);
                 ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
 
                 //페이드인 페이드 아웃

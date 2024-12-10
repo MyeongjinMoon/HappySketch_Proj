@@ -128,9 +128,14 @@ namespace HakSeung
         }
         public IEnumerator GoToEndingScene()
         {
+            UIManager.Instance.ClearAllUI();
             InputManager.Instance.KeyAction = null;
             yield return new WaitForSeconds(1.0f);
             LoadScene(ESceneType.ENDING);
+        }
+        public void GetFadeImageInStart()
+        {
+            fadeImage = GameObject.Find("PanelFade").GetComponent<Image>();
         }
     }
 }

@@ -264,6 +264,7 @@ namespace HakSeung
             if (popupUIStack.Count == 0)
                 return;
 
+            Debug.Log(popupUIStack.Peek().name);
             popupUIStack.Peek().Hide();
             popupUIStack.Pop();
             --popupIndex;

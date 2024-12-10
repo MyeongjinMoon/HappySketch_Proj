@@ -161,6 +161,7 @@ namespace MyeongJin
         }
         private void OnClickRestart()
 		{
+			UIManager.Instance.ClearAllUI();
 			SceneManager.LoadScene("StartScene");
 		}
         private void OnClickEndGame()
