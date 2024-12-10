@@ -15,7 +15,6 @@ namespace JongJin
         [SerializeField] private StoryCutSceneState storyCutSceneState;
         [SerializeField] private TutorialDescriptionState tutorialDescriptionState;
         [SerializeField] private TutorialActionState tutorialActionState;
-        [SerializeField] private AudioClip StartSceneBackgroundMusic;
 
         private StartStateContext startStateContext;
         private EStartGameState curState;
@@ -40,7 +39,8 @@ namespace JongJin
             curState = EStartGameState.STORYDESCRIPTION;
             /*startStateContext.Transition(tutorialDescriptionState);
             curState = EStartGameState.TUTORIALDESCRIPTION;*/
-            SoundManager.instance.BackgroundMusicPlay(StartSceneBackgroundMusic);
+
+            //SoundManager.instance.SFXPlay("Sounds/EntranceScene");
         }
         private void Update()
         {

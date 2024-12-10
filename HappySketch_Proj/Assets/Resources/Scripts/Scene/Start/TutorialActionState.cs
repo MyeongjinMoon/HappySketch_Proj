@@ -147,7 +147,7 @@ namespace JongJin
         private IEnumerator ActionSuccessTimer()
         {
             isOnSuccess = true;
-            UIManager.Instance.ShowPopupUI(UIManager.ETestType.TutorialPopupPanel.ToString());
+            UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.TutorialPopupPanel.ToString());
             ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.SUCCESS);
             ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
 

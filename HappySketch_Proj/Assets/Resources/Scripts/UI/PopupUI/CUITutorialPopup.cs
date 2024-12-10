@@ -51,6 +51,7 @@ namespace HakSeung
         [SerializeField] private float effectDuration;
         [SerializeField] private GameObject timerImage;
 		[SerializeField] private Image panelImage;
+		[SerializeField] private ParticleSystem successParticle;
 
 		enum SoundTipe
 		{
@@ -194,6 +195,7 @@ namespace HakSeung
 				case EventResult.SUCCESS: 
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.SUCCESS];
                     panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
+					successParticle.Play();
                     soundTipe = SoundTipe.SUCCESS;
                     break;
 				case EventResult.FAILED: // �ͷ�
