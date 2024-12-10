@@ -52,8 +52,9 @@ namespace MyeongJin
 		public int Timer { get; private set; }
 
 		private void Start()
-		{
-			swatter = Resources.Load<GameObject>(swatterPath);
+        {
+            rayBox = GameObject.Find("Main Camera").transform;
+            swatter = Resources.Load<GameObject>(swatterPath);
 
 			MissionGroundPos = missionGround.GetComponent<Transform>().position;
 
@@ -103,7 +104,6 @@ namespace MyeongJin
 					case EGameState.THIRDMISSION:
 						if (!isThirdMissionGenerate)
 						{
-							rayBox = GameObject.Find("Main Camera").transform;
 							isThirdMissionGenerate = true;
 
 							GenerateVolcanicAsh();
@@ -128,7 +128,8 @@ namespace MyeongJin
 		{
 			if(Physics.Raycast(rayBox.position, rayBox.forward,out hit, maxDistance))
 			{
-				hit.transform.GetComponent<CVolcanicAsh>().FadeAway();
+				if (hit.collider.gameObject.tag == "Ash")
+					hit.transform.GetComponent<CVolcanicAsh>().FadeAway();
 			}
 		}
 		private void RunningTimerIncrease()
