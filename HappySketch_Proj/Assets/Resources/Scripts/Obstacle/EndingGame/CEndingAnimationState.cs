@@ -112,6 +112,8 @@ namespace MyeongJin
                 {
                     isRoarSoundActivated = true;
                     SoundManager.instance.SFXPlay("Sounds/DinosaurRoar");
+					dinosaurAnimator.applyRootMotion = false;
+
                 }
 				if(dinosaurAnimator.GetCurrentAnimatorStateInfo(0).IsName("Roarning"))
 				{

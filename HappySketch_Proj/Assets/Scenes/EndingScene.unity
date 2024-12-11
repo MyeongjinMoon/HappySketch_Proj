@@ -4516,7 +4516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9559712, guid: ab23260fdf0c68542bfb68432d99b3f3, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30622,6 +30622,7 @@ MonoBehaviour:
   timerImage: {fileID: 5252436173397068140}
   panelImage: {fileID: 8970267946914934392}
   successParticle: {fileID: 0}
+  failParticle: {fileID: 0}
 --- !u!114 &1256244742191149239
 MonoBehaviour:
   m_ObjectHideFlags: 0

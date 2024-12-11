@@ -1,3 +1,4 @@
+using Cinemachine;
 using HakSeung;
 using JongJin;
 using System.Collections;
@@ -28,6 +29,7 @@ namespace HakSeung
 		private const float noteFailTime = 0f;
 
 		private GameObject obstacle;
+		private CinemachineVirtualCamera mainCamera;
 		private GameObject[] player;
 
 		private int myPlayerNum;
@@ -39,6 +41,7 @@ namespace HakSeung
 		private void Init()
 		{
 			curTime = noteFailTime;
+			mainCamera = GameObject.Find("RunningVirtualCamera").GetComponent<CinemachineVirtualCamera>();
             player = new GameObject[2];
             player[0] = GameObject.FindWithTag("Player1");
             player[1] = GameObject.FindWithTag("Player2");
@@ -133,7 +136,12 @@ namespace HakSeung
         }
         private void SyncUIWithPlayerPosition(Vector3 playerPosition)
 		{
-			this.transform.position = Camera.main.WorldToScreenPoint(playerPosition + Vector3.up * distanceToPlayerPostion);
-		}
+			gameObject.GetComponent<RectTransform>().anchoredPosition = 
+				Camera.main.WorldToScreenPoint(playerPosition + Vector3.up * distanceToPlayerPostion);
+
+			Vector2 temp = new Vector2(1920 / 2, 1080 / 2);
+
+			gameObject.GetComponent<RectTransform>().anchoredPosition -= temp;
+        }
 	}
 }

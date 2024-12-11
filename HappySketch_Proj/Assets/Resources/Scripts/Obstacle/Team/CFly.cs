@@ -94,7 +94,7 @@ namespace MyeongJin
 		{
 			yield return new WaitForSeconds(1.0f);
 
-            ReturnToPool(20);
+            ReturnToPool(5);
 		}
 	}
 }
