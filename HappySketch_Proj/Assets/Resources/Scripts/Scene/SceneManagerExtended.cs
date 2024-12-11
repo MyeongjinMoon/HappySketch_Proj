@@ -98,6 +98,12 @@ namespace HakSeung
         }
         public IEnumerator GoToGameScene()
         {
+            for (int playerNum = 0; playerNum < isPlayersReady.Length; playerNum++)
+            {
+                if (isPlayersReady[playerNum])
+                    isPlayersReady[playerNum] = false;
+            }
+
             InputManager.Instance.KeyAction = null;
             UIManager.Instance.ClearAllUI();
 

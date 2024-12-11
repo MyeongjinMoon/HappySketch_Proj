@@ -95,13 +95,14 @@ namespace HakSeung
             if (startSceneController.CurState != EStartGameState.TUTORIALACTION)
                 return;
 
+            if (isGrounded <= 0)
+                return;
+
             if (((playerId == EPlayer.PLAYER1 && Input.GetKeyDown(KeyCode.LeftShift))
                 || (playerId == EPlayer.PLAYER2 && Input.GetKeyDown(KeyCode.RightShift))))
                 Heart();
-
-            if (isGrounded <= 0 || isActivated)
+            if ( isActivated)
                 return;
-
             if ((playerId == EPlayer.PLAYER1 && Input.GetKeyDown(KeyCode.S))
                 || (playerId == EPlayer.PLAYER2 && Input.GetKeyDown(KeyCode.DownArrow)))
                 IncreaseSpeed();
@@ -146,6 +147,7 @@ namespace HakSeung
 
         private void Heart()
         {
+            
             if (isActivated)
                 HeartDeActive();
             else
@@ -154,6 +156,9 @@ namespace HakSeung
 
         private void HeartActive()
         {
+            speed = minSpeed;
+            animator.SetFloat(paramSpeed, speed);
+
             animator.SetBool(paramHeart, true);
             isActivated = true;
 
