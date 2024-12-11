@@ -159,11 +159,8 @@ namespace HakSeung
 
             if (curTutorialState == CUITutorialPopup.TutorialState.HEART)
             {
-                Debug.Log($"{playerId} 하트 준비완료 ");
                 SceneManagerExtended.Instance.SetReady((int)playerId, true);
             }
-                /*if (SceneManagerExtended.Instance.CheckReady())
-                    StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());*/
         }
             private void HeartDeActive()
         {
@@ -173,7 +170,6 @@ namespace HakSeung
             if (curTutorialState == CUITutorialPopup.TutorialState.HEART)
                  SceneManagerExtended.Instance.SetReady((int)playerId, false);
                  
-
         }
 
         public void PlayerReset(CUITutorialPopup.TutorialState tutorialState)

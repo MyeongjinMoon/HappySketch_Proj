@@ -31,8 +31,6 @@ namespace MyeongJin
 		private bool isGameSuccess;
 		private bool isJumpState = false;
 		private bool isJumpStateChanged = false;
-		private bool isRoarState = false;
-		private bool isRoarStateChanged = false;
 		private bool isAdjustPosition = false;
 
 		private Animator targetAnimator;
@@ -107,17 +105,6 @@ namespace MyeongJin
 					if (isJumpState)
 						isJumpStateChanged = true;
 				}
-
-				if (targetAnimator.GetCurrentAnimatorStateInfo(0).IsName("Strat Roarning"))
-					isRoarState = true;
-				else
-                {
-					if (isRoarState)
-					{
-
-                        isRoarStateChanged = true;
-					}
-                }
             }
 			if (isJumpStateChanged)
 			{
@@ -125,12 +112,6 @@ namespace MyeongJin
 				isJumpStateChanged = false;
 				StartCoroutine(ShakeCoroutine(200));
             }
-			//if (isRoarStateChanged)
-			//{
-			//	isRoarState = false;
-			//	isRoarStateChanged = false;
-			//	ResetCoroutine(80);
-   //         }
 		}
 		private IEnumerator ShakeCoroutine(float shakeForce)
         {

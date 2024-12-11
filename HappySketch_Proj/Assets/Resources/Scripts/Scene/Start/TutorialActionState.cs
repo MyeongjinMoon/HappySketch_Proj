@@ -63,8 +63,6 @@ namespace JongJin
                 playerController[playerIndex].PlayerReset(tutorialState);
                 prevPlayerActionTrigger[playerIndex] = false;
             }
-            
-            Debug.Log(tutorialState.ToString() + "튜토리얼");
         }
         public void UpdateState()
         {
@@ -89,7 +87,6 @@ namespace JongJin
 
         }
 
-        // �ӽ�
         private bool CurrentTutorialActionCheck()
         {
             return true;
@@ -125,7 +122,6 @@ namespace JongJin
                     if (playerController[playerNum].ActionTrigger && (prevPlayerActionTrigger[playerNum] != playerController[playerNum].ActionTrigger))
                     {
                         ++actionSuccessCounts[playerNum];
-                        Debug.Log(playerNum + "점프 중");
                     }
 
 
@@ -151,17 +147,9 @@ namespace JongJin
             ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.SUCCESS);
             ((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
 
-            //Success ǥ�� ���� 
             yield return new WaitForSeconds(successWaitTime);
             isActionConditionClear = true;
             
-           /* else 
-            {
-               if (SceneManagerExtended.Instance.CheckReady())
-                    StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
-            }*/
-
-
             yield return null;
         }
 

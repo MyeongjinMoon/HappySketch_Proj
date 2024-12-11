@@ -1,21 +1,13 @@
 using Cinemachine;
 using HakSeung;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static HakSeung.UIManager;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace JongJin
 {
 	public class RunningState : MonoBehaviour, IGameState
 	{
-		private readonly float progressBarStartX = -650.0f;
-		private readonly float progressBarEndX = 670.0f;
-
 		[Header("Object")]
 		[SerializeField] private GameObject[] players;
 		[SerializeField] private GameObject dinosaur;
@@ -27,18 +19,18 @@ namespace JongJin
 		[SerializeField] private ParticleSystem[] deBuffParticles;
 
 		[Header("Time")]
-		[SerializeField] private float roundTimeLimit;
-		[SerializeField] private float buffTime = 5.0f;
+		[SerializeField] private float roundTimeLimit = 300.0f;
+		[SerializeField] private float buffTime = 10.0f;
 		[SerializeField] private float debuffTime = 5.0f;
 		[SerializeField] private float normalBuffTime = 3.0f;
 		[SerializeField] private float normalDeBuffTime = 3.0f;
 
         [Header("Distance")]
-		[SerializeField] private float totalRunningDistance = 100.0f;
-		[SerializeField] private float minDistance = 5.0f;
-		[SerializeField] private float maxDistance = 15.0f;
-		[SerializeField] private float playerSpacing = 2.0f;
-		[SerializeField] private float buffDistance = 6.0f;
+		[SerializeField] private float totalRunningDistance = 500.0f;
+		[SerializeField] private float minDistance = 13.0f;
+		[SerializeField] private float maxDistance = 25.0f;
+		[SerializeField] private float playerSpacing = 3.0f;
+		[SerializeField] private float buffDistance = 10.0f;
 		[SerializeField] private float deBuffDistance = 6.0f;
 
 		[Header("ProgressRate")]
@@ -50,7 +42,7 @@ namespace JongJin
 
         [Header("Virtual Camera")] 
 		[SerializeField] private GameObject runningViewCam;
-		[SerializeField] private float plusCameraPosZ = 5.0f;
+		[SerializeField] private float plusCameraPosZ = 2.5f;
 
 		[Header("UI")]
 		[SerializeField] private Image fadeImage;

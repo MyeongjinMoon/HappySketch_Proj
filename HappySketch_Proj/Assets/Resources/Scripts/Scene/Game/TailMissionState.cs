@@ -13,12 +13,10 @@ namespace JongJin
 {
     public class TailMissionState : MonoBehaviour, IGameState
     {
-        // TODO<이종진> - 나중에 레벨 디자인 끝나면 SerializeField 지우기 필요 - 20241121
         private readonly float ENDTIME = 0.0f;
         private readonly float startWarningBarX = -29.0f;
         private readonly float endWarningBarX = 29.0f;
-        [SerializeField] private readonly float dinoPosDiff = 5.0f;
-        [SerializeField] private readonly int ATTACKCOUNT = 3;
+        private readonly int ATTACKCOUNT = 3;
 
         [SerializeField] private GameObject dinosaur;
         [SerializeField] private TailContoller tailController;
@@ -98,8 +96,6 @@ namespace JongJin
             if (attackFlowTime < attackTime)
                 return;
 
-            //함수 추가
-
             timingBar.gameObject.SetActive(false);
             warningEffect[randomAttackPos].SetActive(false);
             dinosaur.SetActive(false);
@@ -125,7 +121,6 @@ namespace JongJin
 
         public void ExitState()
         { 
-            //UIManager.Instance.ShowPopupUI(UIManager.EPopupUIType.FadePopupCanvas.ToString());
             UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
 
             dinosaur.SetActive(false);

@@ -2,9 +2,7 @@ using HakSeung;
 using MyeongJin;
 using Jaehoon;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace JongJin
 {
@@ -17,14 +15,9 @@ namespace JongJin
         private readonly string paramJump = "isJump";
         private readonly string jumpAniName = "Jump";
         private readonly string paramCrouch = "isCrouch";
-        private readonly string crouchAniName = "Crouch";
         private readonly string paramHeart = "isHeart";
-        private readonly string heartAniName = "Heart";
         private readonly string paramLeftTouch = "isLeftTouch";
-        private readonly string leftTouchAniName = "Left Touch";
         private readonly string paramRightTouch = "isRightTouch";
-        private readonly string rightTouchAniName = "Right Touch";
-        private readonly string idleAniName = "Idle";
 
 
         enum EPlayer { PLAYER1, PLAYER2, PLAYER3, PLAYER4 }
@@ -36,7 +29,7 @@ namespace JongJin
         [SerializeField] private BoxCollider upCollider;
         [SerializeField] private BoxCollider downCollider;
 
-        [SerializeField] private float speed = 1.0f;
+        [SerializeField] private float speed = 3.0f;
         [SerializeField] private float increaseSuccessSpeed = 2.0f;
         [SerializeField] private float failSpeed = 2.0f;
         [SerializeField] private float jumpForce = 5.0f;
@@ -44,7 +37,7 @@ namespace JongJin
         [SerializeField] private float runIncreaseSpeed = 0.1f;
         [SerializeField] private float runDecreaseSpeed = 0.2f;
 
-        [SerializeField] private float minSpeed = 0.5f;
+        [SerializeField] private float minSpeed = 2.0f;
         [SerializeField] private float maxSpeed = 8.0f;
 
         [SerializeField] private ParticleSystem buffParticles;
@@ -103,8 +96,6 @@ namespace JongJin
             {
                 Heart();
             }
-
-            Debug.Log(isGrounded);
 
             if (isGrounded <= 0 || isActivated)
                 return;

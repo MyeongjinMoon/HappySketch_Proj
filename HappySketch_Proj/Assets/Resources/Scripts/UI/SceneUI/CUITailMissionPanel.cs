@@ -23,11 +23,9 @@ public class CUITailMissionPanel : CUIScene
 
     private float startScale;
     private float spinSpeed;
-    private int currentLife;
 
     protected override void InitUI()
     {
-        currentLife = 0;
         spinSpeed = 30f;
         startScale = tailLifes[0].transform.localScale.x;
 
@@ -48,7 +46,6 @@ public class CUITailMissionPanel : CUIScene
     public override void Show()
     {
         base.Show();
-        currentLife = 0;
 
         for (int imageIndex = 0; imageIndex < tailLifes.Length; imageIndex++)
         {

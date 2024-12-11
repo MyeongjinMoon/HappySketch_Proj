@@ -27,7 +27,6 @@ namespace HakSeung
             if (string.IsNullOrEmpty(uiName))
                 uiName = gameObject.name;
 
-            Debug.Log($"UI/<color=yellow>{uiName}</color> 활성화");
             gameObject.SetActive(true);
         }
 
@@ -36,7 +35,6 @@ namespace HakSeung
         /// </summary>
         public virtual void Hide()
         {
-            Debug.Log($"UI/<color=yellow>{uiName}</color> 비활성화");
             gameObject.SetActive(false);
         }
 
@@ -45,21 +43,5 @@ namespace HakSeung
         /// </summary>
         protected abstract void InitUI();
 
-        /*   private void UIBind<T>(System.Type type) where T : UnityEngine.Object
-           {
-               //이거 매니저에서 가지고 있어야 하는거잖어
-               if (!type.IsEnum)
-                   return;
-
-               string[] uiNames = Enum.GetNames(type);
-
-               UnityEngine.Object[] uiObjects = new UnityEngine.Object[uiNames.Length];
-
-               for(int i = 0; i < uiNames.Length; i++)
-               {
-                   //uiObjects[i] = 
-               }
-
-           }*/
     }
 }

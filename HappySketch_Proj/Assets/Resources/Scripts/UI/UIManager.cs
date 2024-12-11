@@ -1,11 +1,8 @@
 using JongJin;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Rendering.InspectorCurveEditor;
 
 namespace HakSeung
 {
@@ -56,11 +53,7 @@ namespace HakSeung
         }
         public CUIScene CurSceneUI { get; private set; } = null;
 
-        //TODO <이학승> RunningCanvas 이용을 위해 Get을 private 에서 해제 추후 Running Canvas 수정 필요
         public GameObject MainCanvas { get; set; }
-        //public GameObject MainCanvas{ private get; set; }
-
-
         public static UIManager Instance
         {
             get
@@ -90,7 +83,6 @@ namespace HakSeung
             Initialzie();
         }
 
-        //Todo<이학승> 임시로 기본 Find를 통해 받아옴 추후 Tag던 이름이던 참조 해야됨
         private void Initialzie()
         {
             uiPrefabs = new Dictionary<string, UnityEngine.Object>();
@@ -105,7 +97,6 @@ namespace HakSeung
             MainCanvas = GameObject.Find("MainCanvas");
             for (int i = 0; i < MAXSCENEUICOUNT; i++)
                 SceneUIList.Add(null);
-            Debug.Log($"CreateSceneUI 호출. sceneUIIndex: {SceneUIList.Count}");
         }
 
         public UnityEngine.Object UICashing<T>(System.Type type, int enumIndex) where T : UnityEngine.Object
@@ -117,14 +108,10 @@ namespace HakSeung
 
             if (uiPrefabs.ContainsKey(uiName))
             {
-                Debug.Log($"캐싱된 {uiName}이 있습니다");
                 return uiPrefabs[uiName];
             }
 
             T uiObj = Resources.Load<T>(PREFABSPATH + $"{uiName}");
-
-            if (uiObj == null)
-                Debug.LogError("로드 실패: " + PREFABSPATH + $"에 {uiName}는 존재하지 않습니다.");
 
             uiPrefabs.Add(uiName, uiObj);
 
@@ -137,7 +124,6 @@ namespace HakSeung
 
             if (!uiPrefabs.ContainsKey(key))
             {
-                Debug.LogError($"SceneUI Key: {key}가 존재하지 않습니다.");
                 return;
             }
 
@@ -154,13 +140,8 @@ namespace HakSeung
                 if (SceneUIList[sceneUIIndex] = Instantiate(sceneUI))
                 {
                     SceneUIList[sceneUIIndex].transform.SetParent(MainCanvas.transform, false);
-                    //SceneUIList[sceneUIIndex].Show();
                 }
-                else
-                    Debug.LogError($"{key}생성 실패");
             }
-            else
-                Debug.LogError($"{key}는 CUIScene를 상속받지 않는 타입입니다.");
 
             if (sceneUIIndex == 0)
                 SceneUISwap();
@@ -170,7 +151,6 @@ namespace HakSeung
 
         public void SceneUISwap(int sceneUIIndex = 0)
         {
-            Debug.Log("씬전환");
             if (sceneUIIndex >= SceneUIList.Count)
                 return;
 
@@ -201,17 +181,12 @@ namespace HakSeung
 
         }
 
-
-        //TODO<이학승> ShowPopupUI 제외하고 자주쓰이는 팝업 나중에 한번만 뜰 팝업들을 정리하는 메서드가 필요하다. 24/11/21 if문 보기 안좋으니수정필요
         public bool ShowPopupUI(string key)
         {
             CUIPopup popUI = null;
 
             if (!uiPrefabs.ContainsKey(key))
-            {
-                Debug.LogError($"PopupUI Key: {key}가 존재하지 않습니다.");
                 return false;
-            }
 
             if (uiObjs.ContainsKey(key))
             {
@@ -222,10 +197,7 @@ namespace HakSeung
                     ++popupIndex;
                 }
                 else
-                {
-                    Debug.LogError($"{key}는 CUIPopup을 가지고 있지 않습니다.");
                     return false;
-                }
             }
             else if (popUI = Instantiate(uiPrefabs[key]).GetComponent<CUIPopup>())
             {
@@ -237,10 +209,7 @@ namespace HakSeung
                 ++popupIndex;
             }
             else
-            {
-                Debug.LogError($"{key}는 CUIPopup을 가지고 있지 않습니다.");
                 return false;
-            }
 
             popupUIStack.Peek().gameObject.transform.SetAsLastSibling();
             return true;
@@ -264,7 +233,6 @@ namespace HakSeung
             if (popupUIStack.Count == 0)
                 return;
 
-            Debug.Log(popupUIStack.Peek().name);
             popupUIStack.Peek().Hide();
             popupUIStack.Pop();
             --popupIndex;
@@ -277,7 +245,6 @@ namespace HakSeung
 
             if (popupUIStack.Peek() != popupUI)
             {
-                Debug.LogError($"popupUi: {popupUI.UIName}은 닫을 수 없습니다.");
                 return;
             }
 
@@ -290,7 +257,6 @@ namespace HakSeung
         {
             while (popupUIStack.Count > 0)
             {
-                Debug.Log(popupUIStack.Count);
                 ClosePopupUI();
             }
         }
@@ -305,7 +271,6 @@ namespace HakSeung
             foreach (CUIBase items in uiObjs.Values)
             {
                 Destroy(items.gameObject);
-                Debug.Log(items.name + "파괴");
             }
             uiObjs.Clear();
             popupUIStack.Clear();

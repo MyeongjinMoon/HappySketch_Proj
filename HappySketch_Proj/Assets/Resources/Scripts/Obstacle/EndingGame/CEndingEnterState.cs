@@ -16,7 +16,6 @@ namespace MyeongJin
         private int topPlayerIndex;
         private float topPlayerTime;
         private float restPlayerTime;
-        private bool isFinish = false;
         public bool isGameSuccess;
 
         private void Awake()

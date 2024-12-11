@@ -23,36 +23,6 @@ namespace MyeongJin
 			log = Resources.Load<GameObject>(logName);
 			rock = Resources.Load<GameObject>(rockName);
 			rock1 = Resources.Load<GameObject>(rock1Name);
-
-            #region 프리팹 예외처리
-            if (log != null)
-			{
-				Debug.Log($"프리팹 '{logName}'을(를) Load 하였습니다.");
-			}
-			else
-			{
-				Debug.LogError($"프리팹 '{logName}'을(를) 찾을 수 없습니다.");
-				// 예외처리 코드 추가
-			}
-			if (rock != null)
-			{
-				Debug.Log($"프리팹 '{rockName}'을(를) Load 하였습니다.");
-			}
-			else
-			{
-				Debug.LogError($"프리팹 '{rockName}'을(를) 찾을 수 없습니다.");
-				// 예외처리 코드 추가
-			}
-            if (rock1 != null)
-            {
-                Debug.Log($"프리팹 '{rock1Name}'을(를) Load 하였습니다.");
-            }
-            else
-            {
-                Debug.LogError($"프리팹 '{rock1Name}'을(를) 찾을 수 없습니다.");
-                // 예외처리 코드 추가
-            }
-            #endregion
         }
 
         public IObjectPool<CObstacle> Pool

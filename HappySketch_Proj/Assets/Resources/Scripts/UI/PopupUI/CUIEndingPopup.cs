@@ -53,7 +53,6 @@ namespace MyeongJin
 
             if (baseRectTransform == null)
             {
-                Debug.LogError("baseRectTransform");
                 yield break;
             }
 

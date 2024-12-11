@@ -45,7 +45,6 @@ namespace MyeongJin
 		{
             if (other.tag == "PlayerCollider" || other.tag == "PlayerCollider")
             {
-				Debug.Log("BigPterandon Attack");
                 this.GetComponent<BoxCollider>().enabled = false;
                 hitCount--;
             }

@@ -41,8 +41,8 @@ namespace JongJin
 
 		public EGameState CurState { get { return curState; } }
 
-        [SerializeField] private AudioClip missionroomBackgroundMusic;             // 미션룸 배경 오디오 클립
-        [SerializeField] private AudioClip runningStateBackgroundMusic;             // 달리는 상태 오디오 클립
+        [SerializeField] private AudioClip missionroomBackgroundMusic;
+        [SerializeField] private AudioClip runningStateBackgroundMusic;
         private void Awake()
 		{
 			UIManager.Instance.MainCanvasSetting();
@@ -197,8 +197,6 @@ namespace JongJin
             }
         }
 
-		//TODO <이학승> 씬 전환시 작동 될 코드
-		//private void DestroyUI;
         private void UpdateMap(EGameState curState)
         {
             switch (curState)

@@ -109,13 +109,6 @@ namespace HakSeung
 
 
 
-
-            /*//노트 값 설정
-            //((CUIEventPanel)UIManager.Instance.CurSceneUI).playerNotes[1].Show();
-            //프로그래스 바의 맥스 값 설정
-            ((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.MaxProgress = 100f;
-            //프로그래스 바 값 수정
-            ((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.FillProgressBar(10f);*/
         }
     }
 }

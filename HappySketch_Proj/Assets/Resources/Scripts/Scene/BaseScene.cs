@@ -8,7 +8,7 @@ namespace HakSeung
 {
     public abstract class BaseScene : MonoBehaviour
     {
-        public ESceneType SceneType { get; protected set; } = ESceneType.END; //DefaultScene Value
+        public ESceneType SceneType { get; protected set; } = ESceneType.END;
 
         private void Awake()
         {
@@ -20,7 +20,7 @@ namespace HakSeung
         /// </summary>
         protected virtual void InitScene()
         {
-            //TODO<학승> 상속시켜서 UIManager를 통해 현재 Scene의 Show()같은거 불러올 예정 24/11/13 
+            
         }
 
         public abstract void Clear();

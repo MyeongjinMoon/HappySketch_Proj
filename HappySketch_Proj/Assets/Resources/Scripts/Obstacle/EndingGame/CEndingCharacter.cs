@@ -8,11 +8,9 @@ namespace MyeongJin
 	{
 		Vector3 originPosition;
 		[SerializeField] private CDinosaurChase cDinosaurChase;
-		private Rigidbody rigidbody;
 
 		private void Start()
 		{
-            rigidbody = GetComponent<Rigidbody>();
 			originPosition = this.transform.position;
 			StartCoroutine(UpdateCharacter());
 		}

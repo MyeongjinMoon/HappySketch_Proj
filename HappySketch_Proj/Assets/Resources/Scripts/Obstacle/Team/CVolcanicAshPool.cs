@@ -41,11 +41,6 @@ namespace MyeongJin
 		{
 			GameObject[] prefabs = Resources.LoadAll<GameObject>(folderPath);
 
-			if (prefabs.Length == 0)
-			{
-				Debug.LogError($"No prefabs found in folder: {folderPath}");
-			}
-
 			return prefabs;
 		}
 		public IObjectPool<CVolcanicAsh> Pool

@@ -9,7 +9,6 @@ namespace HakSeung
 	public class CUIProgressBar : MonoBehaviour
 	{
 		[Header("Porgress Bar")]
-		//[SerializeField] private float curProgress;
 		[SerializeField]private float maxProgress;
 		[SerializeField]private Image PrograssBarFill;
 
@@ -41,8 +40,6 @@ namespace HakSeung
 
 		public void FillProgressBar(float curProgress)
 		{
-			//if (maxProgress <= defaultMaxProgress) return;
-
 			if(PrograssBarFill.fillAmount < maxFillAmount)
 				PrograssBarFill.fillAmount += curProgress / maxProgress;
 			else

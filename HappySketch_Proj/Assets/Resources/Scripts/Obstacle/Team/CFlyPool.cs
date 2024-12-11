@@ -26,18 +26,6 @@ namespace MyeongJin
         private void Awake()
 		{
 			fly = Resources.Load<GameObject>(flyName);
-
-            #region 프리팹 예외처리
-            if (fly != null)
-			{
-				Debug.Log($"프리팹 '{flyName}'을(를) Load 하였습니다.");
-			}
-			else
-			{
-				Debug.LogError($"프리팹 '{flyName}'을(를) 찾을 수 없습니다.");
-				// 예외처리 코드 추가
-			}
-            #endregion
         }
 		private void Start()
         {

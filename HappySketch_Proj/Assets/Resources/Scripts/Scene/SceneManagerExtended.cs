@@ -25,9 +25,6 @@ namespace HakSeung
 
         private Image fadeImage;
 
-        /// <summary>
-        /// Instance�� �޾ƿ� ���Ƿ� ��𼱰����� ȣ�����־���Ѵ�.
-        /// </summary>
         public static SceneManagerExtended Instance
         {
             get
@@ -56,11 +53,6 @@ namespace HakSeung
 
             fadeImage = GameObject.Find("PanelFade").GetComponent<Image>();
         }
-        /// <summary>
-        ///  ���� �̸��� ��ȯ�ϴ� �ڵ� �����ʿ�
-        ///  Scene���� �̸��� �̸� �������� ����� �𸣰ھ �ϴ� �� �ڵ带 ���� type�� ������ LoadScene�� �̿��� �� �ֵ��� �س�����
-        ///  Scene�� �̸� ����� ���� ���� Ű�� ����ΰǰ�??
-        /// </summary>
         public string SceneTypeToString(ESceneType type)
         {
             string sceneName = string.Empty;
@@ -77,7 +69,6 @@ namespace HakSeung
                     break;
                 default:
                     sceneName = "NOTING";
-                    Debug.Log($"this scene does not exist");
                     break;
             }
 
@@ -86,8 +77,6 @@ namespace HakSeung
 
         public void LoadScene(ESceneType type)
         {
-            // TODO<������> - Scene ��ȯ�� Ŭ����� ���� �߻�, �ǳ� �ʿ� - 20241118
-
             SceneManager.LoadScene(SceneTypeToString(type));
         }
 
@@ -101,7 +90,6 @@ namespace HakSeung
         }
         public bool CheckReady()
         {
-            // TODO<������> - ���� ��� ���� �ʿ� / �ӽ� 2���� �÷��̾��� �����ϰ� �ڵ� �ۼ� - 20241118
             for (int playerNum = 0; playerNum < 2; playerNum++)
                 if (!isPlayersReady[playerNum]) 
                     return false;

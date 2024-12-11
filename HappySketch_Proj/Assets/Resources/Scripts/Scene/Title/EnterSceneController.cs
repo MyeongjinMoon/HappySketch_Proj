@@ -16,7 +16,6 @@ public class EnterSceneController : MonoBehaviour
         StartCoroutine(TextOnOff());
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))

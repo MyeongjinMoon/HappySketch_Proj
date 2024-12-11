@@ -1,9 +1,6 @@
 using Jaehoon;
 using JongJin;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace MyeongJin
@@ -23,7 +20,6 @@ namespace MyeongJin
 		private Animator dinosaurAnimator;
 		private Animator[] endingPlayersAnimators;
 		private Animator[] endingResultPlayersAnimators;
-		private bool isEnabledResultPlayers = false;
 		private bool isFadeStart = false;
 
         private CEndingSceneController cEndingSceneController;

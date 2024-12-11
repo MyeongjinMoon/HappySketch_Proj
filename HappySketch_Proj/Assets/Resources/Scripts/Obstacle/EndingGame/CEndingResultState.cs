@@ -21,13 +21,10 @@ namespace MyeongJin
 
 		private TextMeshProUGUI[] tableText;
 
-		private float time = 0.0f;
 		private const float fTime = 1.0f;
 		private const int ENDTIME = 0;
 		private const float SETTABLETIME = 0.6f;
 		private const int SETBUTTONTIME = 3;
-		private bool canSetButton = false;
-		private bool isSetButton = false;
 
         private CEndingSceneController cEndingSceneController;
 

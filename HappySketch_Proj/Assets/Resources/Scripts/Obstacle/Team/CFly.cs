@@ -78,8 +78,6 @@ namespace MyeongJin
 		{
 			this.GetComponent<BoxCollider>().enabled = false;
 
-            Debug.Log("Catch Bug");
-
 			blood.SetActive(true);
 
 			var mainModule = flyParticleSystem.main;

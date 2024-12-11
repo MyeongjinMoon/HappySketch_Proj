@@ -34,36 +34,6 @@ namespace MyeongJin
 			smallPteranodon = Resources.Load<GameObject>(smallPteranodonName);
 			bigPteranodon = Resources.Load<GameObject>(bigPteranodonName);
 			crocodile = Resources.Load<GameObject>(crocodileName);
-
-			#region 프리팹 예외처리
-			if (smallPteranodon != null)
-			{
-				Debug.Log($"프리팹 '{smallPteranodonName}'을(를) Load 하였습니다.");
-			}
-			else
-			{
-				Debug.LogError($"프리팹 '{smallPteranodonName}'을(를) 찾을 수 없습니다.");
-				// 예외처리 코드 추가
-			}
-			if (bigPteranodon != null)
-			{
-				Debug.Log($"프리팹 '{bigPteranodonName}'을(를) Load 하였습니다.");
-			}
-			else
-			{
-				Debug.LogError($"프리팹 '{bigPteranodonName}'을(를) 찾을 수 없습니다.");
-				// 예외처리 코드 추가
-			}
-			if (crocodile != null)
-			{
-				Debug.Log($"프리팹 '{crocodileName}'을(를) Load 하였습니다.");
-			}
-			else
-			{
-				Debug.LogError($"프리팹 '{crocodileName}'을(를) 찾을 수 없습니다.");
-				// 예외처리 코드 추가
-			}
-			#endregion
 		}
 		private void Start()
 		{

@@ -31,9 +31,6 @@ namespace HakSeung
         {
             float playerPosX = progressBarEndX - progressBarStartX;
             runningCanvas = UIManager.Instance.MainCanvas.GetComponent<Canvas>();
-
-            /*for (int i = 0; i < playerImagepos.Length; i++)
-                    playerImagepos[i].anchoredPosition = new Vector2(playerPosX, playerImagepos[i].anchoredPosition.y);*/
         }
 
         public void SetHeart(int curLife)

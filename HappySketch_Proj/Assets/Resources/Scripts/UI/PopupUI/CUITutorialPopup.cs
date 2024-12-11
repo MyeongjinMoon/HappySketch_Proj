@@ -46,7 +46,6 @@ namespace HakSeung
         [SerializeField] private Image guideImage;
         [SerializeField] private Image timerFillImage;
         [SerializeField] private TextMeshProUGUI timerCountText;
-        //TODO <�н�> - ��� 7 �־���� �� ���߿� state�� �°� ó���� ���ߵ�
         [SerializeField] private Sprite[] guideSprites = new Sprite[10];
         [SerializeField] private float effectDuration;
         [SerializeField] private GameObject timerImage;
@@ -77,7 +76,6 @@ namespace HakSeung
             if (curTime < 0)
                 curTime = 0;
             
-            //timerFillImage.fillAmount = Mathf.Clamp(Mathf.CeilToInt(curTime) * 0.1f, 0f, 1f);
             timerFillImage.fillAmount = Mathf.Clamp(curTime * 0.1f, 0f, 1f);
             timerCountText.text = (Mathf.CeilToInt(curTime)).ToString();
 
@@ -114,7 +112,6 @@ namespace HakSeung
 
 			if (baseRectTransform == null)
 			{
-				Debug.LogError("baseRectTransform�� �������� ����");
 				yield break;
 			}
 
@@ -177,16 +174,16 @@ namespace HakSeung
 
             switch (gameSceneState)
 			{
-				case EGameState.TAILMISSION: //����
+				case EGameState.TAILMISSION:
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.TAIL];
 					break;
-				case EGameState.FIRSTMISSION: // �ͷ�
+				case EGameState.FIRSTMISSION:
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.PTEROSAUR];
 					break;
-				case EGameState.SECONDMISSION: // �ĸ���
+				case EGameState.SECONDMISSION:
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.INSECT];
 					break;
-				case EGameState.THIRDMISSION: // ȭ����
+				case EGameState.THIRDMISSION:
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.VOLCANICASH];
 					break;
 				default:
@@ -205,7 +202,7 @@ namespace HakSeung
 					successParticle.Play();
                     soundTipe = SoundTipe.SUCCESS;
                     break;
-				case EventResult.FAILED: // �ͷ�
+				case EventResult.FAILED:
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.FAILED];
                     panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
 					failParticle.Play();

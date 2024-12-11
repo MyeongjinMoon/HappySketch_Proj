@@ -1,12 +1,8 @@
 using HakSeung;
 using JongJin;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 namespace HakSeung
 {
@@ -21,7 +17,6 @@ namespace HakSeung
 			END
 		}
 
-		//TODO<학승> const 대문자 변환해야됨 11/13
 		[SerializeField] private bool isHit;
 		[SerializeField] private float curTime;
 		[SerializeField] private const float noteHitCheckTime = 3f;
@@ -32,16 +27,14 @@ namespace HakSeung
 
 		private const float noteFailTime = 0f;
 
-		// >>: 명진 추가 코드
 		private GameObject obstacle;
 		private GameObject[] player;
 
 		private int myPlayerNum;
-		// <<
 
 		public GameObject[] noteObjects = new GameObject[(int)ENoteImageObject.END];
 
-		Coroutine coCheckNoteHit; // 코루틴 명명법 모르겠어서 임시
+		Coroutine coCheckNoteHit;
 
 		private void Init()
 		{
@@ -52,7 +45,7 @@ namespace HakSeung
 		}
 		public void Show(GameObject newObstacle, int playerNum)
 		{
-            gameObject.GetComponent<Image>().color = Color.white; //나중에 이미지로 받아오는거 변경 필요
+            gameObject.GetComponent<Image>().color = Color.white;
             myPlayerNum = playerNum;
             obstacle = newObstacle;
 			this.gameObject.SetActive(true);
@@ -107,7 +100,7 @@ namespace HakSeung
 
 			if (isHit)
 			{
-				gameObject.GetComponent<Image>().color = Color.green; //나중에 이미지로 받아오는거 변경 필요
+				gameObject.GetComponent<Image>().color = Color.green;
 				player[myPlayerNum].GetComponent<PlayerController>().OnBuff();
 			}
 			else

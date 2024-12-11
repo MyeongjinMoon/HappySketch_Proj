@@ -58,7 +58,6 @@ namespace JongJin
 		public void ExitState()
 		{
 			((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.Init();
-			//UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
 			player1.transform.localScale = player1Scale;
 			player2.transform.localScale = player2Scale;
             spawnController.canSpawn = true;
@@ -114,7 +113,6 @@ namespace JongJin
 				((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).ImageSwap(CUITutorialPopup.EventResult.FAILED);
 				((CUITutorialPopup)(UIManager.Instance.CurrentPopupUI)).TimerHide();
 			}
-			//½ÇÆÐ UI¶ç¿ì±â
 			yield return new WaitForSeconds(3.0f);
 			isMissionFinished = true;
 		}

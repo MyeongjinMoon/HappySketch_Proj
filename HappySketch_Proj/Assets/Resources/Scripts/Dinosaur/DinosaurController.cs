@@ -9,7 +9,7 @@ namespace JongJin
     {
         [SerializeField] private GameSceneController gameSceneController;
 
-        [SerializeField] private float speed = 2.0f;
+        [SerializeField] private float speed = 4.0f;
 
         private float soundIntervalFootstep = 0.0f;
 

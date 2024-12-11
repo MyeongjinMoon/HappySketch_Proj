@@ -19,7 +19,6 @@ namespace Confetti2
 
         int effectIndex = 0;
 
-        // Use this for initialization
         void Start()
         {
             instantiatedEffect = Instantiate(listOfEffects[effectIndex], transform.position, transform.rotation) as GameObject;
@@ -27,7 +26,6 @@ namespace Confetti2
             timeOfLastInstantiate = Time.time;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (Time.time >= timeOfLastInstantiate + loopTimeLength)
