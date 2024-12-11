@@ -149,7 +149,9 @@ namespace JongJin
 
             yield return new WaitForSeconds(successWaitTime);
             isActionConditionClear = true;
-            
+
+
+
             yield return null;
         }
 
