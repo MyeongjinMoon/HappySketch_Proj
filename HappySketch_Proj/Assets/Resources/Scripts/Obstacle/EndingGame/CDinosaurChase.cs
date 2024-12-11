@@ -135,9 +135,8 @@ namespace MyeongJin
 					yield return null;
 				}
 				yield return null;
-			}
-            StartCoroutine(ShakeCoroutine(200));
-            //StartCoroutine(ResetCoroutine(500));
+            }
+            StartCoroutine(ResetCoroutine(500));
         }
 		private IEnumerator ResetCoroutine(float shakeForce)
 		{
@@ -147,6 +146,7 @@ namespace MyeongJin
 				yield return null;
 			}
 			yield return null;
-		}
+            StartCoroutine(ShakeCoroutine(200));
+        }
 	}
 }

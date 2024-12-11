@@ -2,6 +2,7 @@ using Jaehoon;
 using JongJin;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 namespace MyeongJin
 {
@@ -10,6 +11,7 @@ namespace MyeongJin
 		[SerializeField] private GameObject dinosaur;
 		[SerializeField] private GameObject[] endingPlayers;
 		[SerializeField] private GameObject[] endingResultPlayers;
+		[SerializeField] private GameObject[] paritcle;
 		[SerializeField] private GameObject[] crown;
 		[SerializeField] private RuntimeAnimatorController[] playerController;
 		[SerializeField] private RuntimeAnimatorController[] playerResultController;
@@ -101,6 +103,8 @@ namespace MyeongJin
 							endingPlayers[i].SetActive(false);
                             endingResultPlayers[i].SetActive(true);
                         }
+						for (int i = 0; i < paritcle.Length; i++)
+							paritcle[i].SetActive(true);
 
                         StartCoroutine(Stay(4f));
                     }

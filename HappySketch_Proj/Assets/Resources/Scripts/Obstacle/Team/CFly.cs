@@ -24,7 +24,7 @@ namespace MyeongJin
         private GameSceneController gamecSceneController;
         private EGameState curState = EGameState.SECONDMISSION;
 
-        private bool isDead = false;
+        private float soundTime = 0f;
 
         private void Awake()
 		{
@@ -35,14 +35,19 @@ namespace MyeongJin
             gameSceneController = GameObject.Find("GameSceneController");
             gamecSceneController = gameSceneController.GetComponent<GameSceneController>();
         }
-        private void Update()
+        private void FixedUpdate()
         {
             if (IsStateChanged())
                 ReturnToPool();
-            if (!isDead)
+
+            if (soundTime <= 0)
             {
-                isDead = true;
-                SoundManager.instance.SFXPlay("Sounds/InsectFly", 1.5f);
+                SoundManager.instance.SFXPlay("Sounds/InsectFly");
+                soundTime = 3f;
+            }
+            else
+            {
+                soundTime -= Time.deltaTime;
             }
         }
         private void OnDisable()
@@ -69,6 +74,8 @@ namespace MyeongJin
 
             var mainModule2 = lightBugParticleSystem.main;
             mainModule2.gravityModifier = 0f;
+
+            soundTime = 0f;
         }
         protected bool IsStateChanged()
         {

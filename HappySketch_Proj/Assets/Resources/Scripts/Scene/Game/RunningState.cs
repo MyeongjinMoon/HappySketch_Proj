@@ -135,7 +135,6 @@ namespace JongJin
         }
 		public void UpdateState()
 		{
-
             if (isFinish)
                 return;
 			EndGame();
@@ -215,8 +214,8 @@ namespace JongJin
 		}
 		private void CalculateRank()
 		{
-			if (ProgressRate >= 100.0f)
-				return;
+			//if (ProgressRate >= 100.0f)
+			//	return;
 
 			firstRankerDistance = playerDistance[0];
 			lastRankerDistance = playerDistance[0];

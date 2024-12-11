@@ -157,14 +157,14 @@ namespace MyeongJin
         private void OnClickRestart()
 		{
 			UIManager.Instance.ClearAllUI();
-			SceneManager.LoadScene("StartScene");
+			SceneManager.LoadScene("GameScene");
 		}
         private void OnClickEndGame()
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit(); // ���ø����̼� ����
+        Application.Quit();
 #endif
         }
     }
