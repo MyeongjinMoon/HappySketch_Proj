@@ -16,24 +16,25 @@ namespace MyeongJin
 		private int creatureNum = 0;
 		private int bigCreatureStack = 0;
 
-		private string smallPteranodonName = "Prefabs/Obstacle/Team/FirstMission/SmallPteranodon";      // 프리팹이 존재하는 폴더 위치
-		private string bigPteranodonName = "Prefabs/Obstacle/Team/FirstMission/BigPteranodon";      // 프리팹이 존재하는 폴더 위치
-		private string crocodileName = "Prefabs/Obstacle/Team/FirstMission/Crocodile";      // 프리팹이 존재하는 폴더 위치
+		private string smallPteranodonName = "Prefabs/Obstacle/Team/FirstMission/SmallPteranodon";
+		private string bigPteranodonName = "Prefabs/Obstacle/Team/FirstMission/BigPteranodon";
+		private string crocodileName = "Prefabs/Obstacle/Team/FirstMission/Crocodile";
 		private GameObject smallPteranodon;
 		private GameObject bigPteranodon;
 		private GameObject crocodile;
+        private GameObject parent;
 
-		// >>: 익룡 이동 점
-		private Transform[] smallPteranodonControlPoints;
+        private Transform[] smallPteranodonControlPoints;
 		private Transform[] bigPteranodonControlPoints;
 		private Transform[] groundControlPoints;
-		// <<
 
 		private void Awake()
 		{
 			smallPteranodon = Resources.Load<GameObject>(smallPteranodonName);
 			bigPteranodon = Resources.Load<GameObject>(bigPteranodonName);
 			crocodile = Resources.Load<GameObject>(crocodileName);
+
+            parent = GameObject.Find("ObstacleBox");
 		}
 		private void Start()
 		{
@@ -71,19 +72,19 @@ namespace MyeongJin
 			switch (creatureNum / 5)
 			{
 				case 0:
-					var go = Instantiate(smallPteranodon);
+					var go = Instantiate(smallPteranodon, parent.transform);
 					go.name = "SmallPteranodon";
 
 					obstacle = go.AddComponent<CSmallPteranodon>();
 					break;
 				case 1:
-					go = Instantiate(bigPteranodon);
+					go = Instantiate(bigPteranodon, parent.transform);
 					go.name = "BigPteranodon";
 
 					obstacle = go.AddComponent<CBigPteranodon>();
 					break;
 				case 2:
-					go = Instantiate(crocodile);
+					go = Instantiate(crocodile, parent.transform);
 					go.name = "Crocodile";
 
 					obstacle = go.AddComponent<CCrocodile>();
@@ -109,7 +110,6 @@ namespace MyeongJin
 		}
 		public void SpawnCreatureHerd(int lineNum, Vector3 position)
 		{
-			// TODO < 문명진 > - space를 Line의 x값을 받아서 사용해야 함. - 2024.11.11 17:30
 			float space = 4f;
 
 			CCreatureHerd obstacle = null;
@@ -173,8 +173,6 @@ namespace MyeongJin
 			}
 			bigCreatureStack++;
 
-			// TODO < 문명진 > - 생성 위치를 미션 지점으로 지정해줘야 함. - 2024.11.11 14:20
-			// "30"과 "20"을 Line에 맞춰서 생성해야 함.
 			if (obstacle is CSmallPteranodon)
 			{
 				obstacle.transform.position = new Vector3(lineNum * space + position.x - 2, smallPteranodonControlPoints[1].position.y, smallPteranodonControlPoints[1].position.z);

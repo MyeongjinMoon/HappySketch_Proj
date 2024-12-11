@@ -14,12 +14,15 @@ namespace MyeongJin
 
         private Vector3 missionGroundPos;
 
-		private string backgroundPteranodonName = "Prefabs/Obstacle/Team/Background/BackgroundPteranodon";      // 프리팹이 존재하는 폴더 위치
+		private string backgroundPteranodonName = "Prefabs/Obstacle/Team/Background/BackgroundPteranodon";
 		private GameObject backgroundPteranodon;
+		private GameObject parent;
 
 		private void Awake()
 		{
             backgroundPteranodon = Resources.Load<GameObject>(backgroundPteranodonName);
+
+			parent = GameObject.Find("ObstacleBox");
 		}
 		private void Start()
 		{
@@ -51,7 +54,7 @@ namespace MyeongJin
 		{
 			CCreatureHerd obstacle = null;
 
-			var go = Instantiate(backgroundPteranodon);
+			var go = Instantiate(backgroundPteranodon, parent.transform);
 			go.name = "BackgroundPteranodon";
 
 			obstacle = go.AddComponent<CCreatureBackground>();

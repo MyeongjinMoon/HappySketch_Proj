@@ -20,10 +20,7 @@ namespace MyeongJin
 
 		public EEndingGameState curState;
 
-        // GameScene에서 isGameSuccess를 판단할 수 있는 게임 승리 변수를 정해줘야 함.
         [HideInInspector] public bool isGameSuccess;
-
-        // GameScene에서 topPlayerIndex 판단할 수 있는 1등 플레이어 변수를 정해줘야 함.
         [HideInInspector] public int topPlayerIndex;
         [HideInInspector] public float player1Time;
         [HideInInspector] public float player2Time;
@@ -76,8 +73,6 @@ namespace MyeongJin
                         UpdateState(EEndingGameState.RESULT);
                     break;
                 case EEndingGameState.RESULT:
-                    //if (cEndingEnterState.IsFinishedTutorialPopup())
-                    //    UpdateState(EEndingGameState.TUTORIALACTION);
                     break;
             }
             cEndingStateContext.CurrentState.UpdateState();

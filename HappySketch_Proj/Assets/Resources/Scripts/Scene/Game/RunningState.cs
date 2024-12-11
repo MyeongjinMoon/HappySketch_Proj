@@ -1,5 +1,6 @@
 using Cinemachine;
 using HakSeung;
+using Jaehoon;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,6 +52,9 @@ namespace JongJin
 		[HideInInspector] public bool isPrevStateTail = false;
 		[HideInInspector] public bool isDebuff = false;
 
+		[SerializeField] private GameObject warningCanvas;		// 경보
+		[SerializeField] private GameObject warningUI;			// 경보 UI
+
 		public int Life { get; set; } = 3;
 		private float crownTimer = 0.0f;
 		private float totalRoundTime = 0.0f;
@@ -86,7 +90,6 @@ namespace JongJin
 		public float DinosaurSpeed { get { return dinosaurSpeed; } }
 		private float dinosaurSpeed = 2.0f;
 
-
 		public float GetPlayerDistance(int playerNumber)
 		{
 			return playerDistance[playerNumber];
@@ -95,6 +98,11 @@ namespace JongJin
 		{
 			return prevPlayerPosition[playerNumber];
 		}
+        private void Awake()
+        {
+            warningCanvas = Instantiate(warningUI);
+            warningCanvas.SetActive(false);
+        }
         private void Start()
         {
             InitPlayerPos();
@@ -127,6 +135,7 @@ namespace JongJin
         }
 		public void UpdateState()
 		{
+
             if (isFinish)
                 return;
 			EndGame();
@@ -144,6 +153,8 @@ namespace JongJin
 			Move();
 			CalculateObjectDistance();
 			CalculateRank();
+
+			WarningState();
 		}
 
 		public void ExitState()
@@ -157,6 +168,7 @@ namespace JongJin
 
 			EndBuffEffect();
 			EndDeBuffEffect();
+			warningCanvas.SetActive(false);
         }
 		private void Move()
 		{
@@ -216,6 +228,21 @@ namespace JongJin
                 if (playerDistance[playerNum] < lastRankerDistance) lastRankerDistance = playerDistance[playerNum];
 			}
 		}
+
+		private void WarningState()
+		{
+			if (ProgressRate < tailMissionStartRate - 3.0f || ProgressRate > tailMissionEndRate)
+				return;
+
+			if (!warningCanvas.activeSelf && lastRankerDistance - dinosaurDistance < minDistance + 5.0f)
+			{
+				warningCanvas.GetComponent<Canvas>().planeDistance = 1;
+				warningCanvas.SetActive(true);
+				SoundManager.instance.SFXPlay("Sounds/TailMissionWarning");
+			}
+			else if(warningCanvas.activeSelf && lastRankerDistance - dinosaurDistance > minDistance + 5.0f)
+				warningCanvas.SetActive(false);
+        }
 		#endregion
 
 		#region 러버 밴딩의 최대 최소 범위 제한

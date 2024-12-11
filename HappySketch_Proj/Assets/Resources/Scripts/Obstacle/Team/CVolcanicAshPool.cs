@@ -10,19 +10,20 @@ namespace MyeongJin
 		public int maxPoolSize = 10;
 		public int stackDefaultCapacity = 10;
 
-		private string volcanicAshesPath = "Prefabs/Obstacle/Team/ThirdMission";	// 프리팹이 존재하는 폴더 위치
+		private string volcanicAshesPath = "Prefabs/Obstacle/Team/ThirdMission";
 		private GameObject[] volcanicAshes;
+		private GameObject parent;
 		private Vector3[] volcanicAshOffset;
 		private int ashNum = 0;
 
-		// TODO <문명진> : 추후 장애물 위치를 저장하고 있는 변수를 가져올 것
 		private Vector3 mainCameraPosition;
 		private Vector3 missionGroundPosition;
 
 		private void Awake()
 		{
 			volcanicAshes = LoadPrefabsFromFolder(volcanicAshesPath);
-		}
+            parent = GameObject.Find("ObstacleBox");
+        }
 		private void Start()
 		{
 			volcanicAshOffset = new Vector3[maxPoolSize];
@@ -66,7 +67,7 @@ namespace MyeongJin
 		{
 			CVolcanicAsh obstacle = null;
 
-			var go = Instantiate(volcanicAshes[ashNum]);
+			var go = Instantiate(volcanicAshes[ashNum], parent.transform);
 			go.name = "Ash" + ashNum++;
 
 			obstacle = go.AddComponent<CVolcanicAsh>();

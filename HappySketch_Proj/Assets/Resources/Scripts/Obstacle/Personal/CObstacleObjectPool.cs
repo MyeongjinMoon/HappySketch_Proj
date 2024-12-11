@@ -11,20 +11,19 @@ namespace MyeongJin
 		public int maxPoolSize = 10;
 		public int stackDefaultCapacity = 10;
 
-        private string logName = "Prefabs/Obstacle/Personal/Log";		// 프리팹이 존재하는 폴더 위치
+        private string logName = "Prefabs/Obstacle/Personal/Log";
 		private string rockName = "Prefabs/Obstacle/Personal/Rock";
-		private string rock1Name = "Prefabs/Obstacle/Personal/Rock1";
 		private GameObject log;
 		private GameObject rock;
-		private GameObject rock1;
+        private GameObject parent;
 
-		private void Awake()
+        private void Awake()
 		{
 			log = Resources.Load<GameObject>(logName);
 			rock = Resources.Load<GameObject>(rockName);
-			rock1 = Resources.Load<GameObject>(rock1Name);
-        }
 
+            parent = GameObject.Find("ObstacleBox");
+        }
         public IObjectPool<CObstacle> Pool
 		{
 			get
@@ -51,23 +50,17 @@ namespace MyeongJin
 			switch (UnityEngine.Random.Range(0,2))
 			{
 				case 0:
-					var go = Instantiate(log);
+					var go = Instantiate(log, parent.transform);
 					go.name = "Log";
 
 					obstacle = go.AddComponent<CObstacle>();
 					break;
 				case 1:
-					go = Instantiate(rock);
+					go = Instantiate(rock, parent.transform);
 					go.name = "Rock";
 
 					obstacle = go.AddComponent<CObstacle>();
 					break;
-                case 2:
-                    go = Instantiate(rock1);
-                    go.name = "Rock1";
-
-                    obstacle = go.AddComponent<CObstacle>();
-                    break;
                 default:
 					obstacle = null;
 					break;
@@ -91,7 +84,6 @@ namespace MyeongJin
 		}
 		public GameObject SpawnObstacle(int lineNum, float zPosition)
 		{
-            //TODO < 문명진 > - -1.5f를 플레이어 간 간격으로 조정. - 2024.11.11 19:45
             float space = 3f;
 
 			var obstacle = Pool.Get();

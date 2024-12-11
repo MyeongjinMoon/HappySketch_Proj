@@ -21,7 +21,6 @@ namespace MyeongJin
 
 		private TextMeshProUGUI[] tableText;
 
-		private const float fTime = 1.0f;
 		private const int ENDTIME = 0;
 		private const float SETTABLETIME = 0.6f;
 		private const int SETBUTTONTIME = 3;
@@ -83,11 +82,10 @@ namespace MyeongJin
         }
         public void ExitState()
 		{
-			// TODO <¹®¸íÁø> : ¹öÆ° µ¿ÀÛ¿¡ ÀÇÇÑ ÀÌº¥Æ® »ý¼º
+
 		}
 		private void ShowResultPopup()
 		{
-			// TODO <¹®¸íÁø> : ÆÇ³Ú º¯°æ Á¶°Ç ¸¸µé±â
 			UIManager.Instance.ShowPopupUI(EPopupUIType.EndingPopupPanel.ToString());
 			if (isGameSuccess)
 				((CUIEndingPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUIEndingPopup.EndingState.SUCCESS);
@@ -166,7 +164,7 @@ namespace MyeongJin
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit(); // ¾îÇÃ¸®ÄÉÀÌ¼Ç Á¾·á
+        Application.Quit(); // ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 #endif
         }
     }

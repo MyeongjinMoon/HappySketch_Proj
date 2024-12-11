@@ -9,7 +9,7 @@ namespace MyeongJin
     {
         private Vector3 startPosition;
 
-        private float moveSpeed = 12f;       // 이동 속도
+        private float moveSpeed = 12f;
 
         private void Update()
         {

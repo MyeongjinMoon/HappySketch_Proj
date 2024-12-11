@@ -2,6 +2,7 @@ using HakSeung;
 using Jaehoon;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -17,7 +18,6 @@ namespace JongJin
 		[SerializeField] private SecondMissionState secondMissionState;
 		[SerializeField] private ThirdMissionState thirdMissionState;
 
-		
 		[Header("MissionCamera Set")]
 		[SerializeField] private GameObject curLookAt;
 		[SerializeField] private GameObject curFollow;
@@ -131,17 +131,17 @@ namespace JongJin
 			if (curState == nextState)
 				return;
 			if (curState != EGameState.CUTSCENE)
-				fade.FadeInOut();
+                fade.FadeInOut();
+			
 
-			StartCoroutine(WaitUpdate(nextState));
-            
+            StartCoroutine(WaitUpdate(nextState));
 		}
 		IEnumerator WaitUpdate(EGameState nextState)
 		{
             if (curState != EGameState.CUTSCENE)
                 yield return new WaitForSeconds(2.0f);
 
-			curState = nextState;
+            curState = nextState;
 
             UpdateCamera(curState);
             UpdateMap(curState);
@@ -182,7 +182,7 @@ namespace JongJin
 			curLookAt.transform.position = lookAt[(int)curState].transform.position;
 			curFollow.transform.position = follow[(int)curState].transform.position;
 		}
-
+		 
 		private void DecreaseLife(bool isSuccessMission)
 		{
             if (isSuccessMission)
@@ -205,7 +205,6 @@ namespace JongJin
                 case EGameState.RUNNING:
                     missionGround.SetActive(false);
                     missionRoomVolcano.SetActive(false);
-
                     break;
                 case EGameState.TAILMISSION:
                 case EGameState.FIRSTMISSION:

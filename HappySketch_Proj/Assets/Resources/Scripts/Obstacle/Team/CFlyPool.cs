@@ -10,11 +10,12 @@ namespace MyeongJin
 		public int maxPoolSize = 5;
 		public int stackDefaultCapacity = 5;
 
-		private string flyName = "Prefabs/Obstacle/Team/SecondMission/Fly";      // ÇÁ¸®ÆÕÀÌ Á¸ÀçÇÏ´Â Æú´õ À§Ä¡
+		private string flyName = "Prefabs/Obstacle/Team/SecondMission/Fly";      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 		private GameObject fly;
+        private GameObject parent;
 
-		// TODO <¹®¸íÁø> : ÃßÈÄ Àå¾Ö¹° À§Ä¡¸¦ ÀúÀåÇÏ°í ÀÖ´Â º¯¼ö¸¦ °¡Á®¿Ã °Í
-		private Vector3 mainCameraPosition;
+        // TODO <ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½> : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        private Vector3 mainCameraPosition;
 		private Vector3 missionGroundPosition;
 
 		private Vector3[] flyArr;
@@ -26,6 +27,8 @@ namespace MyeongJin
         private void Awake()
 		{
 			fly = Resources.Load<GameObject>(flyName);
+
+            parent = GameObject.Find("ObstacleBox");
         }
 		private void Start()
         {
@@ -73,7 +76,7 @@ namespace MyeongJin
 		{
 			CFly obstacle = null;
 
-				var go = Instantiate(fly);
+				var go = Instantiate(fly, parent.transform);
 				go.name = "Fly";
 
 				obstacle = go.AddComponent<CFly>();

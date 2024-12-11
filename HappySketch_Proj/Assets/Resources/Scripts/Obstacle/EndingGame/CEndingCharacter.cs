@@ -14,32 +14,12 @@ namespace MyeongJin
 			originPosition = this.transform.position;
 			StartCoroutine(UpdateCharacter());
 		}
-		//private void Update()
-		//{
-		//	Vector3 updatePosition = this.transform.position;
-
-		//	if((originPosition.z - updatePosition.z) < 1.5f)
-		//	{
-		//		updatePosition.z -= Time.deltaTime;
-
-		//		this.transform.position = updatePosition;
-		//	}
-		//	else
-		//	{
-		//		this.GetComponent<Animator>().SetBool("Change", true);
-		//	}
-		//}
 		private IEnumerator UpdateCharacter()
 		{
 			Vector3 updatePosition = this.transform.position;
 
 			while((originPosition.z - updatePosition.z) < 1.5f)
 			{
-				//transform.LookAt(transform.position + this.transform.forward.normalized * Time.deltaTime);
-
-				//            rigidbody.MovePosition(this.transform.forward.normalized);
-
-				//updatePosition.z = this.transform.position.z;
 				updatePosition.x += this.transform.forward.x * Time.deltaTime;
 				updatePosition.z += this.transform.forward.z * Time.deltaTime;
 

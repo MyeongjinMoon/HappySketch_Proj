@@ -3399,6 +3399,9 @@ MonoBehaviour:
   isMissionSuccess: 0
   isPrevStateTail: 0
   isDebuff: 0
+  warningCanvas: {fileID: 0}
+  warningUI: {fileID: 1747720470551785749, guid: b86c0838c13f61b41a7edd1cb168c6f0,
+    type: 3}
 --- !u!4 &807674224
 Transform:
   m_ObjectHideFlags: 0
@@ -5271,6 +5274,7 @@ Transform:
   - {fileID: 579615314}
   - {fileID: 1743742069}
   - {fileID: 332274471}
+  - {fileID: 2041006945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1306624347 stripped
@@ -8845,6 +8849,37 @@ PrefabInstance:
       addedObject: {fileID: 1243930528}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afa35d528dcfb984296ea9823357d499, type: 3}
+--- !u!1 &2041006944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2041006945}
+  m_Layer: 0
+  m_Name: ObstacleBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2041006945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041006944}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1303660045}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2045774598 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7940596943117136918, guid: 03d6494646dfa7940885c943aa8e1a50,
