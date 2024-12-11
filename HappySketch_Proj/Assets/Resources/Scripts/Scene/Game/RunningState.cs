@@ -1,5 +1,6 @@
 using Cinemachine;
 using HakSeung;
+using Jaehoon;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -245,6 +246,7 @@ namespace JongJin
 			{
 				warningCanvas.GetComponent<Canvas>().planeDistance = 1;
 				warningCanvas.SetActive(true);
+				SoundManager.instance.SFXPlay("Sounds/TailMissionWarning");
 			}
 			else if(warningCanvas.activeSelf && lastRankerDistance - dinosaurDistance > minDistance + 5.0f)
 				warningCanvas.SetActive(false);
