@@ -12,9 +12,10 @@ namespace MyeongJin
 
 		private string flyName = "Prefabs/Obstacle/Team/SecondMission/Fly";      // 프리팹이 존재하는 폴더 위치
 		private GameObject fly;
+        private GameObject parent;
 
-		// TODO <문명진> : 추후 장애물 위치를 저장하고 있는 변수를 가져올 것
-		private Vector3 mainCameraPosition;
+        // TODO <문명진> : 추후 장애물 위치를 저장하고 있는 변수를 가져올 것
+        private Vector3 mainCameraPosition;
 		private Vector3 missionGroundPosition;
 
 		private Vector3[] flyArr;
@@ -26,6 +27,8 @@ namespace MyeongJin
         private void Awake()
 		{
 			fly = Resources.Load<GameObject>(flyName);
+
+            parent = GameObject.Find("ObstacleBox");
 
             #region 프리팹 예외처리
             if (fly != null)
@@ -85,7 +88,7 @@ namespace MyeongJin
 		{
 			CFly obstacle = null;
 
-				var go = Instantiate(fly);
+				var go = Instantiate(fly, parent.transform);
 				go.name = "Fly";
 
 				obstacle = go.AddComponent<CFly>();

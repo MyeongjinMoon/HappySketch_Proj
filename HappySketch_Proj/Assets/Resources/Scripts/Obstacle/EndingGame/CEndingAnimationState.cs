@@ -23,7 +23,6 @@ namespace MyeongJin
 		private Animator dinosaurAnimator;
 		private Animator[] endingPlayersAnimators;
 		private Animator[] endingResultPlayersAnimators;
-		private bool isEnabledResultPlayers = false;
 		private bool isFadeStart = false;
 
         private CEndingSceneController cEndingSceneController;

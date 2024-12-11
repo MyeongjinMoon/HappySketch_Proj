@@ -21,13 +21,9 @@ namespace MyeongJin
 
 		private TextMeshProUGUI[] tableText;
 
-		private float time = 0.0f;
-		private const float fTime = 1.0f;
 		private const int ENDTIME = 0;
 		private const float SETTABLETIME = 0.6f;
 		private const int SETBUTTONTIME = 3;
-		private bool canSetButton = false;
-		private bool isSetButton = false;
 
         private CEndingSceneController cEndingSceneController;
 
@@ -86,11 +82,10 @@ namespace MyeongJin
         }
         public void ExitState()
 		{
-			// TODO <문명진> : 버튼 동작에 의한 이벤트 생성
+
 		}
 		private void ShowResultPopup()
 		{
-			// TODO <문명진> : 판넬 변경 조건 만들기
 			UIManager.Instance.ShowPopupUI(EPopupUIType.EndingPopupPanel.ToString());
 			if (isGameSuccess)
 				((CUIEndingPopup)UIManager.Instance.CurrentPopupUI).ImageSwap(CUIEndingPopup.EndingState.SUCCESS);
