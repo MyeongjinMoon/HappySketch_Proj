@@ -101,6 +101,7 @@ namespace HakSeung
             if (((playerId == EPlayer.PLAYER1 && Input.GetKeyDown(KeyCode.LeftShift))
                 || (playerId == EPlayer.PLAYER2 && Input.GetKeyDown(KeyCode.RightShift))))
                 Heart();
+
             if ( isActivated)
                 return;
             if ((playerId == EPlayer.PLAYER1 && Input.GetKeyDown(KeyCode.S))
@@ -147,7 +148,6 @@ namespace HakSeung
 
         private void Heart()
         {
-            
             if (isActivated)
                 HeartDeActive();
             else
