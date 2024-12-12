@@ -11,16 +11,16 @@ namespace MyeongJin
 		public int maxPoolSize = 10;
 		public int stackDefaultCapacity = 10;
 
-        private string logName = "Prefabs/Obstacle/Personal/Log";
-		private string rockName = "Prefabs/Obstacle/Personal/Rock";
+        private readonly string logPath = "Prefabs/Obstacle/Personal/Log";
+		private readonly string rockPath = "Prefabs/Obstacle/Personal/Rock";
 		private GameObject log;
 		private GameObject rock;
         private GameObject parent;
 
         private void Awake()
 		{
-			log = Resources.Load<GameObject>(logName);
-			rock = Resources.Load<GameObject>(rockName);
+			log = Resources.Load<GameObject>(logPath);
+			rock = Resources.Load<GameObject>(rockPath);
 
             parent = GameObject.Find("ObstacleBox");
         }

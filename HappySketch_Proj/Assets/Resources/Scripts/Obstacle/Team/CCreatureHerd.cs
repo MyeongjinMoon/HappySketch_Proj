@@ -5,18 +5,13 @@ using UnityEngine.Pool;
 
 namespace MyeongJin
 {
-	public class CCreatureHerd : MonoBehaviour
+	public abstract class CCreatureHerd : MonoBehaviour
 	{
 		public IObjectPool<CCreatureHerd> Pool { get; set; }
 
-		private Animator animator;
-
 		private GameObject gameSceneController;
 		private GameSceneController gamecSceneController;
-		private EGameState curState = EGameState.FIRSTMISSION;
-
-		private Vector3 startPosition;
-		// <<
+		private readonly EGameState curState = EGameState.FIRSTMISSION;
 
 		private void Start()
 		{
@@ -32,10 +27,6 @@ namespace MyeongJin
             }
 			return curState != gamecSceneController.CurState;
 		}
-		private void OnDisable()
-		{
-			ResetObstacle();
-		}
 		public void ReturnToPool()
 		{
 			Pool.Release(this);
@@ -47,10 +38,6 @@ namespace MyeongJin
 			Pool.Release(this);
 			if (eventPanel != null)
 				((CUIEventPanel)UIManager.Instance.CurSceneUI).progressBar.FillProgressBar(fillValue);
-		}
-		public void ResetObstacle()
-		{
-
 		}
 	}
 }

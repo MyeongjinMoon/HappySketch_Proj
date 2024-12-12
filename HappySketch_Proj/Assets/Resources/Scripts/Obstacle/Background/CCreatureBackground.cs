@@ -7,9 +7,7 @@ namespace MyeongJin
 {
     public class CCreatureBackground : CCreatureHerd
     {
-        private Vector3 startPosition;
-
-        private float moveSpeed = 12f;
+        private readonly float moveSpeed = 12f;
 
         private void Update()
         {
@@ -19,16 +17,13 @@ namespace MyeongJin
         {
             ResetObstacle();
         }
-        public new void ResetObstacle()
+        public void ResetObstacle()
         {
             SetStartPosition();
         }
         private void SetStartPosition()
         {
-                startPosition = this.transform.position;
-                startPosition.y = 15;
-                startPosition.z = -10;
-                this.transform.position = startPosition;
+            this.transform.position = new Vector3(transform.position.x, 15, -10);
         }
         private void Gliding()
         {

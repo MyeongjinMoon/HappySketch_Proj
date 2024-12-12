@@ -8,16 +8,13 @@ namespace MyeongJin
 {
 	public class CCrocodile : CCreatureHerd
 	{
-		private Vector3 startPosition;
-
-		// >>: Stoop
 		private List<Transform[]> controlPoints = new List<Transform[]>();  // 제어점 (최소 4개 필요)
 
-		private float moveSpeed = 12f;		// 이동 속도
+		private readonly float moveSpeed = 12f;		// 이동 속도
 		private float t = 0f;				// Catmull-Rom 곡선의 시간 변수
 		private int currentSegment = 0;		// 현재 이동 중인 곡선 구간
 		public int targetNum = 0;
-		// <<
+
 		private int hitCount = 1;
 
         private bool isSoundActivated = false;
@@ -61,7 +58,7 @@ namespace MyeongJin
                 hitCount--;
             }
         }
-        public new void ResetObstacle()
+        public void ResetObstacle()
 		{
 			hitCount = 1;
             this.GetComponent<BoxCollider>().enabled = true;
@@ -72,11 +69,7 @@ namespace MyeongJin
 		{
 			if (controlPoints.Count != 0)
 			{
-				startPosition = this.transform.position;
-				startPosition.y = controlPoints[targetNum][1].position.x;
-				startPosition.y = controlPoints[targetNum][1].position.y;
-				startPosition.z = controlPoints[targetNum][1].position.z;
-				this.transform.position = startPosition;
+				this.transform.position = new Vector3(controlPoints[targetNum][1].position.x, controlPoints[targetNum][1].position.y, controlPoints[targetNum][1].position.z);
 			}
 		}
 		private void SwimAndAttack()
@@ -117,8 +110,6 @@ namespace MyeongJin
 				if (currentSegment >= controlPoints[targetNum].Length - 3)
 				{
 					currentSegment = 0;
-
-					// TODO <문명진> : hitCount만큼 프로그래스바 늘리기
 
 					ReturnToPool(hitCount * 10);
 				}

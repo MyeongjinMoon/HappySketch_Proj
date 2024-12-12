@@ -8,8 +8,6 @@ namespace MyeongJin
 {
 	public class CSmallPteranodon : CCreatureHerd
 	{
-		private Vector3 startPosition;
-		// >>: Stoop
 		private Transform[] controlPoints;  // 제어점 (최소 4개 필요)
 
 		private float moveSpeed = 10f;       // 이동 속도
@@ -20,11 +18,11 @@ namespace MyeongJin
 
 		private bool isSoundActivated = false;
 
-
-        private void Start()
-		{
-			controlPoints = GameObject.Find("SmallPteranodonControlPoints").GetComponent< CSkyControlPoint>().controlPoints;
-		}
+        private void Awake()
+        {
+            controlPoints = GameObject.Find("SmallPteranodonControlPoints").GetComponent<CSkyControlPoint>().controlPoints;
+            SetStartPosition();
+        }
 		private void Update()
 		{
 			StoopAndClimb();
@@ -32,8 +30,8 @@ namespace MyeongJin
                 ReturnToPool();
         }
 		private void OnEnable()
-		{
-			this.transform.Rotate(45, 0, 0);
+        {
+            this.transform.Rotate(45, 0, 0);
             isSoundActivated = false;
         }
 		private void OnDisable()
@@ -48,10 +46,10 @@ namespace MyeongJin
 				hitCount--;
             }
         }
-        public new void ResetObstacle()
-		{
-			SetStartPosition();
-			this.transform.rotation = Quaternion.Euler(0, 0, 0);
+        public void ResetObstacle()
+        {
+            SetStartPosition();
+            this.transform.rotation = Quaternion.Euler(0, 0, 0);
 			this.GetComponent<BoxCollider>().enabled = true;
 
             hitCount = 1;
@@ -60,10 +58,7 @@ namespace MyeongJin
 		{
 			if (controlPoints != null)
 			{
-				startPosition = this.transform.position;
-				startPosition.y = controlPoints[1].position.y;
-				startPosition.z = controlPoints[1].position.z;
-				this.transform.position = startPosition;
+				this.transform.position = new Vector3(transform.position.x, controlPoints[1].position.y, controlPoints[1].position.z);
 			}
 		}
 		private void StoopAndClimb()
@@ -107,8 +102,6 @@ namespace MyeongJin
 				{
 					currentSegment = 0;
 
-                    // TODO <문명진> : hitCount만큼 프로그래스바 늘리기
-					
                     ReturnToPool(hitCount * 10);
 				}
 			}

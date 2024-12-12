@@ -12,15 +12,13 @@ namespace MyeongJin
 		public int maxPoolSize = 30;
 		public int stackDefaultCapacity = 30;
 
-        private Vector3 missionGroundPos;
-
-		private string backgroundPteranodonName = "Prefabs/Obstacle/Team/Background/BackgroundPteranodon";
+		private readonly string backgroundPteranodonPath = "Prefabs/Obstacle/Team/Background/BackgroundPteranodon";
 		private GameObject backgroundPteranodon;
 		private GameObject parent;
 
 		private void Awake()
 		{
-            backgroundPteranodon = Resources.Load<GameObject>(backgroundPteranodonName);
+            backgroundPteranodon = Resources.Load<GameObject>(backgroundPteranodonPath);
 
 			parent = GameObject.Find("ObstacleBox");
 		}
@@ -75,13 +73,11 @@ namespace MyeongJin
 		{
 			Destroy(obstacle.gameObject);
 		}
-		public bool SpawnCreatureHerd(Vector3 position)
+		public void SpawnCreatureHerd(Vector3 position)
 		{
             CCreatureHerd obstacle = Pool.Get();
 
 			obstacle.transform.position = new Vector3(position.x + UnityEngine.Random.Range(-20, 21), position.y + 15, position.z + 50);
-
-			return true;
 		}
 	}
 }

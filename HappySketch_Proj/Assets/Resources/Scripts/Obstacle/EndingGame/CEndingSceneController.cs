@@ -51,8 +51,6 @@ namespace MyeongJin
             player1Time = PlayerPrefs.GetFloat("Player1Time");
             player2Time = PlayerPrefs.GetFloat("Player2Time");
 
-            isGameSuccess = true;
-
             topPlayerIndex = (player1Time < player2Time) ? 0 : 1;
         }
         private void Start()
