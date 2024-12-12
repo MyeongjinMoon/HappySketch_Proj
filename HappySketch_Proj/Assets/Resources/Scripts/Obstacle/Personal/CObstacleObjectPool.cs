@@ -1,3 +1,4 @@
+using HakSeung;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -82,7 +83,7 @@ namespace MyeongJin
 		{
 			Destroy(obstacle.gameObject);
 		}
-		public GameObject SpawnObstacle(int lineNum, float zPosition)
+		public void SpawnObstacle(int lineNum, float zPosition)
 		{
             float space = 3f;
 
@@ -90,7 +91,7 @@ namespace MyeongJin
 
 			obstacle.transform.position = new Vector3(lineNum * -space + space / 2, 0.25f, zPosition);
 
-			return obstacle.gameObject;
+            ((CUIRunningCanvas)UIManager.Instance.CurSceneUI).playerNotes[lineNum].Show(obstacle.gameObject, lineNum);
         }
     }
 }

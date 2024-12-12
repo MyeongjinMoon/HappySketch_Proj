@@ -161,9 +161,7 @@ namespace MyeongJin
                     {
 						int playerindex = UnityEngine.Random.Range(0, playerCount);
 
-						GameObject obstacle = obstaclePool.SpawnObstacle(playerindex, runningState.GetPlayerDistance(playerindex) + 15);
-
-						((CUIRunningCanvas)UIManager.Instance.CurSceneUI).playerNotes[playerindex].Show(obstacle, playerindex);
+						obstaclePool.SpawnObstacle(playerindex, runningState.GetPlayerDistance(playerindex) + 15);
 
 						obstacleTimer = 0;
 					}
@@ -192,12 +190,6 @@ namespace MyeongJin
 		{
 			return backgroundTimer > time;
 		}
-		private void InitTimer()
-		{
-			obstacleTimer = 0;
-			creatureTimer = 0;
-			flyTimer = 0;
-        }
 		private bool IsSpawnTime(float time, EGameState curstate)
 		{
 			switch (curstate)
@@ -227,6 +219,12 @@ namespace MyeongJin
                     flyTimer += Time.deltaTime;
                     break;
             }
+        }
+        private void InitTimer()
+        {
+            obstacleTimer = 0;
+            creatureTimer = 0;
+            flyTimer = 0;
         }
         private IEnumerator StayForTutorialPopUp(float time)
 		{
