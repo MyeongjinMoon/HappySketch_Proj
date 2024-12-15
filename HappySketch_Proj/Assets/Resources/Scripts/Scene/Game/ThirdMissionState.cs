@@ -53,7 +53,7 @@ namespace JongJin
 
             spawnController.canSpawn = true;
             UIManager.Instance.ClosePopupUI();
-            UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
+            UIManager.Instance.SwapSceneUI((int)ESceneUIType.RunningCanvas);
         }
         public bool IsFinishMission(out bool success)
         {

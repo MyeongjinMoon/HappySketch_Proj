@@ -91,7 +91,7 @@ namespace HakSeung
             SceneUIList = new List<CUIScene>();
             
         }
-
+        
         public void MainCanvasSetting()
         {
             MainCanvas = GameObject.Find("MainCanvas");
@@ -144,12 +144,12 @@ namespace HakSeung
             }
 
             if (sceneUIIndex == 0)
-                SceneUISwap();
+                SwapSceneUI();
             else
                 SceneUIList[sceneUIIndex].Hide();
         }
 
-        public void SceneUISwap(int sceneUIIndex = 0)
+        public void SwapSceneUI(int sceneUIIndex = 0)
         {
             if (sceneUIIndex >= SceneUIList.Count)
                 return;

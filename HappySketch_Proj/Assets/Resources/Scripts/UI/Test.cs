@@ -68,17 +68,17 @@ namespace HakSeung
             //씬UI 스왑 앞에 CreateSceneUI가 된 UI를 인덱스를 통해 변경 가능
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                UIManager.Instance.SceneUISwap(1);
+                UIManager.Instance.SwapSceneUI(1);
             }
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                UIManager.Instance.SceneUISwap(0);
+                UIManager.Instance.SwapSceneUI(0);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                UIManager.Instance.SceneUISwap(2);
+                UIManager.Instance.SwapSceneUI(2);
             }
 
             if(Input.GetKeyDown(KeyCode.F))

@@ -161,7 +161,7 @@ namespace JongJin
 			SaveInfo();
             runningViewCam.GetComponent<CinemachineVirtualCamera>().Priority = 16;
 
-            UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.SwapSceneUI((int)UIManager.ESceneUIType.EventScenePanel);
 
             isRunning = false;
 
