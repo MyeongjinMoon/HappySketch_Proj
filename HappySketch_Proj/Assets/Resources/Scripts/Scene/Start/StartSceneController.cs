@@ -24,8 +24,8 @@ namespace JongJin
         private void Awake()
         {
             UIManager.Instance.MainCanvasSetting();
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TutorialCheckUIPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TutorialCheckUIPanel);
 
             UIManager.Instance.CreateSceneUI(ESceneUIType.TutorialCheckUIPanel.ToString());
             UIManager.Instance.CurSceneUI.Hide();

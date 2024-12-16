@@ -14,12 +14,12 @@ namespace HakSeung
         {
             UIManager.Instance.MainCanvasSetting();
             //사용할 UI 미리 Cashing 이 과정을 씬 초반에 무조건 해주어야 한다.
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
 
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
+            UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 
 
             testBool = false;

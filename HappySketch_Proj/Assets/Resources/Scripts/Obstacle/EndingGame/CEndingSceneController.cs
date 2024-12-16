@@ -33,8 +33,8 @@ namespace MyeongJin
             //UI Ä³½Ì
             UIManager.Instance.MainCanvasSetting();
 
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.EndingPopupPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
+			UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.EndingPopupPanel);
 
             cEndingEnterState = GetComponent<CEndingEnterState>();
             cEndingEnterState.isGameSuccess = isGameSuccess;

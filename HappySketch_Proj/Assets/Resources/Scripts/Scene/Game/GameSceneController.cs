@@ -47,12 +47,12 @@ namespace JongJin
 		{
 			UIManager.Instance.MainCanvasSetting();
             
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
+			UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
+			UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
 
             UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.RunningCanvas.ToString(), (int)UIManager.ESceneUIType.RunningCanvas);
             UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.EventScenePanel.ToString(), (int)UIManager.ESceneUIType.EventScenePanel);
