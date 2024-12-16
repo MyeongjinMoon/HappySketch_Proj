@@ -16,11 +16,11 @@ public class CUITutorialPanel : CUIScene
        
     }
 
-    public void ActionCountSet(int playerNum, int actionCount)
+    public void MissionCountSet(int playerNum, int missionCount)
     {
         if (playerNum >= TotalPlayersNum)
             return;
-        if (actionCount >= 0)
-            playerActionCount[playerNum].text = actionCount.ToString();
+        if (missionCount >= 0)
+            playerActionCount[playerNum].text = missionCount.ToString();
     }
 }

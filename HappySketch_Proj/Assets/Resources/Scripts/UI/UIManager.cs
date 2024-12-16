@@ -244,17 +244,12 @@ namespace HakSeung
 
         public void ClosePopupUI(CUIPopup popupUI)
         {
-            if (popupUIStack.Count == 0)
-                return;
-
             if (popupUIStack.Peek() != popupUI)
             {
                 return;
             }
 
-            popupUIStack.Peek().Hide();
-            popupUIStack.Pop();
-            --popupIndex;
+            ClosePopupUI();
         }
 
         public void CloseAllPopupUI()
