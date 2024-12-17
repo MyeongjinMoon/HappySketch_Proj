@@ -191,10 +191,10 @@ namespace HakSeung
 			}
 		}
 
-		public void ImageSwap(EventResult gameSceneState)
+		public void ImageSwap(EventResult eventResult)
 		{
 
-            switch (gameSceneState)
+            switch (eventResult)
 			{
 				case EventResult.SUCCESS: 
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.SUCCESS];
