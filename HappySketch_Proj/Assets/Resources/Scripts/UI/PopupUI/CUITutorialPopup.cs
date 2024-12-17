@@ -52,7 +52,7 @@ namespace HakSeung
 		[SerializeField] private Image panelImage;
 		[SerializeField] private ParticleSystem successParticle;
 		[SerializeField] private ParticleSystem failParticle;
-		enum SoundTipe
+		enum SoundType
 		{
 			DEFAULT,
 			SUCCESS,
@@ -63,12 +63,12 @@ namespace HakSeung
         private Vector3 startScale = Vector3.zero;
         private Vector3 endScale = Vector3.one;
 		private bool isOnSound;
-		private SoundTipe soundTipe;
+		private SoundType soundType;
         protected override void InitUI()
         {
             effectDuration = 0.5f;
             isOnSound = false;
-            soundTipe = SoundTipe.DEFAULT;
+            soundType = SoundType.DEFAULT;
         }
 
         public void TimerUpdate(float curTime)
@@ -128,19 +128,19 @@ namespace HakSeung
 			
             if (isOnSound)
             {
-                switch (soundTipe)
+                switch (soundType)
                 {
-                    case SoundTipe.FAIL:
+                    case SoundType.FAIL:
                         SoundManager.instance.SFXPlay("Sounds/MissionFail");
                         break;
-                    case SoundTipe.SUCCESS:
+                    case SoundType.SUCCESS:
                         SoundManager.instance.SFXPlay("Sounds/MissionSuccess");
                         break;
 					default:
                         SoundManager.instance.SFXPlay("Sounds/PopupUI");
                         break;
                 }
-               soundTipe = SoundTipe.DEFAULT;
+               soundType = SoundType.DEFAULT;
 
                 isOnSound = false;
             }
@@ -200,13 +200,13 @@ namespace HakSeung
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.SUCCESS];
                     panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
 					successParticle.Play();
-                    soundTipe = SoundTipe.SUCCESS;
+                    soundType = SoundType.SUCCESS;
                     break;
 				case EventResult.FAILED:
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.FAILED];
                     panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
 					failParticle.Play();
-                    soundTipe = SoundTipe.FAIL;
+                    soundType = SoundType.FAIL;
                     break;
 			
 				default:
