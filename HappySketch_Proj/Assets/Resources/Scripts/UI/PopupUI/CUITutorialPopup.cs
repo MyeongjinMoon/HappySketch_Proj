@@ -62,6 +62,8 @@ namespace HakSeung
 
         private Vector3 startScale = Vector3.zero;
         private Vector3 endScale = Vector3.one;
+		private UnityEngine.Color defaultColor;
+		private UnityEngine.Color alphaClearColor;
 		private bool isOnSound;
 		private SoundType soundType;
         protected override void InitUI()
@@ -69,6 +71,8 @@ namespace HakSeung
             effectDuration = 0.5f;
             isOnSound = false;
             soundType = SoundType.DEFAULT;
+			defaultColor = panelImage.color;
+            alphaClearColor = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
         }
 
         public void TimerUpdate(float curTime)
@@ -86,8 +90,8 @@ namespace HakSeung
 			base.Show();
 			isOnSound = true;
             StartCoroutine(PlayPopupEffect());
-			if (panelImage.color.a != 0.392f)
-				panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0.392f);
+			if (panelImage.color.a != defaultColor.a)
+				panelImage.color = defaultColor;
             timerImage.SetActive(true);
 		}
 
@@ -198,13 +202,13 @@ namespace HakSeung
 			{
 				case EventResult.SUCCESS: 
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.SUCCESS];
-                    panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
+                    panelImage.color = alphaClearColor;
 					successParticle.Play();
                     soundType = SoundType.SUCCESS;
                     break;
 				case EventResult.FAILED:
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.FAILED];
-                    panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
+                    panelImage.color = alphaClearColor;
 					failParticle.Play();
                     soundType = SoundType.FAIL;
                     break;
