@@ -43,7 +43,6 @@ namespace HakSeung
 
         private void Awake()
         {
-
             rigid = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
             PlayerReset(CUITutorialPopup.TutorialState.STORY);
@@ -186,7 +185,5 @@ namespace HakSeung
             animator.SetFloat(paramSpeed, minSpeed);
             ActionTrigger = false;
         }
-
-
     }
 }

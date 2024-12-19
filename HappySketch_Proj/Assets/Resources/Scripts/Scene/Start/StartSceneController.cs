@@ -38,8 +38,11 @@ namespace JongJin
             startStateContext = new StartStateContext(this);
             startStateContext.Transition(storyDescriptionState);
             curState = EStartGameState.STORYDESCRIPTION;
-
+        }
+        private void Start()
+        {
             SoundManager.instance.BackgroundMusicPlay(startSceneMusic);
+
         }
         private void Update()
         {

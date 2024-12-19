@@ -52,8 +52,8 @@ namespace JongJin
 		[HideInInspector] public bool isPrevStateTail = false;
 		[HideInInspector] public bool isDebuff = false;
 
-		[SerializeField] private GameObject warningCanvas;		// 경보
-		[SerializeField] private GameObject warningUI;			// 경보 UI
+		[SerializeField] private GameObject warningCanvas;
+		[SerializeField] private GameObject warningUI;
 
 		public int Life { get; set; } = 3;
 		private float crownTimer = 0.0f;
@@ -176,7 +176,7 @@ namespace JongJin
 			transform.position = Vector3.forward * (Mathf.Lerp(transform.position.z, firstRankerDistance + plusPos, 0.5f));
 		}
 
-		#region 씬 전환시 플레이어, 공룡 정보 Setting
+		#region 상태 전환시 플레이어, 공룡 정보 Setting
 		private void InitPlayerPos()
 		{
 			float offset = 1.0f * (players.Length - 1) / 2.0f * playerSpacing;
@@ -214,9 +214,6 @@ namespace JongJin
 		}
 		private void CalculateRank()
 		{
-			//if (ProgressRate >= 100.0f)
-			//	return;
-
 			firstRankerDistance = playerDistance[0];
 			lastRankerDistance = playerDistance[0];
 			firstRankerId = 0;

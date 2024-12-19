@@ -15,7 +15,6 @@ namespace JongJin
         private readonly string paramJump = "isJump";
         private readonly string jumpAniName = "Jump";
         private readonly string paramCrouch = "isCrouch";
-        private readonly string paramHeart = "isHeart";
         private readonly string paramLeftTouch = "isLeftTouch";
         private readonly string paramRightTouch = "isRightTouch";
 
@@ -90,13 +89,6 @@ namespace JongJin
 
         private void OnKeyBoard()
         {
-            if (gameSceneController == null &&
-                ((playerId == EPlayer.PLAYER1 && Input.GetKeyDown(KeyCode.LeftShift))
-                || (playerId == EPlayer.PLAYER2 && Input.GetKeyDown(KeyCode.RightShift))))
-            {
-                Heart();
-            }
-
             if (isGrounded <= 0 || isActivated)
                 return;
 
@@ -257,13 +249,6 @@ namespace JongJin
         {
             StartCoroutine(CrouchActive());
         }
-        private void Heart()
-        {
-            if (SceneManagerExtended.Instance.GetReady((int)playerId))
-                HeartDeActive();
-            else
-                HeartActive();
-        }
         private void LeftTouch()
         {
             StartCoroutine(LeftTouchActive());
@@ -285,21 +270,6 @@ namespace JongJin
                 cSpawnController.GenerateSwatter((int)playerId, 1);
             else if (gameSceneController.CurState == EGameState.THIRDMISSION)
                 cSpawnController.GenerateRay();
-        }
-        private void HeartActive()
-        {
-            animator.SetBool(paramHeart, true);
-            isActivated = true;
-
-            SceneManagerExtended.Instance.SetReady((int)playerId, true);
-            if (SceneManagerExtended.Instance.CheckReady())
-                StartCoroutine(SceneManagerExtended.Instance.GoToGameScene());
-        }
-        private void HeartDeActive()
-        {
-            SceneManagerExtended.Instance.SetReady((int)playerId, false);
-            isActivated = false;
-            animator.SetBool(paramHeart, false);
         }
 
         IEnumerator CrouchActive()
