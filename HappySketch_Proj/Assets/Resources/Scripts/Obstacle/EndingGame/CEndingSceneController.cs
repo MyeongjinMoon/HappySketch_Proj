@@ -33,8 +33,8 @@ namespace MyeongJin
             //UI Ä³½Ì
             UIManager.Instance.MainCanvasSetting();
 
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.EndingPopupPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
+			UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.EndingPopupPanel);
 
             cEndingEnterState = GetComponent<CEndingEnterState>();
             cEndingEnterState.isGameSuccess = isGameSuccess;
@@ -50,8 +50,6 @@ namespace MyeongJin
             isGameSuccess = Convert.ToBoolean(PlayerPrefs.GetInt("ClearStage"));
             player1Time = PlayerPrefs.GetFloat("Player1Time");
             player2Time = PlayerPrefs.GetFloat("Player2Time");
-
-            isGameSuccess = true;
 
             topPlayerIndex = (player1Time < player2Time) ? 0 : 1;
         }

@@ -121,7 +121,7 @@ namespace JongJin
 
         public void ExitState()
         { 
-            UIManager.Instance.SceneUISwap((int)ESceneUIType.RunningCanvas);
+            UIManager.Instance.SwapSceneUI((int)ESceneUIType.RunningCanvas);
 
             dinosaur.SetActive(false);
 

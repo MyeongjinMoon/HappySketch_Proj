@@ -14,12 +14,12 @@ namespace HakSeung
         {
             UIManager.Instance.MainCanvasSetting();
             //사용할 UI 미리 Cashing 이 과정을 씬 초반에 무조건 해주어야 한다.
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
 
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
+            UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
 
 
             testBool = false;
@@ -68,17 +68,17 @@ namespace HakSeung
             //씬UI 스왑 앞에 CreateSceneUI가 된 UI를 인덱스를 통해 변경 가능
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                UIManager.Instance.SceneUISwap(1);
+                UIManager.Instance.SwapSceneUI(1);
             }
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                UIManager.Instance.SceneUISwap(0);
+                UIManager.Instance.SwapSceneUI(0);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                UIManager.Instance.SceneUISwap(2);
+                UIManager.Instance.SwapSceneUI(2);
             }
 
             if(Input.GetKeyDown(KeyCode.F))

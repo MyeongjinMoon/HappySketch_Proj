@@ -29,7 +29,7 @@ namespace HakSeung
 
         private static UIManager s_Instance;
 
-        private Dictionary<string, UnityEngine.Object> uiPrefabs = new Dictionary<string, UnityEngine.Object>();
+        private Dictionary<string, GameObject> uiPrefabs = new Dictionary<string, GameObject>();
         private Dictionary<string, CUIBase> uiObjs;
 
         private const string UIMANGEROBJECTNAME = "_UIManager";
@@ -85,13 +85,13 @@ namespace HakSeung
 
         private void Initialzie()
         {
-            uiPrefabs = new Dictionary<string, UnityEngine.Object>();
+            uiPrefabs = new Dictionary<string, GameObject>();
             uiObjs = new Dictionary<string, CUIBase>();
             popupUIStack = new Stack<CUIPopup>();
             SceneUIList = new List<CUIScene>();
             
         }
-
+        
         public void MainCanvasSetting()
         {
             MainCanvas = GameObject.Find("MainCanvas");
@@ -99,7 +99,7 @@ namespace HakSeung
                 SceneUIList.Add(null);
         }
 
-        public UnityEngine.Object UICashing<T>(System.Type type, int enumIndex) where T : UnityEngine.Object
+        public GameObject UICashing(System.Type type, int enumIndex) 
         {
             if (!type.IsEnum)
                 return null;
@@ -111,7 +111,7 @@ namespace HakSeung
                 return uiPrefabs[uiName];
             }
 
-            T uiObj = Resources.Load<T>(PREFABSPATH + $"{uiName}");
+            GameObject uiObj = Resources.Load<GameObject>(PREFABSPATH + $"{uiName}");
 
             uiPrefabs.Add(uiName, uiObj);
 
@@ -121,11 +121,14 @@ namespace HakSeung
         public void CreateSceneUI(string key, int sceneUIIndex = 0)
         {
             CUIScene sceneUI = null;
+            GameObject uiGameObject = uiPrefabs[key] as GameObject;
 
             if (!uiPrefabs.ContainsKey(key))
-            {
                 return;
-            }
+
+            if (uiGameObject == null)
+                return;
+
 
             if (SceneUIList[sceneUIIndex] != null && SceneUIList[sceneUIIndex].gameObject != null)
             {
@@ -134,7 +137,8 @@ namespace HakSeung
                 SceneUIList[sceneUIIndex] = null;
             }
 
-
+            
+                
             if (sceneUI = uiPrefabs[key].GetComponent<CUIScene>())
             {
                 if (SceneUIList[sceneUIIndex] = Instantiate(sceneUI))
@@ -144,12 +148,12 @@ namespace HakSeung
             }
 
             if (sceneUIIndex == 0)
-                SceneUISwap();
+                SwapSceneUI();
             else
                 SceneUIList[sceneUIIndex].Hide();
         }
 
-        public void SceneUISwap(int sceneUIIndex = 0)
+        public void SwapSceneUI(int sceneUIIndex = 0)
         {
             if (sceneUIIndex >= SceneUIList.Count)
                 return;
@@ -240,17 +244,12 @@ namespace HakSeung
 
         public void ClosePopupUI(CUIPopup popupUI)
         {
-            if (popupUIStack.Count == 0)
-                return;
-
             if (popupUIStack.Peek() != popupUI)
             {
                 return;
             }
 
-            popupUIStack.Peek().Hide();
-            popupUIStack.Pop();
-            --popupIndex;
+            ClosePopupUI();
         }
 
         public void CloseAllPopupUI()

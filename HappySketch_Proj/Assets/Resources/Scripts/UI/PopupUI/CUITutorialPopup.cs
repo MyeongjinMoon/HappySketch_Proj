@@ -52,7 +52,7 @@ namespace HakSeung
 		[SerializeField] private Image panelImage;
 		[SerializeField] private ParticleSystem successParticle;
 		[SerializeField] private ParticleSystem failParticle;
-		enum SoundTipe
+		enum SoundType
 		{
 			DEFAULT,
 			SUCCESS,
@@ -62,13 +62,17 @@ namespace HakSeung
 
         private Vector3 startScale = Vector3.zero;
         private Vector3 endScale = Vector3.one;
+		private UnityEngine.Color defaultColor;
+		private UnityEngine.Color alphaClearColor;
 		private bool isOnSound;
-		private SoundTipe soundTipe;
+		private SoundType soundType;
         protected override void InitUI()
         {
             effectDuration = 0.5f;
             isOnSound = false;
-            soundTipe = SoundTipe.DEFAULT;
+            soundType = SoundType.DEFAULT;
+			defaultColor = panelImage.color;
+            alphaClearColor = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
         }
 
         public void TimerUpdate(float curTime)
@@ -86,8 +90,8 @@ namespace HakSeung
 			base.Show();
 			isOnSound = true;
             StartCoroutine(PlayPopupEffect());
-			if (panelImage.color.a != 0.392f)
-				panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0.392f);
+			if (panelImage.color.a != defaultColor.a)
+				panelImage.color = defaultColor;
             timerImage.SetActive(true);
 		}
 
@@ -128,19 +132,19 @@ namespace HakSeung
 			
             if (isOnSound)
             {
-                switch (soundTipe)
+                switch (soundType)
                 {
-                    case SoundTipe.FAIL:
+                    case SoundType.FAIL:
                         SoundManager.instance.SFXPlay("Sounds/MissionFail");
                         break;
-                    case SoundTipe.SUCCESS:
+                    case SoundType.SUCCESS:
                         SoundManager.instance.SFXPlay("Sounds/MissionSuccess");
                         break;
 					default:
                         SoundManager.instance.SFXPlay("Sounds/PopupUI");
                         break;
                 }
-               soundTipe = SoundTipe.DEFAULT;
+               soundType = SoundType.DEFAULT;
 
                 isOnSound = false;
             }
@@ -191,22 +195,22 @@ namespace HakSeung
 			}
 		}
 
-		public void ImageSwap(EventResult gameSceneState)
+		public void ImageSwap(EventResult eventResult)
 		{
 
-            switch (gameSceneState)
+            switch (eventResult)
 			{
 				case EventResult.SUCCESS: 
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.SUCCESS];
-                    panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
+                    panelImage.color = alphaClearColor;
 					successParticle.Play();
-                    soundTipe = SoundTipe.SUCCESS;
+                    soundType = SoundType.SUCCESS;
                     break;
 				case EventResult.FAILED:
 					guideImage.sprite = guideSprites[(int)TutorialState.END + (int)EventState.END + (int)EventResult.FAILED];
-                    panelImage.color = new UnityEngine.Color(1.0f, 1.0f, 1.0f, 0f);
+                    panelImage.color = alphaClearColor;
 					failParticle.Play();
-                    soundTipe = SoundTipe.FAIL;
+                    soundType = SoundType.FAIL;
                     break;
 			
 				default:

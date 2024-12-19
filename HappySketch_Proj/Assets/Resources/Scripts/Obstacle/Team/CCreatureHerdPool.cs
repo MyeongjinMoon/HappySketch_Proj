@@ -16,31 +16,24 @@ namespace MyeongJin
 		private int creatureNum = 0;
 		private int bigCreatureStack = 0;
 
-		private string smallPteranodonName = "Prefabs/Obstacle/Team/FirstMission/SmallPteranodon";
-		private string bigPteranodonName = "Prefabs/Obstacle/Team/FirstMission/BigPteranodon";
-		private string crocodileName = "Prefabs/Obstacle/Team/FirstMission/Crocodile";
+		private readonly string smallPteranodonPath = "Prefabs/Obstacle/Team/FirstMission/SmallPteranodon";
+        private readonly string bigPteranodonPath = "Prefabs/Obstacle/Team/FirstMission/BigPteranodon";
+		private readonly string crocodilePath = "Prefabs/Obstacle/Team/FirstMission/Crocodile";
 		private GameObject smallPteranodon;
 		private GameObject bigPteranodon;
 		private GameObject crocodile;
         private GameObject parent;
 
-        private Transform[] smallPteranodonControlPoints;
-		private Transform[] bigPteranodonControlPoints;
-		private Transform[] groundControlPoints;
-
 		private void Awake()
 		{
-			smallPteranodon = Resources.Load<GameObject>(smallPteranodonName);
-			bigPteranodon = Resources.Load<GameObject>(bigPteranodonName);
-			crocodile = Resources.Load<GameObject>(crocodileName);
+			smallPteranodon = Resources.Load<GameObject>(smallPteranodonPath);
+			bigPteranodon = Resources.Load<GameObject>(bigPteranodonPath);
+			crocodile = Resources.Load<GameObject>(crocodilePath);
 
             parent = GameObject.Find("ObstacleBox");
 		}
 		private void Start()
 		{
-            smallPteranodonControlPoints = GameObject.Find("SmallPteranodonControlPoints").GetComponent<CSkyControlPoint>().controlPoints;
-            bigPteranodonControlPoints = GameObject.Find("BigPteranodonControlPoints").GetComponent<CSkyControlPoint>().controlPoints;
-
             for (int i = 0; i < maxPoolSize; i++)
 			{
 				CreatedPooledItem().ReturnToPool();
@@ -112,7 +105,7 @@ namespace MyeongJin
 		{
 			float space = 4f;
 
-			CCreatureHerd obstacle = null;
+			CCreatureHerd obstacle;
 			List<CCreatureHerd> temp = new List<CCreatureHerd>();
 
 			if (bigCreatureStack % 5 != 0)
@@ -175,7 +168,7 @@ namespace MyeongJin
 
 			if (obstacle is CSmallPteranodon)
 			{
-				obstacle.transform.position = new Vector3(lineNum * space + position.x - 2, smallPteranodonControlPoints[1].position.y, smallPteranodonControlPoints[1].position.z);
+				obstacle.transform.position = new Vector3(lineNum * space + position.x - 2, obstacle.transform.position.y, obstacle.transform.position.z);
 
                 ((CUIEventPanel)UIManager.Instance.CurSceneUI).playerNotes[lineNum].Show(obstacle.gameObject, lineNum);
             }

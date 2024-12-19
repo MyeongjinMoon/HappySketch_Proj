@@ -29,7 +29,7 @@ namespace HakSeung
 
         protected override void InitUI()
         {
-            float playerPosX = progressBarEndX - progressBarStartX;
+            //float playerPosX = progressBarEndX - progressBarStartX;
             runningCanvas = UIManager.Instance.MainCanvas.GetComponent<Canvas>();
         }
 

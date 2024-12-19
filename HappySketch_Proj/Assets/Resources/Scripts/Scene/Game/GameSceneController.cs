@@ -47,12 +47,12 @@ namespace JongJin
 		{
 			UIManager.Instance.MainCanvasSetting();
             
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
-			UIManager.Instance.UICashing<GameObject>(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
-            UIManager.Instance.UICashing<GameObject>(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.RunningCanvas);
+			UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.EventScenePanel);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
+            UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.TutorialPopupPanel);
+			UIManager.Instance.UICashing(typeof(UIManager.EPopupUIType), (int)UIManager.EPopupUIType.FadePopupCanvas);
+            UIManager.Instance.UICashing(typeof(UIManager.ESceneUIType), (int)UIManager.ESceneUIType.TailMissionPanel);
 
             UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.RunningCanvas.ToString(), (int)UIManager.ESceneUIType.RunningCanvas);
             UIManager.Instance.CreateSceneUI(UIManager.ESceneUIType.EventScenePanel.ToString(), (int)UIManager.ESceneUIType.EventScenePanel);
@@ -151,24 +151,24 @@ namespace JongJin
             {
                 case EGameState.RUNNING:
                     gameStateContext.Transition(runningState);
-                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.RunningCanvas);
+                    UIManager.Instance.SwapSceneUI((int)UIManager.ESceneUIType.RunningCanvas);
                     break;
                 case EGameState.TAILMISSION:
                     gameStateContext.Transition(tailMissionState);
-                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.TailMissionPanel);
+                    UIManager.Instance.SwapSceneUI((int)UIManager.ESceneUIType.TailMissionPanel);
                     SoundManager.instance.SFXPlay("Sounds/TailMissionDinosaurRoar");
                     break;
                 case EGameState.FIRSTMISSION:
                     gameStateContext.Transition(firstMissionState);
-                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
+                    UIManager.Instance.SwapSceneUI((int)UIManager.ESceneUIType.EventScenePanel);
                     break;
                 case EGameState.SECONDMISSION:
                     gameStateContext.Transition(secondMissionState);
-                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
+                    UIManager.Instance.SwapSceneUI((int)UIManager.ESceneUIType.EventScenePanel);
                     break;
                 case EGameState.THIRDMISSION:
                     gameStateContext.Transition(thirdMissionState);
-                    UIManager.Instance.SceneUISwap((int)UIManager.ESceneUIType.EventScenePanel);
+                    UIManager.Instance.SwapSceneUI((int)UIManager.ESceneUIType.EventScenePanel);
                     break;
             }
 			yield return null;

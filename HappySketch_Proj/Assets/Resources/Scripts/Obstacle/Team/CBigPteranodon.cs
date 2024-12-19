@@ -8,11 +8,9 @@ namespace MyeongJin
 {
 	public class CBigPteranodon : CCreatureHerd
 	{
-		private Vector3 startPosition;
-		// >>: Stoop
-		private Transform[] controlPoints;  // 제어점 (최소 4개 필요)
+		private Transform[] controlPoints;
 
-		private float moveSpeed = 20f;       // 이동 속도
+		private readonly float moveSpeed = 20f;       // 이동 속도
 		private float t = 0f;               // Catmull-Rom 곡선의 시간 변수
 		private int currentSegment = 0;     // 현재 이동 중인 곡선 구간
 											// <<
@@ -49,7 +47,7 @@ namespace MyeongJin
                 hitCount--;
             }
 		}
-		public new void ResetObstacle()
+		public void ResetObstacle()
 		{
 			SetStartPosition();
 			this.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -61,11 +59,7 @@ namespace MyeongJin
 		{
 			if(controlPoints != null)
 			{
-				startPosition = this.transform.position;
-				startPosition.x = controlPoints[1].position.x;
-				startPosition.y = controlPoints[1].position.y;
-				startPosition.z = controlPoints[1].position.z;
-				this.transform.position = startPosition;
+				this.transform.position = new Vector3(controlPoints[1].position.x, controlPoints[1].position.y, controlPoints[1].position.z);
 			}
 		}
 		private void StoopAndClimb()
@@ -108,8 +102,6 @@ namespace MyeongJin
 				if (currentSegment >= controlPoints.Length - 3)
 				{
 					currentSegment = 0;
-
-                    // TODO <문명진> : hitCount만큼 프로그래스바 늘리기
 
                     ReturnToPool(hitCount * 10);
 				}

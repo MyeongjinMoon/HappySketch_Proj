@@ -136,7 +136,7 @@ namespace JongJin
                     break;
             }
 
-            ((CUITutorialPanel)UIManager.Instance.CurSceneUI).ActionCountSet(playerNum, 3 - actionSuccessCounts[playerNum]);
+            ((CUITutorialPanel)UIManager.Instance.CurSceneUI).MissionCountSet(playerNum, 3 - actionSuccessCounts[playerNum]);
 
             return false;
         }
